@@ -6,6 +6,7 @@ import { getTranslations, setRequestLocale } from 'next-intl/server';
 import Navbar from '@/components/Navbar';
 // components
 import Footer from '@/templates/Footer';
+import SubHeader from '@/components/SubHeader';
 
 export default async function Layout(props: {
   children: React.ReactNode;
@@ -22,6 +23,7 @@ export default async function Layout(props: {
     <>
       {/* <DemoBanner /> */}
         <Navbar />
+        <SubHeader />
         <div className="">{props.children}</div>
          {/* Footer */}
          <Footer />

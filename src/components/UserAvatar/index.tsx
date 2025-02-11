@@ -60,18 +60,18 @@ const UserAvatar: React.FC<UserAvatarProps> = ({ user }) => {
       {/* Avatar Button */}
       <button
         onClick={toggleDropdown}
-        className="flex items-center justify-center w-10 h-10 bg-purple-800 rounded-full cursor-pointer hover:bg-gray-400 focus:outline-none"
+        className="flex items-center justify-center w-10 h-10 bg-white border rounded-full cursor-pointer hover:bg-gray-100 focus:outline-none"
       >
         
           <span className="text-gray-700 font-semibold">
-            <UserRound color="white" />
+            <UserRound color="gray" />
           </span>
         
       </button>
 
       {/* Dropdown Menu */}
       {isDropdownOpen && (
-        <div className="absolute text-right right-0 mt-2 pb-2 w-48 bg-white rounded-lg shadow-lg border border-gray-200 z-10">
+        <div className="absolute text-right left-0 mt-2 pb-2 w-48 bg-white rounded-lg shadow-lg border border-gray-200 z-10">
           <div className='w-full border-b pb-1'>
           <div className='text-gray-700 py-2 mr-3 text-xs md:text-sm'>
             {user.first_name} {user.last_name}

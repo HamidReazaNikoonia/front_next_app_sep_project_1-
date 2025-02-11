@@ -70,122 +70,49 @@ const Navbar = () => {
   };
 
   return (
-    <nav className="bg-gray-800 text-white fixed z-20 w-dvw">
-      <div className="container mx-auto py-4 px-6">
+    <nav className="bg-white text-gray-700 w-full border-b">
+      <div className="container mx-auto py-5 px-6 ">
         {/* Search Mode */}
-        {isSearching ? (
-          <div className="flex items-center justify-between w-full animate-fade-in-down">
-            {/* Search Button */}
-            <button className="bg-purple-800 hover:bg-blue-600 px-4 py-2 rounded mr-2 text-sm">
-              <Search />
-            </button>
-            {/* Search Input */}
-            <input
-              type="text"
-              placeholder="جستجو کنید"
-              className="flex-grow bg-gray-700 text-white px-4 py-2 rounded focus:outline-none"
-            />
-            {/* Close Icon */}
-            <button
-              className="text-white ml-2"
-              onClick={handleSearchToggle}
-            >
-              <span className=""><X /></span>
-            </button>
-          </div>
-        ) : (
           <div className="flex justify-between items-center">
             {/* Left Side: Buttons */}
-            <div className="flex space-x-4">
-              <button
-                className="bg-purple-800 hover:bg-blue-600 px-4 py-2 rounded text-sm"
-                onClick={handleSearchToggle}
-              >
-                <Search />
-              </button>
-
-              <div className="relative inline-flex">
-                <Link href='/cart'
-                  // @ts-ignore
-                  alt="go to cart items" >
-                  <button
-                    className="bg-purple-800 hover:bg-blue-600 px-4 py-2 rounded text-sm"
-                  >
-                    <ShoppingBasket />
-                  </button>
-                </Link>
-                {(productCountBadge > 0) && (
-                  <span className="absolute top-0.5 right-0.5 grid min-h-[24px] min-w-[24px] translate-x-2/4 -translate-y-2/4 place-items-center rounded-full bg-red-600 py-1 px-1 text-xs text-white">
-                    {productCountBadge}
-                  </span>
-                )}
-
-              </div>
-
-
-        {isAuthenticated ? (
+           
+            {isAuthenticated ? (
           <>
             <UserAvatar user={user} logOut={logout} />
           </>
         ) : (
-          <Link href='/sign-in'>
-            <button className="bg-purple-800 hover:bg-blue-600 px-4 py-2 rounded text-sm">
+          <Link className="text-sm" href='/sign-in'>
               ورود | ثبت‌نام
-            </button>
           </Link>
         )}
-
-
-              
-            </div>
 
             {/* Right Side: Logo and Menu */}
             <div className="flex items-center">
 
 
               {/* Desktop Menu */}
-              <ul className="hidden md:flex space-x-6 relative text-sm">
-                <li className="hover:text-gray-300">تماس با ما</li>
-                <li
-                  className="hover:text-gray-300 relative"
-                  onMouseEnter={handleMouseEnter}
-                  onMouseLeave={handleMouseLeave}
-                >
-                  <span className=" inline-block text-xs">
-                    <ChevronDown className=" w-3 h-3 mr-1" />
-                  </span>
-                  خدمات
-                  {/* Dropdown Menu */}
+              <ul className="flex space-x-3 md:space-x-6 relative text-[11px] md:text-sm cursor-pointer">
+                <li className="hover:text-gray-500">تماس با ما</li>
+                
+                <li className="hover:text-gray-500">دوره های آموزشی</li>
+                <li className="hover:text-gray-500">مشاوره</li>
+                <li className="hover:text-gray-500">خانه</li>
 
-                  <ul
-                    className={`absolute left-0 mt-2 bg-gray-700 rounded shadow-lg w-40 transition-opacity duration-200 ${dropdownOpen ? "opacity-100 visible" : "opacity-0 invisible"
-                      }`}
-                  >
-                    <li className="px-4 py-2 hover:bg-gray-600">خدمات</li>
-                    <li className="px-4 py-2 hover:bg-gray-600">خدمات</li>
-                  </ul>
-                </li>
-                <li className="hover:text-gray-300">آکادمی آموزشی</li>
-                <li className="hover:text-gray-300">خانه</li>
               </ul>
 
-              {/* Logo */}
-              <div className="ml-20 hidden md:flex">
-                <h1 className="text-lg font-bold">LOGO</h1>
-              </div>
 
               {/* Hamburger Icon */}
-              <button
+              {/* <button
                 className="md:hidden ml-4"
                 onClick={() => setIsOpen(!isOpen)}
               >
                 <span className="material-icons">
                   <Menu />
                 </span>
-              </button>
+              </button> */}
             </div>
           </div>
-        )}
+        
       </div>
 
       {/* Mobile Drawer */}
