@@ -11,6 +11,7 @@ import ServiceSwiper from '../../../sections/home/ServiceCardSection';
 import ThumbsSwiperImageGallery from '../../../sections/home/ThumbsSwiperImageGallery';
 import MultimediaTabsPortfolio from '../../../sections/home/MultimediaTabsPortfolio';
 import FAQSection from '../../../sections/home/FAQ';
+import HeroSection from '@/sections/home/HeroSection'
 
 
 
@@ -40,11 +41,16 @@ export default async function Index(props: IIndexProps) {
   });
 
   return (
-    <div className=" overflow-hidden pt-16 bg-black">
+    <div className=" overflow-hidden ">
 
       {/* Main Slider In md Screen */}
-      <div className="hidden md:flex">
+      {/* <div className="hidden md:flex">
         <MainSwiper />
+      </div> */}
+
+      {/* Hero Section */}
+      <div className='w-full'>
+        <HeroSection />
       </div>
 
       {/* Service Card Item */}
