@@ -12,6 +12,7 @@ import ThumbsSwiperImageGallery from '../../../sections/home/ThumbsSwiperImageGa
 import MultimediaTabsPortfolio from '../../../sections/home/MultimediaTabsPortfolio';
 import FAQSection from '../../../sections/home/FAQ';
 import HeroSection from '@/sections/home/HeroSection'
+import HomeCardSection from '@/sections/home/HomeCardSection';
 
 
 
@@ -41,7 +42,7 @@ export default async function Index(props: IIndexProps) {
   });
 
   return (
-    <div className=" overflow-hidden ">
+    <div className="overflow-hidden ">
 
       {/* Main Slider In md Screen */}
       {/* <div className="hidden md:flex">
@@ -53,8 +54,15 @@ export default async function Index(props: IIndexProps) {
         <HeroSection />
       </div>
 
+
+
+      {/* Card Section */}
+      <div className='w-full'>
+        <HomeCardSection />
+      </div>
+
       {/* Service Card Item */}
-      <div className="container mx-auto py-20">
+      {/* <div className="container mx-auto py-20">
         <div className="grid grid-cols-1 md:grid-cols-2 gap-16">
           <ServiceCardItem title="پژوهشکده هوش مصنوعی" subtitle="دنیایی از تکنولوژی های جدید"
             backgroundImage="https://aisun-ci.ir/wp-content/uploads/2024/08/photography5.jpg"
@@ -74,7 +82,7 @@ export default async function Index(props: IIndexProps) {
             buttonText="ورود به این بخش" buttonLink="/" />
 
         </div>
-      </div>
+      </div> */}
 
 
       {/* Service Card Swiper */}
