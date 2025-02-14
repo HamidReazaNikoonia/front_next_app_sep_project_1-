@@ -13,6 +13,7 @@ import MultimediaTabsPortfolio from '../../../sections/home/MultimediaTabsPortfo
 import FAQSection from '../../../sections/home/FAQ';
 import HeroSection from '@/sections/home/HeroSection'
 import HomeCardSection from '@/sections/home/HomeCardSection';
+import ProductCategoryCards from '@/sections/home/ProductCategoryCards';
 
 
 
@@ -59,6 +60,13 @@ export default async function Index(props: IIndexProps) {
       {/* Card Section */}
       <div className='w-full'>
         <HomeCardSection />
+      </div>
+
+
+
+      {/* Product Category Section */}
+      <div className='w-full'>
+        <ProductCategoryCards />
       </div>
 
       {/* Service Card Item */}

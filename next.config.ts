@@ -30,6 +30,16 @@ export default withSentryConfig(
             port: '',
           },
           {
+            protocol: 'https',
+            hostname: 'cdn.prod.website-files.com',
+            port: '',
+          },
+          {
+            protocol: 'https',
+            hostname: 'i.postimg.cc',
+            port: '',
+          },
+          {
             protocol: 'http',
             hostname: 'localhost',
             port: '9000',
