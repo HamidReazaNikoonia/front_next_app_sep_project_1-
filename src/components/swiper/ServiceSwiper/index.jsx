@@ -16,6 +16,26 @@ import { Navigation } from 'swiper/modules';
 
 // compo
 import ServiceSwiperCardItem from '@/components/Card/ServiceSwiperCardItem';
+import ProductCard from '@/components/Card/ProductCard';
+
+
+const sampleProduct =  {
+  id: "number",
+  title: 'محصول',
+  subtitle: "نمونه",
+  meta_title: "",
+  meta_description: "",
+  slug: "string",
+  description: "توضیحات",
+  brand: "string",
+  average_rating: 3,
+  countInStock: 20,
+  is_available: true,
+  status: true,
+  qr_code: "string",
+  price: 50000,
+
+}
 
 export default function ServiceSwiper() {
   
@@ -26,7 +46,7 @@ export default function ServiceSwiper() {
         breakpoints={{
           // Mobile screens (less than 700px)
           0: {
-            slidesPerView: 2,
+            slidesPerView: 1.5,
             spaceBetween: 10, // Optional: Reduce spacing for smaller screens
           },
           
@@ -49,26 +69,26 @@ export default function ServiceSwiper() {
         className="service_swiper"
       >
         <SwiperSlide>
-        <ServiceSwiperCardItem imageSrc={`/assets/images/s3.jpg`} title=" تغییر و تطبیق صدا با هوش مصنوعی" link={undefined}  />
+          <ProductCard product={sampleProduct}/>
         </SwiperSlide>
 
 
         <SwiperSlide>
-        <ServiceSwiperCardItem imageSrc={`assets/images/s3.jpg`} title=" تغییر و تطبیق صدا با هوش مصنوعی" link={undefined} />
+        <ProductCard product={sampleProduct}/>
         </SwiperSlide>
 
 
         <SwiperSlide>
-        <ServiceSwiperCardItem imageSrc={`/assets/images/s3.jpg`} title=" تغییر و تطبیق صدا با هوش مصنوعی" link={undefined} />
+        <ProductCard product={sampleProduct}/>
         </SwiperSlide>
 
 
         <SwiperSlide>
-        <ServiceSwiperCardItem imageSrc={`assets/images/s3.jpg`} title=" تغییر و تطبیق صدا با هوش مصنوعی" link={undefined} />
+        <ProductCard product={sampleProduct}/>
         </SwiperSlide>
 
         <SwiperSlide>
-        <ServiceSwiperCardItem imageSrc={`/assets/images/s3.jpg`} title=" تغییر و تطبیق صدا با هوش مصنوعی" link={undefined} />
+        <ProductCard product={sampleProduct}/>
         </SwiperSlide>
 
       </Swiper>

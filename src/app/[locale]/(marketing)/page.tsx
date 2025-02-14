@@ -7,7 +7,7 @@ import ServiceCardItem from '@/components/Card/ServiceCardItem';
 
 // sections
 import CoursesCardSection from '../../../sections/home/CoursesCardSection';
-import ServiceSwiper from '../../../sections/home/ServiceCardSection';
+import ProductCardSection from '../../../sections/home/ProductCardSection';
 import ThumbsSwiperImageGallery from '../../../sections/home/ThumbsSwiperImageGallery';
 import MultimediaTabsPortfolio from '../../../sections/home/MultimediaTabsPortfolio';
 import FAQSection from '../../../sections/home/FAQ';
@@ -94,8 +94,8 @@ export default async function Index(props: IIndexProps) {
 
 
       {/* Service Card Swiper */}
-      <div className=" py-20">
-        <ServiceSwiper />
+      <div className=" py-20" style={{background: 'linear-gradient(90deg, rgb(77, 186, 100), rgb(37, 160, 111))'}}>
+        <ProductCardSection />
       </div>
 
 

@@ -2,7 +2,7 @@ import React from 'react'
 import { ChevronsLeft, ClipboardList } from 'lucide-react';
 import ServiceSwiper from '@/components/swiper/ServiceSwiper';
 
-export default function ServiceCardSection() {
+export default function ProductCardSection() {
 return (
 <>
     {/* Header */}
