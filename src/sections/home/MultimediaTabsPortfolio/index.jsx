@@ -6,7 +6,7 @@ import MultimediaTabs from '@/components/MultimediaTabs';
 
 export default function MultimediaTabsPortfolio() {
 return (
-<div className='w-full flex flex-col'>
+<div className='w-full flex flex-col container mx-auto'>
     {/* Header */}
     <div className='flex justify-between w-full pb-8 px-4'>
 

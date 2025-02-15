@@ -15,7 +15,7 @@ return (
         </button>
         <div className='py-2 inline-flex items-center  text-lg text-white font-semibold'>
         
-          خدمات تخصصی 
+           محصولات فرهنگی 
           <ClipboardList className='ml-3' />
         </div>
     </div>

@@ -112,13 +112,13 @@ export default async function Index(props: IIndexProps) {
 
 
       {/* Multimedia Video Tabs Section */}
-      <div className="container mx-auto py-20">
+      <div className="py-20 bg-black" >
         <MultimediaTabsPortfolio />
       </div>
 
 
        {/* FAQs Section */}
-       <div className="container mx-auto py-20">
+       <div className=" py-20 " style={{background: 'linear-gradient(90deg, rgb(77, 186, 100), rgb(37, 160, 111))'}}>
         <FAQSection />
       </div>
     </div>

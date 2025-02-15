@@ -58,7 +58,7 @@ export default function CourseItem({ course, title, linkHref, imageSrc, courseTy
 
   return (
     <div dir="rtl" className=" w-full md:w-3/6 lg:w-2/6 mb-6 px-4 mb-7.5 font-[Yekan_Bakh] course-item">
-      <div className="bg-white dark:bg-[#141414] border border-[#e5e5e5] rounded-md shadow-[0_2px_10px_#12131214] transition-all duration-300 ease-in-out overflow-hidden">
+      <div className="bg-[#f8f8f8] dark:bg-[#141414] border border-[#e5e5e5] rounded-md shadow-2xl transition-all duration-300 ease-in-out overflow-hidden">
         <div className="relative flex items-center justify-center">
           <Link href={linkHref} className="w-full">
             <Image
@@ -85,7 +85,7 @@ export default function CourseItem({ course, title, linkHref, imageSrc, courseTy
         <div className="p-4">
           <div className="mb-4">
             <h4 className="text-[15px] font-bold mb-2 leading-normal">
-              <Link href={linkHref} className="text-[#efefef] hover:text-primary">
+              <Link href={linkHref} className="text-black hover:text-primary">
                 {title}
               </Link>
             </h4>
@@ -111,12 +111,13 @@ export default function CourseItem({ course, title, linkHref, imageSrc, courseTy
                   );
                 })}
               </div>
-              <span className="text-white text-xs mt-3">بدون امتیاز ({score} رای)</span>
+              <span className="text-black text-xs mt-3">بدون امتیاز ({score} رای)</span>
             </div>
-            <div className="border bg-[#6E0072] hover:opacity-85 text-white px-4 py-1.5 rounded">
-              <Link href={`teacher/${teacher.user_id}`} className="flex items-center text-xs hover:text-primary">
+            <div className="border bg-[#6E0072] hover:opacity-85 text-white px-4 py-1.5 rounded-lg">
+              <Link href={`teacher/${teacher.user_id}`} className="flex items-center text-xs">
                 <UserRound className="w-4 h-4 ml-1" />
-                {`${teacher.name} ${teacher.family}`}
+                {/* {`${teacher.name} ${teacher.family}`} */}
+                مریم صفدری
               </Link>
             </div>
           </div>
@@ -136,13 +137,13 @@ export default function CourseItem({ course, title, linkHref, imageSrc, courseTy
               <Users className="w-4 h-4 ml-2" />
               <span>{participantsCounts}</span>
               <div className="absolute bottom-full right-1/2 transform translate-x-1/2 invisible opacity-0 group-hover:visible group-hover:opacity-100 transition-all duration-300 mb-1">
-                <div className="bg-[#383838] text-white text-xs py-2 px-2.5 rounded whitespace-nowrap relative">
+                <div className="bg-[#383838] text-black text-xs py-2 px-2.5 rounded whitespace-nowrap relative">
                   تعداد شرکت کننده
                   <div className="absolute top-full right-1/2 transform translate-x-1/2 border-8 border-transparent border-t-[#383838]"></div>
                 </div>
               </div>
             </div>
-            <div className="flex items-center text-base font-bold text-white">
+            <div className="flex items-center text-base font-bold text-black">
               {filterPriceNumber(price)}<span className="text-sm mr-1">تومان</span>
             </div>
           </div>
