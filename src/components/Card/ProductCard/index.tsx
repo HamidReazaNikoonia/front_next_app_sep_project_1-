@@ -9,7 +9,7 @@ import Link from 'next/link';
 import Image from 'next/image';
 
 
-import product_placeholder from "@/public/assets/images/product_placeholder.png";
+// import product_placeholder from "@/public/assets/images/product_placeholder.png";
 import sampleImage from "@/public/assets/images/s3.jpg";
 
 
