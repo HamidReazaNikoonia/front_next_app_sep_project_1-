@@ -48,8 +48,8 @@ export default async function Courses(props: IAboutProps) {
 
 
   return (
-    <div className='overflow-hidden pt-16 bg-black text-white min-h-screen'>
-        <div className="container mx-auto pt-20">
+    <div className='overflow-hidden bg-[#E1EBEE] text-black min-h-screen'>
+        <div className="container mx-auto pt-8">
           {/* Header */}
           <ProductListHeader />
         </div>

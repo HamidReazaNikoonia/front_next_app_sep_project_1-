@@ -58,7 +58,7 @@ export default async function Index(props: IIndexProps) {
 
 
       {/* Card Section */}
-      <div className='w-full'>
+      <div className='w-full' style={{backgroundColor: "#FFDEE9",backgroundImage: "linear-gradient(0deg, #FFDEE9 0%, #B5FFFC 100%)"}}>
         <HomeCardSection />
       </div>
 
@@ -100,7 +100,7 @@ export default async function Index(props: IIndexProps) {
 
 
       {/* Courses Card Section */}
-      <div className="container mx-auto py-20">
+      <div className=" py-20 primary-gradient-bg">
         <CoursesCardSection />
       </div>
 

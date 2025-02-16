@@ -23,7 +23,7 @@ export default function SearchComponent({ onSearch }: SearchComponentProps) {
 
   return (
     <form onSubmit={handleSubmit} className="flex space-x-2">
-      <button className='bg-purple-800 hover:bg-blue-600 px-3 py-1 rounded'>
+      <button className='bg-gray-300 hover:bg-gray-400 px-3 py-1 rounded'>
       <Search size={18} />
       </button>
       <input
@@ -31,7 +31,7 @@ export default function SearchComponent({ onSearch }: SearchComponentProps) {
         placeholder="جستجو کنید "
         value={searchTerm}
         onChange={(e) => setSearchTermHandler(e.target.value)}
-        className="flex-grow bg-gray-700 text-white px-4 py-2 rounded focus:outline-none text-xs text-right"
+        className="flex-grow bg-gray-300 text-black px-4 py-2 rounded focus:outline-none text-xs text-right"
       />
     </form>
   )

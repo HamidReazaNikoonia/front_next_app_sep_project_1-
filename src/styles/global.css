@@ -109,3 +109,11 @@ input#datePicker_from, input#datePicker_to  {
     @apply bg-background text-foreground;
   }
 }
+
+
+.primary-gradient-bg {
+  background-color: #FFDEE9;
+  background-image: linear-gradient(0deg, #FFDEE9 0%, #B5FFFC 100%);
+}
+
+

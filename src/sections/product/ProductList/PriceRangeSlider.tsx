@@ -23,14 +23,14 @@ export default function PriceRangeSlider({ onRangeChange }: PriceRangeSliderProp
       <div className="flex justify-between text-sm pt-2">
         
         <span className="text-xs font-medium">
-          تومان &nbsp;{range[0]} - تومان&nbsp;{range[1]}
+          تومان &nbsp;{range[0] && (range[0]).toLocaleString('fa')} - تومان&nbsp;{range[1] && (range[1]).toLocaleString('fa')}
         </span>
         <Label htmlFor="price-range" className="text-xs font-medium">
-          بازه ی قیمت
+          محدوده قیمت
         </Label>
       </div>
       <div className='pt-4'>
-      <RangeSlider min={0} max={500000} defaultValue={[0, 500000]} onInput={handleRangeChange} onThumbDragEnd={() => onRangeChange(range)} />
+      <RangeSlider  min={0} max={500000} defaultValue={[0, 500000]} onInput={handleRangeChange} onThumbDragEnd={() => onRangeChange(range)} />
       </div>
     </div>
   )
