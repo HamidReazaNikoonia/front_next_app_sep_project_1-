@@ -61,6 +61,34 @@ async function updateUserCart({productId, quantity}: {productId: string, quantit
 }
 
 
+
+async function addProductToCart({productId, quantity, courseId}: {productId?: string, courseId?: string, quantity: number}) {
+  const options = {
+    method: "POST",
+    headers: {
+      accept: "application/json",
+      'Content-Type': 'application/json',
+      Authorization:
+        `Bearer ${API_TOKEN}`,
+    },
+    body: JSON.stringify({
+      quantity,
+      ...(productId && {productId}),
+      ...(courseId && {courseId})
+    })
+  };
+
+  const response = fetch(
+    `${API_BASE_URL}/cart`,
+    options
+  )
+    .then((response) => response.json())
+    .catch((err) => console.error(err));
+
+  return response;
+}
+
+
 async function deleteProductInCart({cartItemId}: {cartItemId: string}) {
   const options = {
     method: "DELETE",
@@ -174,6 +202,13 @@ export async function updateUserCartRequest(body: {productId: string, quantity: 
   const data = await updateUserCart(body);
   return data;
 }
+
+
+export async function addProductToCartRequest(body: {productId?: string, courseId?: string, quantity: number}) {
+  const data = await addProductToCart(body);
+  return data;
+}
+
 
 export async function deleteProductInCartRequest(body: {cartItemId: string}) {
   const data = await deleteProductInCart(body);
