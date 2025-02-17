@@ -64,8 +64,8 @@ export default async function SpecificCourse(props: IAboutProps) {
 
 
   return (
-    <div className='overflow-hidden pt-16 bg-black text-white min-h-screen'>
-      <div className="container mx-auto pt-20">
+    <div className='overflow-hidden bg-[#E1EBEE] text-black min-h-screen'>
+      <div className="container mx-auto pt-12">
         {/* Header */}
         <div className='mb-8 flex mr-8 md:mr-0 flex-col-reverse md:flex-row justify-end items-end'>
           <Breadcrumbs levels={[{ title: 'محصولات', link: '/product' }, { title: product.title, link: '' }]} />
@@ -81,7 +81,7 @@ export default async function SpecificCourse(props: IAboutProps) {
           <div className="md:flex-1 px-4">
             <div >
               <div className="h-64 md:h-80 rounded-lg bg-gray-100 mb-4">
-                <div className="h-64 relative md:h-80 rounded-lg bg-gray-100 mb-4 flex items-center justify-center">
+                <div className="h-64 relative md:h-80 rounded-lg shadow-lg bg-gray-100 mb-4 flex items-center justify-center">
                   <Image
                     alt="Mountains"
                     // Importing an image will
@@ -92,7 +92,8 @@ export default async function SpecificCourse(props: IAboutProps) {
                     // Make the image display full width
                     style={{
                       width: '100%',
-                      objectFit: 'cover'
+                      objectFit: 'cover',
+                      borderRadius: '0.5rem',
                     }}
                   />
                 </div>
@@ -138,21 +139,21 @@ export default async function SpecificCourse(props: IAboutProps) {
           {/* Rigth SIde */}
 
           <div className="md:flex-1 px-4 mb-16">
-            <h2 className="mb-2 leading-tight tracking-tight font-bold text-white text-right text-2xl md:text-3xl">
+            <h2 className="mb-2 leading-tight tracking-tight font-bold text-black text-right text-2xl md:text-3xl">
               {product?.title}
             </h2>
-            <p className="text-gray-300 text-right text-sm mt-6">
+            <p className="text-gray-800 text-right text-sm mt-6">
               {product?.subtitle}
             </p>
 
             <div className="flex flex-col md:flex-row items-center space-x-4 my-4 justify-between">
               <div>
-                <div className="rounded-lg bg-gray-100 flex mt-8 md:mt-0 py-2 px-3">
+                <div className="rounded-lg bg-gray-100 border-2 flex mt-8 md:mt-0 py-2 px-3">
                   {product?.is_available ? (
                     <>
-                      <span className="text-indigo-400 mr-1 mt-1">تومان</span>
+                      <span className="text-gray-700 mr-1 mt-1">تومان</span>
 
-                      <span className="font-bold text-indigo-600 text-3xl">{(product.price).toLocaleString('ar-EG')}</span>
+                      <span className="font-bold text-gray-800 text-3xl">{(product.price).toLocaleString('ar-EG')}</span>
 
                     </>
 
@@ -165,7 +166,7 @@ export default async function SpecificCourse(props: IAboutProps) {
                 <p className="text-green-500 text-xl font-semibold">
                   {(10).toLocaleString('ar-EG')}٪ تخفیف
                 </p>
-                <p className="text-gray-400 text-sm">شامل هزینه مالیات</p>
+                <p className="text-gray-800 text-sm">شامل هزینه مالیات</p>
               </div>
               )}
               
@@ -185,7 +186,7 @@ export default async function SpecificCourse(props: IAboutProps) {
               </div>
             </div>
 
-            <p className="text-gray-300 text-sm pl-2 text-right leading-8 mt-8 border-t-2 pt-8 border-gray-700">
+            <p className="text-gray-800 text-sm pl-2 text-right leading-8 mt-8 border-t-2 pt-8 border-gray-700">
 
               لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ و با استفاده از طراحان گرافیک است. چاپگرها و متون بلکه روزنامه و مجله در ستون و سطرآنچنان که لازم است و برای شرایط فعلی تکنولوژی مورد نیاز و کاربردهای متنوع با هدف بهبود ابزارهای کاربردی می باشد. کتابهای زیادی در شصت و سه درصد گذشته، حال و آینده شناخت فراوان جامعه و متخصصان را می طلبد تا با نرم افزارها شناخت بیشتری را برای طراحان رایانه ای علی الخصوص طراحان خلاقی و فرهنگ پیشرو در زبان فارسی ایجاد کرد. در این صورت می توان امید داشت که تمام و دشواری موجود در ارائه راهکارها و شرایط سخت تایپ به پایان رسد وزمان مورد نیاز شامل حروفچینی دستاوردهای اصلی و جوابگوی سوالات پیوسته اهل دنیای موجود طراحی اساسا مورد استفاده قرار گیرد
 

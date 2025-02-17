@@ -117,3 +117,12 @@ input#datePicker_from, input#datePicker_to  {
 }
 
 
+.green-gradient-bg {
+  background-image: radial-gradient( circle 887px at -13.8% 18.3%,  rgba(8,208,115,1) 0%, rgba(0,0,0,1) 90% );
+}
+
+.yellow-gradient-bg {
+  background-image: radial-gradient( circle 331px at 1.4% 52.9%,  rgba(255,236,2,1) 0%, rgba(255,223,2,1) 33.6%, rgba(255,187,29,1) 61%, rgba(255,175,7,1) 100.7% );
+}
+
+
