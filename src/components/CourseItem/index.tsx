@@ -114,7 +114,7 @@ export default function CourseItem({ course, title, linkHref, imageSrc, courseTy
               <span className="text-black text-xs mt-3">بدون امتیاز ({score} رای)</span>
             </div>
             <div className="border bg-[#6E0072] hover:opacity-85 text-white px-4 py-1.5 rounded-lg">
-              <Link href={`teacher/${teacher.user_id}`} className="flex items-center text-xs">
+              <Link href={`teacher/teacher.user_id`} className="flex items-center text-xs">
                 <UserRound className="w-4 h-4 ml-1" />
                 {/* {`${teacher.name} ${teacher.family}`} */}
                 مریم صفدری

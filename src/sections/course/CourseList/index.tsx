@@ -10,7 +10,8 @@ import { getCoursesRequest } from '@/API/course';
 import { ICourseTypes } from '@/types/Course';
 
 // components
-import CourseItem from '@/components/CourseItem';
+// import CourseItem from '@/components/CourseItem';
+import CourseCardItem from '@/components/Card/CourseCard';
 import CourseListFilter from '@/sections/course/CourseListFilter';
 import { useProductsStore } from '@/_store/Product';
 // import { getProductsRequest } from '@/API/product';
@@ -87,7 +88,7 @@ export default function CourseList({ data }: { data: { courses: ICourseTypes[], 
       <div className='mx-8 justify-between flex mb-8'>
 
         {/* Filter Modal */}
-        <CourseListFilter filterHandler={(d) => filterHandler(d)} />
+        <CourseListFilter filterHandler={(d: any) => filterHandler(d)} />
 
         <div className='flex'>
           <h3 className=' text-right mr-3 text-xl font-bold'> دوره ها</h3>
@@ -97,10 +98,16 @@ export default function CourseList({ data }: { data: { courses: ICourseTypes[], 
 
 
       </div>
-      <div className="flex w-full flex-wrap">
+      <div className="flex w-full flex-wrap gap-3 px-4 md:px-0">
 
-        {filteredCourses && filteredCourses.map((course, index) => (
-          <CourseItem course={course} key={course._id} title={course.title} linkHref={`/course/${course._id}`} imageSrc={`${NEXT_PUBLIC_SERVER_FILES_URL}/${course.tumbnail_image?.file_name || ''}`} courseType={course.course_type} score={course?.score || 0} teacher={course?.coach_id} participantsCounts={course?.member?.length ?? 0} price={course.price} isLikedByUser />
+        {filteredCourses.length === 0 && (
+          <div className='w-full justify-center items-center text-black text-lg font-semibold text-center py-12'>
+            موردی یافت نشد
+          </div>
+        )}
+
+        {filteredCourses && filteredCourses.map((course) => (
+          <CourseCardItem data={course} key={course._id} isLikedByUser />
         ))}
 
 

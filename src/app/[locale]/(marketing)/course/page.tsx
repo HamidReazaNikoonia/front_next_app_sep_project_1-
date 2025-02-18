@@ -52,7 +52,7 @@ export default async function Portfolio(props: IPortfolioProps) {
   // console.log({coursesData: coursesData.data.courses})
 
   return (
-    <div className='overflow-hidden pt-16 bg-black text-white min-h-screen'>
+    <div className='overflow-hidden bg-[#E1EBEE] text-black min-h-screen'>
       {/* <div className="container mx-auto pt-20">
         <CourseListHeader />
       </div> */}
@@ -65,9 +65,9 @@ export default async function Portfolio(props: IPortfolioProps) {
 
 
       
-      <div className=' container mx-auto my-28'>
+      {/* <div className=' container mx-auto my-28'>
         <CourseCategoryCardSection />
-      </div>
+      </div> */}
 
 
       <div className=' container mx-auto mb-24'>

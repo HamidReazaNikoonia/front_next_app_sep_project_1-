@@ -16,25 +16,46 @@ export default function CourseListFilter({filterHandler}) {
   const [selectCategory, setselectCategory] = useState("ALL");
   const [courseType, setcourseType] = useState("ALL");
 
+
+  const dropdownRef = useRef<HTMLDivElement>(null);
+
   const { data: courseCategories, isLoading, isError, isSuccess } = useQuery({
     queryFn: async () => await getCategoriesRequest(),
     queryKey: ["course_category"], //Array according to Documentation
   });
 
 
+  // Close dropdown when clicking outside
+  const handleClickOutside = (event: MouseEvent) => {
+    
+    if (dropdownRef.current && !dropdownRef.current.contains(event.target as Node)) {
+      setShowModal(false);
+    }
+  };
 
-  const changeDataPickerFrom = (unix, formatted) => {
-    setselectedFilterDateFrom(formatted)
-    console.log(unix); // returns timestamp of the selected value, for example.
-    console.log(formatted);
-  }
+  // Add event listener for clicks outside the dropdown
+  useEffect(() => {
+    document.addEventListener('mousedown', handleClickOutside);
+    return () => {
+      document.removeEventListener('mousedown', handleClickOutside);
+    };
+  }, []);
 
 
-  const changeDataPickerTo = (unix, formatted) => {
-    setselectedFilterDateTo(formatted)
-    console.log(unix); // returns timestamp of the selected value, for example.
-    console.log(formatted);
-  }
+
+
+  // const changeDataPickerFrom = (unix, formatted) => {
+  //   setselectedFilterDateFrom(formatted)
+  //   console.log(unix); // returns timestamp of the selected value, for example.
+  //   console.log(formatted);
+  // }
+
+
+  // const changeDataPickerTo = (unix, formatted) => {
+  //   setselectedFilterDateTo(formatted)
+  //   console.log(unix); // returns timestamp of the selected value, for example.
+  //   console.log(formatted);
+  // }
 
 
   const triggertFilterHandler = (e) => {
@@ -91,7 +112,7 @@ export default function CourseListFilter({filterHandler}) {
         <>
           <div
             className="justify-center items-center flex overflow-x-hidden overflow-y-auto fixed inset-0 z-50 outline-none focus:outline-none">
-            <div className="relative w-auto my-6 mx-auto max-w-3xl">
+            <div ref={dropdownRef} className="relative w-auto my-6 mx-auto max-w-3xl">
               {/*content*/}
               <div
                 className="border-0 rounded-lg shadow-lg relative flex  w-full bg-[#1f2937e0] outline-none focus:outline-none">
@@ -107,7 +128,7 @@ export default function CourseListFilter({filterHandler}) {
                             <input type="name" name="search"
                               value={searchQuery}
                               onChange={(e) => setsearchQuery(e.target.value)}
-                              className="h-12 w-full cursor-text rounded-md border border-gray-500 bg-gray-700 py-4 px-4 text-sm shadow-sm outline-none focus:border-blue-500 focus:ring focus:ring-blue-200 focus:ring-opacity-50 text-right"
+                              className="h-12 w-full cursor-text rounded-md border border-gray-500 bg-gray-700 py-4 px-4 text-sm shadow-sm outline-none focus:border-blue-500 focus:ring focus:ring-blue-200 focus:ring-opacity-50 text-right text-white"
                               placeholder="عنوان جستجو" />
                             <div className=' hidden md:block'>
                             <Search color='gray' className='ml-4' />
@@ -115,7 +136,7 @@ export default function CourseListFilter({filterHandler}) {
                           </div>
 
                           <div
-                            className="grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 text-right">
+                            className="grid grid-cols-1 gap-6 md:grid-cols-2  text-right">
                             <div className="flex flex-col">
                               <label htmlFor="course_type"
                                 className="text-xs mb-1 font-medium text-stone-100">دسته بندی</label>
@@ -123,7 +144,7 @@ export default function CourseListFilter({filterHandler}) {
                               <select id="course_type"
                                 value={courseType}
                                 onChange={(e) => setcourseType(e.target.value)}
-                                className="text-right text-xs mt-2 block w-full cursor-pointer rounded-md border border-gray-500 bg-gray-700 px-4 py-2 shadow-sm outline-none focus:border-blue-500 focus:ring focus:ring-blue-200 focus:ring-opacity-50">
+                                className="text-right text-xs mt-2 block w-full cursor-pointer rounded-md border border-gray-500 bg-gray-700 px-4 py-2 shadow-sm outline-none focus:border-blue-500 focus:ring focus:ring-blue-200 focus:ring-opacity-50 text-white">
                                 <option value="ALL">همه</option>
                                 <option value="HOZORI" >آنلاین</option>
                                 <option value="OFFLINE">حضوری</option>
@@ -137,7 +158,7 @@ export default function CourseListFilter({filterHandler}) {
                               <select id="course_subject"
                                 value={selectCategory}
                                 onChange={(e) => setselectCategory(e.target.value)}
-                                className="text-right text-xs mt-2 block w-full cursor-pointer rounded-md border border-gray-500 bg-gray-700 px-4 py-2 shadow-sm outline-none focus:border-blue-500 focus:ring focus:ring-blue-200 focus:ring-opacity-50">
+                                className="text-right text-xs mt-2 block w-full cursor-pointer rounded-md border border-gray-500 bg-gray-700 px-4 py-2 shadow-sm outline-none focus:border-blue-500 focus:ring focus:ring-blue-200 focus:ring-opacity-50 text-white">
                                       <option value="ALL">همه</option>
                                 {(isSuccess && Array.isArray(courseCategories)) && courseCategories.map((item, index) => (
                                   <option value={item._id} key={item._id}>{item.name}</option>
@@ -176,30 +197,26 @@ export default function CourseListFilter({filterHandler}) {
                             </div> */}
 
 
-                            <div className="flex flex-col">
+                            {/* <div className="flex flex-col">
                               <label htmlFor="date"
                                 className="text-xs mb-1 font-medium text-stone-100"> تا تاریخ</label>
-                              {/* <input type="date" id="date"
-                                                    className="mt-2 block w-full cursor-pointer rounded-md border border-gray-500 bg-gray-700 px-2 py-2 shadow-sm outline-none focus:border-blue-500 focus:ring focus:ring-blue-200 focus:ring-opacity-50" />
-                                                */}
+                             
                               <DatePicker placeholder=" " format="jYYYY/jMM/jDD"
                                 onChange={changeDataPickerTo} preSelected={selectedFilterDateTo} cancelOnBackgroundClick inputTextAlign="center"
                                 id="datePicker_to"  customClass="custom_style"
                                 newThemeColor="#2f4699" />
-                            </div>
+                            </div> */}
 
 
-                            <div className="flex flex-col">
+                            {/* <div className="flex flex-col">
                               <label htmlFor="date"
                                 className="text-xs mb-1 font-medium text-stone-100">شروع از تاریخ</label>
-                              {/* <input type="date" id="date"
-                                                    className="mt-2 block w-full cursor-pointer rounded-md border border-gray-500 bg-gray-700 px-2 py-2 shadow-sm outline-none focus:border-blue-500 focus:ring focus:ring-blue-200 focus:ring-opacity-50" />
-                                                */}
+                            
                               <DatePicker placeholder=" " format="jYYYY/jMM/jDD"
                                 onChange={changeDataPickerFrom} preSelected={selectedFilterDateFrom} cancelOnBackgroundClick inputTextAlign="center"
                                 id="datePicker_from"  customClass="custom_style"
                                 newThemeColor="#2f4699" />
-                            </div>
+                            </div> */}
                           </div>
 
                           <div className="mt-10 flex w-full flex-col md:flex-row justify-end ">
