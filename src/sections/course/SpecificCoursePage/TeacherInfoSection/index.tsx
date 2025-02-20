@@ -4,8 +4,8 @@ import TeacherCourseSwiper from '../TeacherCourseSwiper'
 export default function TeacherInfoSection() {
   return (
     <>
-      <div className='w-full flex flex-col mt-4 px-8 bg-[#1c1c1c] rounded-lg py-5'>
-        <div style={{ marginBottom: "-18px" }} className='text-center text-sm relative w-40 flex justify-center mx-auto py-2 rounded-md bg-cyan-700'>
+      <div className='w-full flex flex-col mt-4 px-8 bg-gray-200 rounded-lg py-5'>
+        <div style={{ marginBottom: "-18px" }} className='text-center text-sm relative w-40 flex justify-center mx-auto py-2 rounded-md yellow-gradient-bg'>
           درباره این مدرس
         </div>
         <div className='w-full flex justify-between items-center border-t border-cyan-700 pt-10'>

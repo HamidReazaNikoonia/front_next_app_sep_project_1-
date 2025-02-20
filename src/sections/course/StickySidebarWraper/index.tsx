@@ -122,25 +122,25 @@ export default function StickyComponent({ dataFromServer }: { dataFromServer: IC
             {/* Buttons */}
             <div className=' w-full flex flex-col justify-center items-center px-2'>
               {/* Price Section */}
-              <div className='flex w-full justify-between items-center border-2 border-sky-200 border-dashed p-4 rounded-xl'>
+              <div className='flex w-full justify-between items-center border-2 border-green-600 border-dashed p-4 rounded-xl'>
                 <div className='flex items-center'>
-                  <div className='text-lg text-gray-500 font-bold mr-2' >تومان</div>
+                  <div className='text-lg text-gray-800 font-bold mr-2' >تومان</div>
                   <div className='text-4xl' >{(price).toLocaleString('ar-EG')}</div>
                 </div>
-                <div className='text-lg text-gray-500' >قیمت</div>
+                <div className='text-lg text-gray-800' >قیمت</div>
               </div>
 
 
               {/* Buttons Section */}
               <div className='flex flex-col space-y-2 mt-6 w-full justify-between items-center'>
 
-                <button onClick={attToBasketHandler} className="bg-purple-800 flex justify-center items-center w-full hover:bg-blue-600 px-4 py-3 rounded mr-2 text-sm md:text-lg">
+                <button onClick={attToBasketHandler} className="green-gradient-bg text-white  flex justify-center items-center w-full hover:bg-blue-600 px-4 py-3 rounded mr-2 text-sm md:text-lg">
                   افزودن به سبد خرید
                   <ShoppingBasket className='ml-2' />
                 </button>
 
 
-                <button className="bg-[#251f3e] hover:opacity-80 w-full flex justify-center px-4 py-3 rounded mr-2 text-sm md:text-lg">
+                <button className="bg-[#251f3e] text-white hover:opacity-80 w-full flex justify-center px-4 py-3 rounded mr-2 text-sm md:text-lg">
                   افزودن به علاقه مندی ها
                   <Heart className='ml-3' />
                 </button>
@@ -150,7 +150,7 @@ export default function StickyComponent({ dataFromServer }: { dataFromServer: IC
 
 
             {/* Course Information */}
-            <div className='w-full flex flex-col mt-4 px-4 bg-[#1c1c1c] rounded-lg py-5'>
+            <div className='w-full flex flex-col mt-4 px-4 bg-gray-200 rounded-lg py-5'>
               {/* Item */}
               <div className='flex justify-center items-center py-4 text-sm'>
 
@@ -246,7 +246,7 @@ export default function StickyComponent({ dataFromServer }: { dataFromServer: IC
 
 
             {/* Course Information Second Card */}
-            <div className='w-full flex flex-col mt-4 px-8 text-sm bg-[#1c1c1c] rounded-lg py-5'>
+            <div className='w-full flex flex-col mt-4 px-8 text-sm bg-gray-200 rounded-lg py-5'>
               {/* Item */}
               <div className="w-full flex justify-end items-center border-b border-cyan-800 py-4">
 
@@ -347,7 +347,7 @@ export default function StickyComponent({ dataFromServer }: { dataFromServer: IC
           <div className='flex flex-col justify-center items-center px-0 md:px-8'>
             {/* Thumb Image */}
             <div>
-              <Image alt="" width={700} height={450} src={SampleImage} />
+              <Image className=' rounded-lg' alt="" width={700} height={450} src={SampleImage} />
             </div>
 
 
@@ -358,29 +358,34 @@ export default function StickyComponent({ dataFromServer }: { dataFromServer: IC
 
 
             {/* Video Sample Gallery */}
-            <div className='w-full bg-[#1c1c1c] px-6 py-10 rounded-t-lg'>
+            <div className='w-full bg-gray-300 px-6 py-10 rounded-t-lg shadow-lg' >
               <VideoSampleGallery />
             </div>
 
 
             {/* Course Details information */}
-            <div className='w-full bg-[#1c1c1c] px-6 py-10 rounded-b-lg'>
+            <div className='w-full bg-gray-300 px-6 py-10 rounded-b-lg'>
               <CourseDetails />
             </div>
 
 
+            
+
+            {/* Commen Course Swiper Section */}
+            <div className='w-full  px-4 md:px-0 pt-10 rounded-lg pb-3 mt-6'>
+              <h3 className='text-center mb-8 text-lg md:text-2xl font-bold text-gray-800'>
+                دوره های مشابه
+              </h3>
+              <CommenCourseSwiper />
+            </div>
+
             {/* Get a List of Course Based on Category */}
             <div className='w-full px-6 py-10'>
-              <button className="bg-purple-800 w-full hover:bg-blue-600 px-4 py-2 rounded mr-2 text-sm">
-                مشاهده دوره های مشابه
+              <button className=" bg-purple-800 text-white w-full hover:bg-blue-900 px-4 py-2 rounded mr-2 text-sm">
+                مشاهده دوره های بیشتر
               </button>
             </div>
 
-
-            {/* Commen Course Swiper Section */}
-            <div className='w-full bg-[#1c1c1c] px-4 md:px-0 pt-10 rounded-lg pb-3'>
-              <CommenCourseSwiper />
-            </div>
 
 
             {/* User Review */}

@@ -23,15 +23,15 @@ export default function CommenCourseSwiper() {
   return (
     <>
       <Swiper 
-        slidesPerView={isMobileScreen ? 1 : 2}
-        spaceBetween={20}
+        slidesPerView={isMobileScreen ? 1 : 3}
+        spaceBetween={15}
         freeMode={true}
         pagination={{
           clickable: true,
         }} modules={[Pagination, Navigation, FreeMode]} className="commen_course_swiper">
         {Array.from({ length: 5 }).map((i, index) => (
           <SwiperSlide key={index}>
-            <article className="rounded-xl bg-[#09143a] p-3 shadow-lg hover:shadow-xl">
+            <article className="rounded-xl bg-white p-3 shadow-lg hover:shadow-xl">
               <a href="#">
                 <div className="relative flex items-end overflow-hidden rounded-xl">
                   <img src="https://componentland.com/images/0WjOaKV5XYmAEPl0ZjOv4.png" alt="Hotel Photo" />
@@ -44,8 +44,8 @@ export default function CommenCourseSwiper() {
                 </div>
 
                 <div className="mt-1 p-2 text-right">
-                  <h2 className="text-slate-300">دوره هوش مصنوعی</h2>
-                  <p className="text-slate-600 mt-1 text-xs">آموزش هوش مصنوعی برای همه</p>
+                  <h2 className="text-black">دوره هوش مصنوعی</h2>
+                  <p className="text-slate-700 mt-1 text-xs">آموزش هوش مصنوعی برای همه</p>
 
                   <div className="mt-3 flex items-end justify-between">
                     <p>
