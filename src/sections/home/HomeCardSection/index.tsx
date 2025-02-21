@@ -20,7 +20,7 @@ export default function HomeCardSection() {
           خدمات ما برای شما
         </div>
 
-        <div className='text-lg text-center md:text-4xl font-semibold'>
+        <div className='text-lg text-center md:text-4xl font-semibold px-6 md:px-0'>
           برای داشتن زندگی بهتر با آرامش بیشتر
         </div>
 
@@ -28,7 +28,7 @@ export default function HomeCardSection() {
         {/* Card Items */}
         <div className='w-full flex justify-center flex-wrap items-center mt-12 '>
           {/* Item */}
-          <div className='bg-[#f8f8f8] p-8 flex mr-8 mb-8 text-right w-full md:w-2/5 justify-end shadow-lg rounded-xl hover:shadow-2xl'>
+          <div className='bg-[#f8f8f8] p-8 flex mr-0 md:mr-8 mb-8 text-right w-full md:w-2/5 justify-end shadow-lg rounded-xl hover:shadow-2xl'>
             {/* Text (Rigth Side) */}
             <div className='flex flex-col items-center justify-center flex-1'>
               <div className='text-lg md:text-2xl mb-2 font-semibold'>
@@ -73,7 +73,7 @@ export default function HomeCardSection() {
 
 
           {/* Item */}
-          <div className='bg-[#f8f8f8] p-8 mr-8  flex text-right w-full md:w-2/5 justify-end shadow-lg rounded-xl hover:shadow-2xl'>
+          <div className='bg-[#f8f8f8] p-8 mr-0 mb-8 md:mr-8 md:mb-0  flex text-right w-full md:w-2/5 justify-end shadow-lg rounded-xl hover:shadow-2xl'>
             {/* Text (Rigth Side) */}
             <div className='flex flex-col items-center justify-center flex-1'>
               <div className='text-lg md:text-2xl mb-2 font-semibold'>

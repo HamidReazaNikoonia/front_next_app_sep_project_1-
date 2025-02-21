@@ -87,16 +87,22 @@
   box-shadow: rgba(50, 50, 93, 0.25) 0px 50px 100px -20px, rgba(0, 0, 0, 0.3) 0px 30px 60px -30px;
 }
 
-.wrapper > *:hover > img{
+
+.svg {
+  transition: all 1000ms ease-in-out;
+}
+
+.wrapper > *:hover > .svg{
   scale: 1.2;
   rotate: 4deg;
+  transition: all 1000ms ease-in-out;
 }
 
 .wrapper > * > p{
   position: absolute;
   /*max-width: 12ch;*/
   text-wrap: balance;
-  top: .75rem; 
+  bottom: .75rem; 
   left: .75rem;
   font-size: 1rem;
   color: #120d3a;
