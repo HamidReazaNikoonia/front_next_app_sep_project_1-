@@ -38,7 +38,7 @@ export default function ProductCategoryCards() {
           دسته بندی محصولات
         </div>
 
-        <div className='text-lg text-center md:text-4xl font-semibold px-8 md:px-0'>
+        <div className='text-lg text-center md:text-4xl font-semibold px-8 md:px-0 text-green-600'>
           محصولاتی که به زندگی شما ارزش می دهند
         </div>
 

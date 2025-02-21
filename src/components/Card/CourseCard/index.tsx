@@ -4,7 +4,7 @@ import React from 'react'
 
 import Image from "next/image";
 import { Button } from "@/components/ui/button";
-import { Star } from 'lucide-react';
+import { Star, Presentation, Videotape, BookCheck } from 'lucide-react';
 
 import avatarImage from '@/public/assets/images/avatar.png'
 import product_placeholder from "@/public/assets/images/s4.jpg";
@@ -26,6 +26,7 @@ const mockData = {
   speaker: 'مهدی محمدی',
   speakerImage: undefined,
   is_have_licence: true,
+  course_type: "HOZORI",
   course_status: true,
   score: 3,
   price: 50000000,
@@ -47,6 +48,7 @@ const CourseCardItem: React.FC<WebinarCardProps> = ({
     is_have_licence,
     tumbnail_image,
     course_category,
+    course_type,
     score,
     coach_id,
     price,
@@ -92,7 +94,25 @@ const CourseCardItem: React.FC<WebinarCardProps> = ({
 
         {/* Content */}
         <div className="flex flex-col flex-grow p-4">
-          <h2 className="text-sm md:text-lg font-bold text-gray-900">{title}</h2>
+          <div className='flex justify-between'>
+            <h2 className="text-sm md:text-lg font-bold text-gray-900">{title}</h2>
+
+            {/* enum: ['HOZORI', 'OFFLINE'] */}
+            {course_type === 'OFFLINE' ? (
+              <div className='flex gap-2 yellow-gradient-bg px-4 md:px-5 py-1.5 rounded-2xl items-center'>
+                <h2 className="text-xs md:text-sm font-semibold text-gray-900">آنلاین</h2>
+                <Videotape />
+              </div>) : (
+              <div className='flex gap-2 yellow-gradient-bg px-4 md:px-5 py-1.5 rounded-2xl items-center'>
+                <h2 className="text-xs md:text-sm font-semibold text-gray-900">حضوری</h2>
+                <Presentation />
+              </div>
+            )
+            }
+
+
+
+          </div>
           <p className="text-gray-500 text-xs mt-1">{course_category && course_category?.name}</p>
 
 
@@ -125,11 +145,15 @@ const CourseCardItem: React.FC<WebinarCardProps> = ({
         </div>
 
         {/* Registration Button */}
-        <div className="absolute top-8 left-0 ">
-          <Button className="bg-red-500 text-white text-sm px-4 py-2 rounded-r-lg rounded-l-none shadow-lg hover:bg-red-600">
-            ثبت نام دوره
-          </Button>
-        </div>
+        {is_have_licence && (
+          <div className="absolute top-8 left-0 ">
+            <Button className="bg-red-500 text-white text-sm px-4 py-2 rounded-r-lg rounded-l-none shadow-lg hover:bg-red-600">
+              دارای گواهی
+              <BookCheck />
+            </Button>
+          </div>
+        )}
+
       </div>
     </Link>
 
