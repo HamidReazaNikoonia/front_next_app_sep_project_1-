@@ -2,13 +2,14 @@
 import { useState, useEffect } from "react";
 import { ShoppingCart } from "lucide-react";
 
-import {SheetDemo} from './SideDrawer';
+import { SheetDemo } from './SideDrawer';
 
-import {NavigationMenuDemo} from './NavigationHeader';
+import { NavigationMenuDemo } from './NavigationHeader';
 import { useCartStore } from "@/_store/Cart";
 import { getUserCartRequest } from "@/API/cart";
 // import useAuth from "@/hooks/useAuth";
 import { useQuery } from "@tanstack/react-query";
+import Link from "next/link";
 
 
 
@@ -49,9 +50,11 @@ export default function SubHeader() {
   return (
     <div className="bg-white border-b-4 py-4 px-8 flex justify-between items-center shadow-xl">
 
-      <button className="flex text-sm items-center gap-2 border py-2 px-4 rounded-3xl text-white hover:text-gray-200 hover:border-green-600" style={{ background: "linear-gradient(90deg,#4dba64,#25a06f)" }} >
-        سبد خرید ({productCountBadge}) |  <ShoppingCart size={18} />
-      </button>
+      <Link href="/cart">
+        <button className="flex text-sm items-center gap-2 border py-2 px-4 rounded-3xl text-white hover:text-gray-200 hover:border-green-600" style={{ background: "linear-gradient(90deg,#4dba64,#25a06f)" }} >
+          سبد خرید ({productCountBadge}) |  <ShoppingCart size={18} />
+        </button>
+      </Link>
 
 
       <div className="hidden md:flex  gap-8">

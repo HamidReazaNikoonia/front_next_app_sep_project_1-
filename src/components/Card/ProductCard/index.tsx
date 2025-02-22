@@ -96,6 +96,7 @@ export default function ProductCard({ product }: { product: IProduct }) {
     // Send a request to the server to add the product to the cart
     if (isAuthenticated) {
       console.log('Add product to cart in database');
+      console.log({product})
       mutation.mutate({ productId: product._id, quantity: 1 });
     } else {
       // Add product to cart in local storage
