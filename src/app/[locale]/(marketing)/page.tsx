@@ -14,6 +14,7 @@ import FAQSection from '../../../sections/home/FAQ';
 import HeroSection from '@/sections/home/HeroSection'
 import HomeCardSection from '@/sections/home/HomeCardSection';
 import ProductCategoryCards from '@/sections/home/ProductCategoryCards';
+import CouchAndCosultSectionWidget from '@/components/CouchAndCosultSectionWidget';
 
 
 
@@ -43,7 +44,7 @@ export default async function Index(props: IIndexProps) {
   });
 
   return (
-    <div className="overflow-hidden ">
+    <div style={{ backgroundColor: "#FFDEE9", backgroundImage: "linear-gradient(0deg, #FFDEE9 0%, #B5FFFC 100%)" }} className="overflow-hidden ">
 
       {/* Main Slider In md Screen */}
       {/* <div className="hidden md:flex">
@@ -58,14 +59,14 @@ export default async function Index(props: IIndexProps) {
 
 
       {/* Card Section */}
-      <div className='w-full' style={{backgroundColor: "#FFDEE9",backgroundImage: "linear-gradient(0deg, #FFDEE9 0%, #B5FFFC 100%)"}}>
+      <div className='w-full' >
         <HomeCardSection />
       </div>
 
 
 
       {/* Product Category Section */}
-      <div className='w-full'>
+      <div className='w-full '>
         <ProductCategoryCards />
       </div>
 
@@ -94,8 +95,24 @@ export default async function Index(props: IIndexProps) {
 
 
       {/* Service Card Swiper */}
-      <div className=" py-20" style={{background: 'linear-gradient(90deg, rgb(77, 186, 100), rgb(37, 160, 111))'}}>
+      <div className=" py-20" style={{ background: 'linear-gradient(90deg, rgb(77, 186, 100), rgb(37, 160, 111))' }}>
         <ProductCardSection />
+      </div>
+
+
+
+      {/* Coach and consult section */}
+      <div className='w-full primary-gradient-bg  pt-8'>
+        <div className='mx-auto container'>
+          {/* Header */}
+          <div className='text-xs md:text-xl text-center pt-8 font-semibold text-pink-700 mb-4 md:mb-6'>
+            مشاوره حضوری , مشاوره آنلاین
+          </div>
+          <h2 className='w-full text-center font-semibold pt-1 text-lg md:text-3xl px-8 md:px-0'>
+            انتخاب مشاور و راهنما برای موضوعات مختلف
+          </h2>
+          <CouchAndCosultSectionWidget />
+        </div>
       </div>
 
 
@@ -106,19 +123,21 @@ export default async function Index(props: IIndexProps) {
 
 
       {/* Image Gallery Section */}
-      <div className="container mx-auto py-20">
-        <ThumbsSwiperImageGallery />
+      <div className=" primary-gradient-bg py-20">
+        <div className='mx-auto container'>
+          <ThumbsSwiperImageGallery />
+        </div>
       </div>
 
 
       {/* Multimedia Video Tabs Section */}
-      <div className="py-20 bg-black" >
+      {/* <div className="py-20 bg-black" >
         <MultimediaTabsPortfolio />
-      </div>
+      </div> */}
 
 
-       {/* FAQs Section */}
-       <div className=" py-20 " style={{background: 'linear-gradient(90deg, rgb(77, 186, 100), rgb(37, 160, 111))'}}>
+      {/* FAQs Section */}
+      <div className=" py-20 " style={{ background: 'linear-gradient(90deg, rgb(77, 186, 100), rgb(37, 160, 111))' }}>
         <FAQSection />
       </div>
     </div>
