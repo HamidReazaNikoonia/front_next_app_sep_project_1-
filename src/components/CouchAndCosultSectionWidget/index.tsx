@@ -1,5 +1,6 @@
 'use client';
 import React, { useState } from 'react';
+import { useRouter } from "next/navigation";
 import Image from 'next/image';
 
 import { ChevronLeft } from 'lucide-react';
@@ -30,11 +31,9 @@ const options2= [
 ];
 
 
-export function CustomRadioForm({options}) {
-  const [selectedOption, setSelectedOption] = useState(options[0].value);
 
- 
 
+export function CustomRadioForm({ options, selectedOption, onChange }) {
   return (
     <form className="flex flex-row gap-3 py-4 mx-auto max-w-lg flex-wrap w-full">
       {options.map((option) => (
@@ -45,30 +44,54 @@ export function CustomRadioForm({options}) {
             name="customRadio"
             value={option.value}
             checked={selectedOption === option.value}
-            onChange={() => setSelectedOption(option.value)}
+            onChange={() => onChange(option.value)}  // Call parent's handler
             className="hidden"
           />
           <label
             htmlFor={option.value}
             className={`cursor-pointer block px-4 py-2 rounded-2xl border transition-all shadow-sm text-center text-sm font-medium
-              ${selectedOption === option.value ? "yellow-gradient-bg text-black border-blue-500" : "bg-gray-100 text-gray-700 border-gray-300 hover:bg-gray-200"}`}
+              ${
+                selectedOption === option.value
+                  ? "yellow-gradient-bg text-black border-blue-500"
+                  : "bg-gray-100 text-gray-700 border-gray-300 hover:bg-gray-200"
+              }`}
           >
             {option.label}
           </label>
         </div>
       ))}
-      {/* <button
-        type="submit"
-        className="mt-4 px-4 py-2 rounded-2xl bg-green-500 text-white font-semibold shadow hover:bg-green-600 transition"
-      >
-        Submit
-      </button> */}
     </form>
   );
 }
 
 
+
 export default function CouchAndCosultSectionWidget() {
+
+
+  const [selectedConsultCategory, setSelectedConsultCategory] = useState(options1[0].value);
+  const [selectedConsultType, setSelectedConsultType] = useState(options2[0].value);
+
+  const router = useRouter();
+
+
+  const handleConsultCategoryChange = (value) => {
+    setSelectedConsultCategory(value);  // Update parent state
+   
+  };
+
+  const handleConsultTypeChange = (value) => {
+    setSelectedConsultType(value);  // Update parent state
+   
+  };
+
+  const reserveSubmitHandler = () => {
+    console.log('selectedConsultCategory', selectedConsultCategory);
+    console.log('selectedConsultType', selectedConsultType);
+    router.push(`/consult?consult_category=${selectedConsultCategory}&consult_type=${selectedConsultType}`);
+  }
+
+
   return (
     <div className='py-12 px-8 w-full flex flex-col md:flex-row justify-between items-center'>
 
@@ -94,19 +117,27 @@ export default function CouchAndCosultSectionWidget() {
           className="mt-3 font-medium text-sm text-gray-800"> قدم اول :  موضوع دلخواهتان را انتخاب کنید. </span>
         <div className="mt-4 flex flex-wrap gap-3">
 
-            <CustomRadioForm options={options1} />
+        <CustomRadioForm
+        options={options1}
+        selectedOption={selectedConsultCategory}
+        onChange={handleConsultCategoryChange}  // Pass handler to child
+      />
 
         </div>
 
         <span
           className="mt-3 font-medium text-sm text-gray-800"> قدم دوم :   نوع مشاوره را انتخاب کنید. </span>
         <div className='mt-4 flex flex-wrap gap-3'>
-        <CustomRadioForm options={options2} />
+        <CustomRadioForm
+        options={options2}
+        selectedOption={selectedConsultType}
+        onChange={handleConsultTypeChange}  // Pass handler to child
+      />
         </div>
 
 
         <div  className="relative w-full mt-6">
-      <button  className="w-full mt-6 yellow-gradient-bg py-4 rounded-lg  flex justify-center items-center">
+      <button  onClick={reserveSubmitHandler}  className="w-full mt-6 yellow-gradient-bg py-4 rounded-lg  flex justify-center items-center">
          <span className="text-sm"> 
           رزرو مشاوره
          </span>
