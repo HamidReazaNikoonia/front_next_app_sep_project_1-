@@ -7,6 +7,7 @@ import { useState } from 'react';
 import { CustomRadioForm } from '@/components/CouchAndCosultSectionWidget';
 
 import { ChevronLeft, Pencil } from 'lucide-react';
+import ReserveCalendar from '@/sections/consult/ReserveCalendar';
 
 
 
@@ -200,6 +201,11 @@ export default function consultPgae(props: IPortfolioProps) {
           <h2 className='text-lg text-center'>
             لطفا تاریخ و ساعت مورد نظر خود را انتخاب کنید
              </h2>
+
+            {/* Calendar Wrapper */}
+            <div className='py-14'>
+            <ReserveCalendar />
+            </div>
         </div>
       </div>
     </div>
