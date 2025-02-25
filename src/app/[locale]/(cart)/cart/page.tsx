@@ -310,7 +310,7 @@ export default function ShoppingCart() {
   const isAddressDataExist = addressIsSuccess && addressData && Array.isArray(addressData);
 
   return (
-    <div className="w-full bg-gray-100 min-h-screen">
+    <div className="w-full primary-gradient-bg min-h-[80vh]">
       <div className="mx-auto px-4 py-8">
         {/* <h2 dir='rtl' className="text-3xl text-right font-bold mb-6 text-gray-800">
         <X size={34} />
@@ -400,7 +400,7 @@ export default function ShoppingCart() {
                           </div>
                         </div>
                       </div>
-                      <div className='flex flex-col md:flex-row space-y-2 md:space-y-0 justify-between'>
+                      <div className='flex flex-col  space-y-2  mt-4'>
                         {/* <button
                     onClick={continuePaymentHandler}
                     className=" w-full md:w-60 cursor-pointer  bg-purple-800 hover:bg-blue-600 text-white font-bold py-3 px-4 rounded-lg transition-colors duration-200 disabled:opacity-50 disabled:cursor-not-allowed"
@@ -411,11 +411,13 @@ export default function ShoppingCart() {
                         <LoadingButton onClick={continuePaymentHandler} isLoading={submitCartIsLoading} disabled={(!selectedAddress && isProductExistInTheList)} >
                           ادامه خرید
                         </LoadingButton>
+                        <Link href="/">
                         <button
-                          className="w-full md:w-32 cursor-pointer bg-red-500 hover:bg-red-400 text-white font-bold py-3 px-6 rounded-lg transition-colors duration-200"
+                          className="w-full  cursor-pointer bg-red-500 hover:bg-red-400 text-white font-bold py-3 px-6 rounded-lg transition-colors duration-200"
                         >
                           بازگشت
                         </button>
+                        </Link>
                       </div>
                       {(!selectedAddress && isProductExistInTheList) && (
                         <p className="text-xs text-red-500 mt-4">
