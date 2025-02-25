@@ -1,7 +1,11 @@
 'use client';
 import React, { useState } from 'react';
+import toast from 'react-hot-toast';
 import momentJalaali from "moment-jalaali";
 import { Calendar } from "react-datepicker2";
+
+import LoadingSpinner from '@/components/LoadingSpiner';
+
 
 
 // TEST
@@ -21,61 +25,60 @@ const timeSlotItemArray = [
   },
   {
     startTime: '11:00',
-    endTime: '12:00',
-    isBooked: false
-  },
-  {
-    startTime: '11:00',
-    endTime: '12:00',
-    isBooked: false
-  },
-  {
-    startTime: '11:00',
-    endTime: '12:00',
-    isBooked: false
-  },
-  {
-    startTime: '11:00',
-    endTime: '12:00',
-    isBooked: false
-  },
-  {
-    startTime: '11:00',
-    endTime: '12:00',
-    isBooked: false
-  },
-  {
-    startTime: '11:00',
-    endTime: '12:00',
-    isBooked: false
-  },
-  {
-    startTime: '11:00',
-    endTime: '12:00',
-    isBooked: false
-  },
-  {
-    startTime: '11:00',
-    endTime: '12:00',
-    isBooked: false
-  },
-  {
-    startTime: '11:00',
-    endTime: '12:00',
+    endTime: '13:00',
     isBooked: false
   },
   {
     startTime: '13:00',
     endTime: '14:00',
+    isBooked: false
+  },
+  {
+    startTime: '14:00',
+    endTime: '15:00',
+    isBooked: false
+  },
+  {
+    startTime: '15:00',
+    endTime: '16:00',
+    isBooked: false
+  },
+  {
+    startTime: '16:00',
+    endTime: '17:00',
+    isBooked: false
+  },
+  {
+    startTime: '17:00',
+    endTime: '18:00',
+    isBooked: false
+  },
+  {
+    startTime: '18:00',
+    endTime: '19:00',
+    isBooked: false
+  },
+  {
+    startTime: '19:00',
+    endTime: '20:00',
+    isBooked: false
+  },
+  {
+    startTime: '20:00',
+    endTime: '21:00',
+    isBooked: false
+  },
+  {
+    startTime: '21:00',
+    endTime: '22:00',
     isBooked: true
   }
 ]
 
 
-import LoadingSpinner from '@/components/LoadingSpiner';
-import { Card } from '@/components/ui/card';
 
-export default function ReserveCalendar() {
+
+export default function ReserveCalendar({dateChangeHandler, timeSlotChangeHandler}) {
 
   // States
   const [calendarValue, setcalendarValue] = useState(momentJalaali());
@@ -89,6 +92,7 @@ export default function ReserveCalendar() {
     setcalendarValue(selectedDate);
 
     setSelectedDateState(selectedDate.locale("fa").format("jYYYY/jM/jD"));
+    dateChangeHandler(selectedDate.locale("fa").format("jYYYY/jM/jD"));
     console.log(selectedDateState);
   };
 
@@ -102,7 +106,7 @@ export default function ReserveCalendar() {
   // @ts-ignore
   const handleSelectSlot = (index, slot) => {
     if (slot.isBooked) {
-      alert("this time is booked by user, you can not change that");
+      toast.error("این تایم قبلا رزرو شده")
       return false;
     }
     const updatedSlots = timeSlotItem.map(
@@ -112,7 +116,9 @@ export default function ReserveCalendar() {
       // i === index ? { ...slot, isSelected: !slot.isSelected } : slot
     );
     settimeSlotItem(updatedSlots);
-    // console.log(timeSlot);
+    const selectedTimeSlotTime = updatedSlots.filter((slot) => slot.isSelected);
+    timeSlotChangeHandler(selectedTimeSlotTime);
+    console.log(selectedTimeSlotTime);
   };
 
 
@@ -120,7 +126,7 @@ export default function ReserveCalendar() {
 
 
   return (
-    <div className='w-full flex pt-8 justify-around px-20'>
+    <div className='w-full flex flex-col md:flex-row pt-8 justify-around px-0 md:px-20 items-center'>
       {/* Calendar Wrapper */}
       <div>
         <Calendar
@@ -133,7 +139,7 @@ export default function ReserveCalendar() {
 
 
       {/* Time Slot Wrapper */}
-      <div>
+      <div className='mt-10 md:mt-0'>
         <div
           id="timeslot_box"
           className='flex  flex-wrap gap-4 justify-center text-center items-center max-h-385 overflow-y-auto pb-50 pt-25 mr-30 rounded-15 border-1 border-gray-300'

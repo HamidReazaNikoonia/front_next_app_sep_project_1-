@@ -3,13 +3,15 @@ import Image from 'next/image';
 import Link from 'next/link';
 
 import { useRouter, useSearchParams } from 'next/navigation';
+
+import momentJalaali from "moment-jalaali";
 import { useState } from 'react';
 import { CustomRadioForm } from '@/components/CouchAndCosultSectionWidget';
 
-import { ChevronLeft, Pencil } from 'lucide-react';
+import { ChevronLeft, Pencil, BadgeCheck } from 'lucide-react';
 import ReserveCalendar from '@/sections/consult/ReserveCalendar';
 
-
+import useResponsiveEvent from '@/hooks/useResponsiveEvent';
 
 type IPortfolioProps = {
   params: Promise<{ locale: string }>;
@@ -99,6 +101,16 @@ export default function consultPgae(props: IPortfolioProps) {
   const [selectedConsultCategory, setSelectedConsultCategory] = useState(consultCategoryQueryParam || options1[0].value);
   const [selectedConsultType, setSelectedConsultType] = useState(consultTypeQueryParam || options2[0].value);
 
+
+  const isMobileScreen = useResponsiveEvent(768, 200);
+
+
+  // Reservation time state
+  const [selectedDateState, setSelectedDateState] = useState(
+    momentJalaali().locale("fa").format("jYYYY/jM/jD")
+  );
+  const [timeSlotItem, settimeSlotItem] = useState(null);
+
   const router = useRouter();
  
 
@@ -119,6 +131,17 @@ export default function consultPgae(props: IPortfolioProps) {
     router.push(`/consult?consult_category=${selectedConsultCategory}&consult_type=${selectedConsultType}`);
   }
 
+
+  const dateChangeHandler = (date) => {
+    setSelectedDateState(date);
+    console.log('date', date);
+  }
+
+  const timeSlotChangeHandler = (slot) => {
+    settimeSlotItem(slot);
+    console.log('slot', slot);
+  }
+
   const courseTypeMap: {
     HOZORI: string;
     OFFLINE: string;
@@ -133,19 +156,19 @@ export default function consultPgae(props: IPortfolioProps) {
 
 
 
-      <div className=' container mx-auto mb-24 mt-12 rounded-2xl shadow-xl bg-white py-4 px-8'>
+      <div className='  md:container md:mx-auto mb-24 mt-12 rounded-2xl shadow-xl bg-white py-4 px-0 md:px-8'>
 
         {/* SELECT Consult Category and Consult Type Section */}
-        <div className='pb-2 px-8 w-full flex flex-col md:flex-row justify-end items-center'>
+        <div className='pb-2 px-0 md:px-8 w-full flex flex-col md:flex-row justify-end items-center'>
 
           {/* Rigth Section */}
-          <div dir='rtl' className="bg-inherit flex-col space-y-2 flex rounded-xl p-6">
-            <div className='flex flex-row gap-3 items-center'>
+          <div dir='rtl' className="bg-inherit flex-col space-y-2 flex rounded-xl p-6 ">
+            <div className='flex flex-row gap-1 md:gap-3 items-center'>
             <span
-              className="mt-3 font-medium text-lg text-gray-800"> شما مشاوره برای <span className='font-bold text-green-700'>
+              className="mt-3 font-medium text-sm md:text-lg text-gray-800 leading-6"> شما مشاوره برای <span className='font-bold text-green-700'>
                 {selectedConsultCategory}
               </span> انتخاب کردید</span> 
-              <span onClick={() => setShowConsultCategory(true)} className='text-xs text-blue-700 cursor-pointer hover:underline'  >     ( تغییر موضوع ) <Pencil size={16} className=' inline' /></span>
+              <span onClick={() => setShowConsultCategory(true)} className='text-[11px] text-blue-700 cursor-pointer flex-shrink-0 hover:underline'  >     ( تغییر موضوع ) <Pencil size={isMobileScreen ? 14 : 16} className=' inline' /></span>
             </div>
 
             {ShowConsultCategory && (
@@ -162,11 +185,11 @@ export default function consultPgae(props: IPortfolioProps) {
             
             <div className='flex flex-row gap-3 items-center'>
             <span
-              className="mt-5 font-medium text-lg text-gray-800">  شما مشاوره <span className='font-bold text-green-700'>
+              className="mt-5 font-medium text-sm md:text-lg text-gray-800">  شما مشاوره <span className='font-bold text-green-700'>
                 {courseTypeMap[selectedConsultType]}
                 </span> را انتخاب کردید  </span>
 
-                <span onClick={() => setShowConsultType(true)} className='text-xs mt-2 text-blue-700 cursor-pointer hover:underline'  >     ( تغییر ) <Pencil size={16} className=' inline' /></span>
+                <span onClick={() => setShowConsultType(true)} className='text-[11px] flex-shrink-0 mt-2 text-blue-700 cursor-pointer hover:underline'  >     ( تغییر ) <Pencil size={isMobileScreen ? 14 : 16} className=' inline' /></span>
 
             </div>
             
@@ -197,14 +220,42 @@ export default function consultPgae(props: IPortfolioProps) {
 
 
         {/* Select Time/Date Section */}
-        <div className='py-8 px-8 w-full flex flex-col border-t-2'>
+        <div className='py-8 px-8 w-full flex flex-col border-t-2 border-b-2'>
           <h2 className='text-lg text-center'>
             لطفا تاریخ و ساعت مورد نظر خود را انتخاب کنید
              </h2>
 
             {/* Calendar Wrapper */}
             <div className='py-14'>
-            <ReserveCalendar />
+            <ReserveCalendar timeSlotChangeHandler={timeSlotChangeHandler}  dateChangeHandler={dateChangeHandler} />
+            </div>
+        </div>
+
+
+        {/* Payment And Information Section */}
+        <div className='w-full flex py-8 px-8 flex-col'>
+          {/* Header Information */}
+          <div className='text-lg text-center'>
+            هزینه و اطلاعات پرداخت برای مشاوره
+          </div>
+
+          <div dir='rtl' className='text-sm leading-7 text-gray-800 mt-12 p-4 border-2 border-dashed border-gray-400 rounded-lg'>
+            هزینه مشاوره برای هر جلسه با بهترین اساتید و مشاوران شامل  هزار تومان میباشد که شما میبایست این 
+            مبلغ را به صورت اینترنتی پرداخت کنید, شما بعد از کامل کردن اطلاعات این صفحه که شامل نوع مشاوره و زمان برگذاری مشاوره میباشد
+            با کلیک کردن بر روی دکمه ثبت مشاوره به صفحه ی پرداخت بانک منتقل خواهید شد و بعد از
+           پرداخت , در صورت تایید مشاور شما برای شما اطلاع رسانی خواهد شد.
+          </div>
+
+
+
+          {/* Button */}
+          <div className="relative w-full mt-6">
+            <button onClick={reserveSubmitHandler} className="w-full mt-6 yellow-gradient-bg py-4 rounded-lg  flex justify-center items-center">
+              <span className="text-sm">
+                 ثبت مشاوره
+              </span>
+              <BadgeCheck className='ml-2' />
+            </button>
             </div>
         </div>
       </div>
