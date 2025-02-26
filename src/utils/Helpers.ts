@@ -1,7 +1,7 @@
 import { AppConfig } from './AppConfig';
 
 
-const PROJECT_NAME = process.env.NEXT_PUBLIC_PROJECT_NAME ||  'sepah';
+const PROJECT_NAME = process.env.NEXT_PUBLIC_PROJECT_NAME || 'sepah';
 
 export const getBaseUrl = () => {
   if (process.env.NEXT_PUBLIC_APP_URL) {
@@ -31,7 +31,7 @@ export const getI18nPath = (url: string, locale: string) => {
 };
 
 
-export const isEmpty = function(string: string | null) {
+export const isEmpty = function (string: string | null) {
   if (!string) return true;
   // This doesn't work the same way as the isEmpty function used 
   // in the first example, it will return true for strings containing only whitespace
@@ -50,16 +50,21 @@ export const toPersianDigits = (number: string) => {
 
 
 
-export const storeAuthToken = (tokens: {access: {token: string}, refresh: {token: string}}, userDoc: any) => { 
-  localStorage.setItem(`${PROJECT_NAME}-access`, tokens.access.token);
-  localStorage.setItem(`${PROJECT_NAME}-refresh`, tokens.refresh.token);
-  localStorage.setItem(`${PROJECT_NAME}-lastLogin`, Date.now().toString());
-  localStorage.setItem(`${PROJECT_NAME}-isAuthenticated`, 'true');
-  localStorage.setItem(`${PROJECT_NAME}-user`, JSON.stringify(userDoc));
- }
+export const storeAuthToken = (tokens: { access: { token: string }, refresh: { token: string } }, userDoc: any) => {
+
+  if (typeof window !== 'undefined') {
+    localStorage.setItem(`${PROJECT_NAME}-access`, tokens.access.token);
+    localStorage.setItem(`${PROJECT_NAME}-refresh`, tokens.refresh.token);
+    localStorage.setItem(`${PROJECT_NAME}-lastLogin`, Date.now().toString());
+    localStorage.setItem(`${PROJECT_NAME}-isAuthenticated`, 'true');
+    localStorage.setItem(`${PROJECT_NAME}-user`, JSON.stringify(userDoc));
+  }
 
 
- export const formatDuration = (minutes: number): string => {
+}
+
+
+export const formatDuration = (minutes: number): string => {
   const hours = Math.floor(minutes / 60)
   const remainingMinutes = minutes % 60
 

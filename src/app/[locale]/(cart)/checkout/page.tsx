@@ -1,7 +1,7 @@
 'use client';
 const iranCity = require('iran-city');
 
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, Suspense } from 'react';
 import { useSearchParams } from 'next/navigation';
 import { CircleCheckBig, Ban, ShoppingBasket, MapPinHouse } from 'lucide-react';
 
@@ -13,7 +13,7 @@ import { getSpecificOrderByIdRequest } from '@/API/order';
 import toast from 'react-hot-toast';
 import Link from 'next/link';
 import OrderStatusSteps from '@/sections/order/OrderStatusSteps';
-import { title } from 'process';
+
 // import { AiOutlineCheckCircle, AiOutlineCloseCircle } from 'react-icons/ai';
 
 interface CartItem {
@@ -23,6 +23,14 @@ interface CartItem {
   price: number;
   product?: any;
   course?: any;
+}
+
+const Page = () => {
+  return (
+    <Suspense fallback={<p>Loading...</p>}>
+      <CheckoutPage />
+    </Suspense>
+  );
 }
 
 const CheckoutPage: React.FC = () => {
@@ -289,4 +297,4 @@ const CheckoutPage: React.FC = () => {
   );
 };
 
-export default CheckoutPage;
+export default Page;

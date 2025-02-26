@@ -5,7 +5,7 @@ import Link from 'next/link';
 import { useRouter, useSearchParams } from 'next/navigation';
 
 import momentJalaali from "moment-jalaali";
-import { useState } from 'react';
+import { Suspense, useEffect, useState } from 'react';
 import { CustomRadioForm } from '@/components/CouchAndCosultSectionWidget';
 
 import { ChevronLeft, Pencil, BadgeCheck } from 'lucide-react';
@@ -57,6 +57,12 @@ const options1 = [
 ];
 
 
+const findLabel = (value) => {
+  const option = options1.find((option) => option.value === value);
+  return option.label;
+}
+
+
 const options2 = [
   { value: "HOZORI", label: "مشاوره حضوری" },
   { value: "OFFLINE", label: "مشاوره آنلاین" },
@@ -76,7 +82,15 @@ const options2 = [
 // };
 
 
-export default function consultPgae(props: IPortfolioProps) {
+export default function Page (props: IPortfolioProps) {
+  return (
+    <Suspense fallback={<p>Loading...</p>}>
+      <consultPgae {...props} />
+    </Suspense>
+  );
+}
+
+function consultPgae(props: IPortfolioProps) {
   // const { locale } = await props.params;
   // setRequestLocale(locale);
   // const t = await getTranslations({
@@ -87,15 +101,18 @@ export default function consultPgae(props: IPortfolioProps) {
   // const coursesData = await fetchRepo();
   // console.log({coursesData: coursesData.data.courses})
 
-  // UI STATE
+
+  const searchParams = useSearchParams();
+  const consultCategoryQueryParam = searchParams.get("consult_category");
+  const consultTypeQueryParam = searchParams.get("consult_type");
+
+// UI STATE
   const [ShowConsultCategory, setShowConsultCategory] = useState(false);
   const [ShowConsultType, setShowConsultType] = useState(false);
 
 
 
-  const searchParams = useSearchParams();
-  const consultCategoryQueryParam = searchParams.get("consult_category");
-  const consultTypeQueryParam = searchParams.get("consult_type");
+  
 
 
   const [selectedConsultCategory, setSelectedConsultCategory] = useState(consultCategoryQueryParam || options1[0].value);
@@ -112,6 +129,18 @@ export default function consultPgae(props: IPortfolioProps) {
   const [timeSlotItem, settimeSlotItem] = useState(null);
 
   const router = useRouter();
+
+
+  useEffect(() => {
+    if (!consultCategoryQueryParam) {
+      setShowConsultCategory(true);
+    }
+
+    if (!consultTypeQueryParam) {
+      setShowConsultType(true)
+    }
+  },[])
+  
  
 
 
@@ -166,9 +195,9 @@ export default function consultPgae(props: IPortfolioProps) {
             <div className='flex flex-row gap-1 md:gap-3 items-center'>
             <span
               className="mt-3 font-medium text-sm md:text-lg text-gray-800 leading-6"> شما مشاوره برای <span className='font-bold text-green-700'>
-                {selectedConsultCategory}
+                {selectedConsultCategory && findLabel(selectedConsultCategory)}
               </span> انتخاب کردید</span> 
-              <span onClick={() => setShowConsultCategory(true)} className='text-[11px] text-blue-700 cursor-pointer flex-shrink-0 hover:underline'  >     ( تغییر موضوع ) <Pencil size={isMobileScreen ? 14 : 16} className=' inline' /></span>
+              {consultCategoryQueryParam && <span onClick={() => setShowConsultCategory(true)} className='text-[11px] text-blue-700 cursor-pointer flex-shrink-0 hover:underline'  >     ( تغییر موضوع ) <Pencil size={isMobileScreen ? 14 : 16} className=' inline' /></span>}
             </div>
 
             {ShowConsultCategory && (
@@ -189,7 +218,7 @@ export default function consultPgae(props: IPortfolioProps) {
                 {courseTypeMap[selectedConsultType]}
                 </span> را انتخاب کردید  </span>
 
-                <span onClick={() => setShowConsultType(true)} className='text-[11px] flex-shrink-0 mt-2 text-blue-700 cursor-pointer hover:underline'  >     ( تغییر ) <Pencil size={isMobileScreen ? 14 : 16} className=' inline' /></span>
+                {consultTypeQueryParam && <span onClick={() => setShowConsultType(true)} className='text-[11px] text-blue-700 cursor-pointer hover:underline'  >     ( تغییر ) <Pencil size={isMobileScreen ? 14 : 16} className=' inline' /></span>}
 
             </div>
             

@@ -50,8 +50,8 @@ const Navbar = () => {
 
 
   /**
-   * @type {string | number | NodeJS.Timeout | undefined}
-   */
+  * @type {string | number | NodeJS.Timeout | undefined}
+  */
   let dropdownTimeout;
 
   const handleMouseEnter = () => {
@@ -73,50 +73,56 @@ const Navbar = () => {
     <nav className="bg-white text-gray-700 w-full border-b">
       <div className="container mx-auto py-5 px-6 ">
         {/* Search Mode */}
-          <div className="flex justify-between items-center">
-            {/* Left Side: Buttons */}
-           
-            {isAuthenticated ? (
-          <>
-            <UserAvatar user={user} logOut={logout} />
-          </>
-        ) : (
-          <Link className="text-sm" href='/sign-in'>
+        <div className="flex justify-between items-center">
+          {/* Left Side: Buttons */}
+
+          {isAuthenticated ? (
+            <>
+              <UserAvatar user={user} logOut={logout} />
+            </>
+          ) : (
+            <Link className="text-sm" href='/sign-in'>
               ورود | ثبت‌نام
-          </Link>
-        )}
+            </Link>
+          )}
 
-            {/* Right Side: Logo and Menu */}
-            <div className="flex items-center">
+          {/* Right Side: Logo and Menu */}
+          <div className="flex items-center">
 
 
-              {/* Desktop Menu */}
-              <ul className="flex space-x-3 md:space-x-6 relative text-[11px] md:text-sm cursor-pointer">
-                <li className="hover:text-gray-500">تماس با ما</li>
-                
-                <li className="hover:text-gray-500">دوره های آموزشی</li>
+            {/* Desktop Menu */}
+            <ul className="flex space-x-3 md:space-x-6 relative text-[11px] md:text-sm cursor-pointer">
+              <li className="hover:text-gray-500">تماس با ما</li>
+
+              <Link href="/course">
+              <li className="hover:text-gray-500">دوره های آموزشی</li>
+
+              </Link>
+
+              <Link href='/consult'>
                 <li className="hover:text-gray-500">مشاوره</li>
+              </Link>
+
+              <Link href="/">
                 <li className="hover:text-gray-500">خانه</li>
+              </Link>
+            </ul>
 
-              </ul>
 
-
-              {/* Hamburger Icon */}
-              {/* <button
-                className="md:hidden ml-4"
-                onClick={() => setIsOpen(!isOpen)}
-              >
-                <span className="material-icons">
-                  <Menu />
-                </span>
-              </button> */}
-            </div>
+            {/* Hamburger Icon */}
+            {/* <button className="md:hidden ml-4" onClick={()=> setIsOpen(!isOpen)}
+                    >
+                    <span className="material-icons">
+                        <Menu />
+                    </span>
+                </button> */}
           </div>
-        
+        </div>
+
       </div>
 
 
-    
+
     </nav>
   );
 };

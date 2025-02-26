@@ -40,8 +40,8 @@ export default function DashboardLayout({
   // Redirect to login page if the user is not authenticated
   useEffect(() => {
     // Check if the user is authenticated
-    const storedAuth = localStorage.getItem(`${PROJECT_NAME}-isAuthenticated`);
-    const authToken = localStorage.getItem(`${PROJECT_NAME}-access`);
+    const storedAuth = typeof window !== "undefined" ?  localStorage.getItem(`${PROJECT_NAME}-isAuthenticated`) : false;
+    const authToken = typeof window !== "undefined" ? localStorage.getItem(`${PROJECT_NAME}-access`) : false;
 
     if (!authToken || !storedAuth) {
       // Redirect to login page if the user is not authenticated
