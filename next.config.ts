@@ -52,6 +52,11 @@ export default withSentryConfig(
             hostname: 'localhost',
             port: '9000',
           },
+          {
+            protocol: 'http',
+            hostname: 'http://5.34.204.190',
+            port: '9000',
+          },
         ],
       },
       reactStrictMode: false,

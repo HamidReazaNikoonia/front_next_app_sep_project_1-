@@ -13,7 +13,7 @@ import "./styles.css";
 import { ICourseTypes } from '@/types/Course';
 import toast from 'react-hot-toast';
 
-const NEXT_PUBLIC_SERVER_URL = process.env.NEXT_PUBLIC_SERVER_URL || '';
+// const NEXT_PUBLIC_SERVER_URL = process.env.NEXT_PUBLIC_SERVER_URL || '';
 
 
 type CourseItem = {

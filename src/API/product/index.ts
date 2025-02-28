@@ -1,4 +1,8 @@
 import { IProduct } from '@/types/Product';
+import {SERVER_API_URL, SERVER_API_TOKEN} from '../config';
+
+const API_BASE_URL = SERVER_API_URL;
+const API_TOKEN = SERVER_API_TOKEN;
 
 interface FilterParams {
   search?: string;
@@ -28,7 +32,7 @@ async function getCategories() {
   };
 
   const response = fetch(
-    `http://localhost:9000/v1/product/categories`,
+    `${API_BASE_URL}/product/categories`,
     options
   )
     .then((response) => response.json())
@@ -57,7 +61,7 @@ async function getProducts(params: FilterParams = {}): Promise<ProductsResponse>
   console.log({ filteredParams })
 
   const response = fetch(
-    `http://localhost:9000/v1/product?${new URLSearchParams(filteredParams)}`,
+    `${API_BASE_URL}/product?${new URLSearchParams(filteredParams)}`,
     options
   )
     .then((response) => response.json())
@@ -65,10 +69,6 @@ async function getProducts(params: FilterParams = {}): Promise<ProductsResponse>
 
   return response;
 }
-
-
-const API_BASE_URL = 'http://localhost:9000/v1';
-const API_TOKEN = 'YOUR_API_TOKEN_HERE';
 
 export async function getComments(page: number, productId: string, type: string) {
   const options = {

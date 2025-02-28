@@ -17,8 +17,8 @@ import { useProductsStore } from '@/_store/Product';
 // import { getProductsRequest } from '@/API/product';
 import { isEmpty } from '@/utils/Helpers';
 
-const NEXT_PUBLIC_SERVER_FILES_URL = process.env.NEXT_PUBLIC_SERVER_FILES_URL || '';
-const NEXT_PUBLIC_SERVER_URL = process.env.NEXT_PUBLIC_SERVER_URL || '';
+// const NEXT_PUBLIC_SERVER_FILES_URL = process.env.NEXT_PUBLIC_SERVER_FILES_URL || '';
+// const NEXT_PUBLIC_SERVER_URL = process.env.NEXT_PUBLIC_SERVER_URL || '';
 
 
 interface FilterParams {

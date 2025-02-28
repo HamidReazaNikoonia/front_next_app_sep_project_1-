@@ -1,8 +1,10 @@
 import { ICourseTypes } from '@/types/Course';
 
 
-const API_BASE_URL = 'http://localhost:9000/v1';
-const API_TOKEN = 'YOUR_API_TOKEN_HERE';
+import {SERVER_API_URL} from '../config';
+
+const API_BASE_URL = SERVER_API_URL;
+// const API_TOKEN = SERVER_API_TOKEN;
 
 interface FilterParams {
   search?: string;

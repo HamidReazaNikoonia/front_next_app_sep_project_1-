@@ -85,12 +85,12 @@ const options2 = [
 export default function Page (props: IPortfolioProps) {
   return (
     <Suspense fallback={<p>Loading...</p>}>
-      <consultPgae {...props} />
+      <ConsultPgae {...props} />
     </Suspense>
   );
 }
 
-function consultPgae(props: IPortfolioProps) {
+function ConsultPgae(props: IPortfolioProps) {
   // const { locale } = await props.params;
   // setRequestLocale(locale);
   // const t = await getTranslations({
