@@ -66,7 +66,7 @@ export default async function Index(props: IIndexProps) {
 
 
       {/* Product Category Section */}
-      <div className='w-full '>
+      <div className='w-full hidden md:block'>
         <ProductCategoryCards />
       </div>
 
@@ -95,7 +95,7 @@ export default async function Index(props: IIndexProps) {
 
 
       {/* Service Card Swiper */}
-      <div className=" py-20" style={{ background: 'linear-gradient(90deg, rgb(77, 186, 100), rgb(37, 160, 111))' }}>
+      <div className=" pt-8 md:pt-12 pb-20" style={{ background: 'linear-gradient(90deg, rgb(77, 186, 100), rgb(37, 160, 111))' }}>
         <ProductCardSection />
       </div>
 
@@ -117,13 +117,13 @@ export default async function Index(props: IIndexProps) {
 
 
       {/* Courses Card Section */}
-      <div className=" py-20 primary-gradient-bg">
+      <div className=" pb-14 pt-12 md:pt-20 primary-gradient-bg">
         <CoursesCardSection />
       </div>
 
 
       {/* Image Gallery Section */}
-      <div className=" primary-gradient-bg py-20">
+      <div className=" primary-gradient-bg pt-12 md:pt-20 pb-10 md:pb-16">
         <div className='mx-auto container'>
           <ThumbsSwiperImageGallery />
         </div>

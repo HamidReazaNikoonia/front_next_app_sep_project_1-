@@ -12,7 +12,7 @@ import { Button } from '@/components/ui/button';
 
 export default function HomeCardSection() {
   return (
-    <div className='container mx-auto py-20 overflow-x-hidden relative'>
+    <div className='container mx-auto pb-20 pt-8 md:pt-20 overflow-x-hidden relative px-4 md:px-0'>
       {/* Course Card */}
       <div className='w-full flex flex-col items-center'>
         {/* Header */}

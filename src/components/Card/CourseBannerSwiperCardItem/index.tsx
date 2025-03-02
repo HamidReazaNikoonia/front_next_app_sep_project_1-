@@ -5,6 +5,8 @@ import React from 'react'
 import Image from "next/image";
 import { Button } from "@/components/ui/button";
 
+import useResponsiveEvent from '@/hooks/useResponsiveEvent';
+
 import avatarImage from '@/public/assets/images/avatar.png'
 import product_placeholder from "@/public/assets/images/course-banner-slideshow.jpg";
 
@@ -25,6 +27,10 @@ const ServiceSwiperCardItem: React.FC<WebinarCardProps> = ({
   speakerImage,
   imageSrc,
 }) => {
+
+
+  const isMobileScreen = useResponsiveEvent(768, 200);
+
   return (
     <div dir="rtl" className="bg-white relative shadow-lg rounded-lg overflow-hidden flex flex-col md:flex-row p-4">
       {/* Banner */}
@@ -53,11 +59,11 @@ const ServiceSwiperCardItem: React.FC<WebinarCardProps> = ({
           <Image
             src={speakerImage || avatarImage}
             alt={speaker}
-            width={40}
-            height={40}
+            width={isMobileScreen ? 30 : 40}
+            height={isMobileScreen ? 30 :40}
             className="rounded-full"
           />
-          <span className="text-gray-800 text-sm font-medium">{speaker}</span>
+          <span className="text-gray-800 text-xs md:text-sm font-medium">{speaker}</span>
         </div>
       </div>
       

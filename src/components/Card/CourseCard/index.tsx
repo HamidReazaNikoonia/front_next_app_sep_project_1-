@@ -54,8 +54,11 @@ const CourseCardItem: React.FC<WebinarCardProps> = ({
     price,
   } = data || mockData;
 
+
+
+
   return (
-    <Link href={`/course/${_id}`}>
+    <Link href={ _id ? `/course/${_id}` : '/course/676c579894f20737a2e6384d'}>
       <div dir="rtl" className="bg-white relative shadow-lg rounded-lg overflow-hidden flex flex-col p-4 hover:opacity-70">
         {/* Banner */}
         <div className=" w-full relative">
@@ -129,11 +132,11 @@ const CourseCardItem: React.FC<WebinarCardProps> = ({
               <Image
                 src={avatarImage}
                 alt={'coach_id'}
-                width={40}
-                height={40}
+                width={30}
+                height={30}
                 className="rounded-full"
               />
-              <span className="text-gray-800 text-sm font-medium">{`مریم صفدری`}</span>
+              <span className="text-gray-800 text-xs md:text-sm font-medium">{`مریم صفدری`}</span>
             </div>
 
 

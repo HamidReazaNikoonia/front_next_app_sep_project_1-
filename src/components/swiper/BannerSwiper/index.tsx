@@ -27,7 +27,7 @@ export default function BannerSwiper() {
         breakpoints={{
           // Mobile screens (less than 700px)
           0: {
-            slidesPerView: 1,
+            slidesPerView: 1.2,
             spaceBetween: 10, // Optional: Reduce spacing for smaller screens
           },
           

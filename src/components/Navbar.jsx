@@ -92,10 +92,13 @@ const Navbar = () => {
 
             {/* Desktop Menu */}
             <ul className="flex space-x-3 md:space-x-6 relative text-[11px] md:text-sm cursor-pointer">
-              <li className="hover:text-gray-500">تماس با ما</li>
+              <Link href="/product">
+                <li className="hover:text-gray-500">محصولات</li>
+
+              </Link>
 
               <Link href="/course">
-              <li className="hover:text-gray-500">دوره های آموزشی</li>
+                <li className="hover:text-gray-500">دوره های آموزشی</li>
 
               </Link>
 

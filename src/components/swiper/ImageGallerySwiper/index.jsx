@@ -44,12 +44,12 @@ export default function ImageGallerySwiper() {
         <SwiperSlide>
           <img src="assets/images/s4.jpg" />
         </SwiperSlide>
-        <SwiperSlide>
+        {/* <SwiperSlide>
           <img src="assets/images/s5.jpg" />
-        </SwiperSlide>
-        <SwiperSlide>
+        </SwiperSlide> */}
+        {/* <SwiperSlide>
           <img src="assets/images/s6.jpg" />
-        </SwiperSlide>
+        </SwiperSlide> */}
         <SwiperSlide>
           <img src="assets/images/s1.jpg" />
         </SwiperSlide>
@@ -84,12 +84,12 @@ export default function ImageGallerySwiper() {
         <SwiperSlide>
           <img src="assets/images/s4.jpg" />
         </SwiperSlide>
-        <SwiperSlide>
+        {/* <SwiperSlide>
           <img src="assets/images/s5.jpg" />
-        </SwiperSlide>
-        <SwiperSlide>
+        </SwiperSlide> */}
+        {/* <SwiperSlide>
           <img src="assets/images/s6.jpg" />
-        </SwiperSlide>
+        </SwiperSlide> */}
         <SwiperSlide>
           <img src="assets/images/s1.jpg" />
         </SwiperSlide>

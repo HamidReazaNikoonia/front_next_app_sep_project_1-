@@ -6,10 +6,10 @@ export default function ThumbsSwiperImageGallery() {
 return (
 <>
     {/* Header */}
-    <div className='flex justify-between w-full pb-8 px-4 md:px-0'>
+    <div className='flex justify-between w-full pb-2 px-4 md:px-0'>
 
         <button
-            className="bg-transparent hover:bg-blue-500 text-black font-medium hover:text-white py-2 px-4 border border-white hover:border-transparent rounded-md inline-flex items-center">
+            className="bg-transparent text-black font-medium text-xs md:text-sm py-2 px-1 mdpx-4   rounded-md inline-flex items-center">
             <ChevronsLeft className='mr-2' />
             مشاهده همه
         </button>
