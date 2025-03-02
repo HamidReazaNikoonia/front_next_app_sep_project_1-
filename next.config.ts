@@ -54,7 +54,7 @@ export default withSentryConfig(
           },
           {
             protocol: 'http',
-            hostname: 'http://5.34.204.190',
+            hostname: '5.34.204.190',
             port: '9000',
           },
         ],

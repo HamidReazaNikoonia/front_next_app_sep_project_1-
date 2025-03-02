@@ -82,7 +82,7 @@ async function getCourses(params: FilterParams = {}): Promise<CourseResponse> {
   console.log({ filteredParams })
 
   const response = fetch(
-    `http://localhost:9000/v1/course?${new URLSearchParams(filteredParams)}`,
+    `${API_BASE_URL}/course?${new URLSearchParams(filteredParams)}`,
     options
   )
     .then((response) => response.json())

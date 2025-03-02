@@ -3,6 +3,8 @@ import { getTranslations, setRequestLocale } from 'next-intl/server';
 import ProductListHeader from '@/sections/product/ProductListHeader';
 import ProductList from '@/sections/product/ProductList';
 
+import {SERVER_API_URL} from '@/API/config';
+
 
 type IAboutProps = {
   params: Promise<{ slug: string; locale: string }>;
@@ -22,7 +24,7 @@ export async function generateMetadata(props: IAboutProps) {
 
 
 const fetchRepo = async () => {
-  const res = await fetch('http://localhost:9000/v1/product', {
+  const res = await fetch(`${SERVER_API_URL}/product`, {
     next: { revalidate: 60 }, // Enables ISR (Incremental Static Regeneration)
   });
 

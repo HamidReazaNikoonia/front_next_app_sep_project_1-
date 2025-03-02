@@ -7,6 +7,8 @@ import CoursePageHeader from '@/sections/course/CoursePageHeader';
 import { ICourseTypes } from '@/types/Course';
 import CommentLayout from '@/components/Comment';
 
+import {SERVER_API_URL} from '@/API/config';
+
 type IPortfolioDetailProps = {
   params: Promise<{ slug: string; locale: string }>;
 };
@@ -36,7 +38,7 @@ export async function generateMetadata(props: IPortfolioDetailProps) {
 }
 
 const fetchRepo = async ({ courseId }: { courseId: string }): Promise<ICourseTypes> => {
-  const res = await fetch(`http://localhost:9000/v1/course/${courseId}/`, {
+  const res = await fetch(`${SERVER_API_URL}/course/${courseId}/`, {
     next: { revalidate: 60 }, // Enables ISR (Incremental Static Regeneration)
   });
 

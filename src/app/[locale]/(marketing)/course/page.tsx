@@ -6,6 +6,8 @@ import HeroSwiperSection from '@/sections/course/HeroSwiperSection';
 import CourseCategoryCardSection from '@/sections/course/CourseCategoryCard';
 import CourseList from '@/sections/course/CourseList';
 
+import {SERVER_API_URL} from '@/API/config';
+
 
 
 
@@ -28,7 +30,7 @@ type IPortfolioProps = {
 // }
 
 const fetchRepo = async () => {
-  const res = await fetch('http://localhost:9000/v1/course', {
+  const res = await fetch(`${SERVER_API_URL}/course`, {
     next: { revalidate: 60 }, // Enables ISR (Incremental Static Regeneration)
   });
 

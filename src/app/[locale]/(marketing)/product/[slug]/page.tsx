@@ -8,6 +8,8 @@ import { Star } from 'lucide-react';
 import AddToCartButton from '@/components/AddToCartButton';
 import CommentLayout from '@/components/Comment';
 
+import {SERVER_API_URL} from '@/API/config';
+
 import product_placeholder from "@/public/assets/images/product_placeholder.png";
 
 type IAboutProps = {
@@ -31,7 +33,7 @@ const NEXT_PUBLIC_SERVER_FILES_URL = process.env.NEXT_PUBLIC_SERVER_FILES_URL ||
 
 
 const fetchRepo = async ({ productId }: { productId: string }) => {
-  const res = await fetch(`http://localhost:9000/v1/product/${productId}/11`, {
+  const res = await fetch(`${SERVER_API_URL}/product/${productId}/11`, {
     next: { revalidate: 60 }, // Enables ISR (Incremental Static Regeneration)
   });
 
