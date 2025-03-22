@@ -12,14 +12,14 @@ import CoachImage from '@/public/assets/images/sec-1-l.webp';
 const options1= [
   { value: "option1", label: "مشاوره خانواده" },
   { value: "option2", label: "مشاوره فرهنگی" },
-  { value: "option3", label: "مشاوره اعتیاد" },
-  { value: "option4", label: "مشاوره اعتیاد" },
-  { value: "option5", label: "مشاوره اعتیاد" },
-  { value: "option6", label: "مشاوره اعتیاد" },
-  { value: "option7", label: "مشاوره اعتیاد" },
-  { value: "option8", label: "مشاوره اعتیاد" },
-  { value: "option9", label: "مشاوره اعتیاد" },
-  { value: "option10", label: "مشاوره اعتیاد" },
+  { value: "option3", label: "مشاوره فرهنگی" },
+  { value: "option4", label: "مشاوره فرهنگی" },
+  { value: "option5", label: "مشاوره فرهنگی" },
+  { value: "option6", label: "مشاوره فرهنگی" },
+  { value: "option7", label: "مشاوره فرهنگی" },
+  { value: "option8", label: "مشاوره فرهنگی" },
+  { value: "option9", label: "مشاوره فرهنگی" },
+  { value: "option10", label: "مشاوره فرهنگی" },
 
 ];
 

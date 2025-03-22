@@ -53,7 +53,7 @@ export default function ServiceSwiper() {
           // Screens 700px and wider
           800: {
             slidesPerView: 5,
-            spaceBetween: 20, // Regular spacing
+            spaceBetween: 10, // Regular spacing
           },
         }}
         centerInsufficientSlides

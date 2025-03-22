@@ -9,6 +9,7 @@ import cardItemForProduct from '@/public/assets/svg/card_item_home_product.svg';
 
 
 import { Button } from '@/components/ui/button';
+import Link from 'next/link';
 
 export default function HomeCardSection() {
   return (
@@ -39,7 +40,9 @@ export default function HomeCardSection() {
                 برای داشتن زندگی بهتر
               </div>
 
-              <Button variant="default" className='text-sm mt-8' > نمایش دوره ها</Button>
+              <Link href="/course">
+                <Button variant="default" className='text-sm mt-8' > نمایش دوره ها</Button>
+              </Link>
             </div>
 
             {/* Icon */}
@@ -61,7 +64,9 @@ export default function HomeCardSection() {
                 برای داشتن زندگی بهتر
               </div>
 
-              <Button variant="default" className='text-sm mt-8' > نمایش  محصولات</Button>
+              <Link href="/product">
+                <Button variant="default" className='text-sm mt-8' > نمایش  محصولات</Button>
+              </Link>
             </div>
 
             {/* Icon */}
@@ -107,7 +112,9 @@ export default function HomeCardSection() {
                 برای داشتن زندگی بهتر
               </div>
 
-              <Button variant="default" className='text-sm mt-8' >  رزرو آنلاین</Button>
+              <Link href="/consult">
+                <Button variant="default" className='text-sm mt-8' >  رزرو آنلاین</Button>
+              </Link>
             </div>
 
             {/* Icon */}

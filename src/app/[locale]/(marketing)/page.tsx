@@ -105,7 +105,7 @@ export default async function Index(props: IIndexProps) {
       <div className='w-full primary-gradient-bg  pt-8'>
         <div className='mx-auto container'>
           {/* Header */}
-          <div className='text-xs md:text-xl text-center pt-8 font-semibold text-pink-700 mb-4 md:mb-6'>
+          <div className='text-xs md:text-xl text-center pt-8 font-semibold text-pink-700 mb-2 md:mb-6'>
             مشاوره حضوری , مشاوره آنلاین
           </div>
           <h2 className='w-full text-center font-semibold pt-1 text-lg md:text-3xl px-8 md:px-0'>
