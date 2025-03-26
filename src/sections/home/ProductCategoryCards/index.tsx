@@ -30,7 +30,7 @@ import './styles.css';
 
 export default function ProductCategoryCards() {
   return (
-    <div className='container mx-auto py-20 overflow-x-hidden relative'>
+    <div className=' py-20 overflow-x-hidden relative'>
       {/* Course Card */}
       <div className='w-full flex flex-col items-center'>
         {/* Header */}
@@ -38,78 +38,53 @@ export default function ProductCategoryCards() {
           دسته بندی محصولات
         </div>
 
-        <div className='text-lg text-center md:text-4xl font-semibold px-8 md:px-0 text-green-600'>
+        <div className='text-lg text-center md:text-4xl font-semibold px-8 md:px-0 text-black'>
           محصولاتی که به زندگی شما ارزش می دهند
         </div>
 
 
         {/* Card Items */}
         <div className='w-full mt-12 '>
-          <div className="wrapper ">
+          <div className="flex flex-box-wrapper flex-wrap gap-4 justify-center">
 
-            <a href="#" >
-              <p className="align-right">لباس ورزشی</p>
-              {/* <img src="https://images.pexels.com/photos/6311237/pexels-photo-6311237.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1" /> */}
+            <a className='w-[45%]' href="#" >
+              {/* <p className="align-right">لباس ورزشی</p> */}
+              <img src="https://images.pexels.com/photos/6311237/pexels-photo-6311237.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1" />
                 <div className='flex justify-center items-center w-full h-[88%] svg transition'>
-                <SvgSport />
+                {/* <SvgSport /> */}
                 </div>
             </a>
 
-            <a href="#" >
-              <p>محصولات گرافیکی</p>
-              {/* <img src="https://images.pexels.com/photos/5592602/pexels-photo-5592602.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1" /> */}
-              <div className='flex justify-center items-center w-full h-[80%] svg transition'>
-                <SvgTelescop />
+            <a className='w-1/2' href="#" >
+              {/* <p>محصولات گرافیکی</p> */}
+              <img src="https://images.pexels.com/photos/5592602/pexels-photo-5592602.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1" />
+              <div className='flex justify-center items-center w-full h-[20%] svg transition'>
+                {/* <SvgTelescop /> */}
                 </div>
             </a>
 
-            <a href="#" >
-              <p> البسه خانوم ها</p>
-              <div className='flex justify-center items-center w-full h-[80%] svg transition'>
-                <SvgFemale />
+            
+
+            <a href="#" className='w-[50%]' >
+              {/* <p>زنانه </p> */}
+              <div className='flex justify-center items-center w-full svg transition'>
+                {/* <SvgWomen /> */}
                 </div>
-              {/* <img src="https://images.pexels.com/photos/6995870/pexels-photo-6995870.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1" /> */}
+              <img src="https://images.pexels.com/photos/720606/pexels-photo-720606.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1" />
             </a>
 
-            <a href="#" >
-              <p>زنانه </p>
-              <div className='flex justify-center items-center w-full h-[90%] svg transition'>
-                <SvgWomen />
+            <a href="#" className='w-[45%]'>
+              {/* <p>مردانه</p> */}
+               <div className='flex justify-center items-center w-full h-[0%] svg transition'>
+                {/* <SvgMen /> */}
                 </div>
-              {/* <img src="https://images.pexels.com/photos/720606/pexels-photo-720606.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1" /> */}
+              <img src="https://images.pexels.com/photos/5325710/pexels-photo-5325710.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1" />
             </a>
 
-            <a href="#" >
-              <p>مردانه</p>
-              <div className='flex justify-center items-center w-full h-[90%] svg transition'>
-                <SvgMen />
-                </div>
-              {/* <img src="https://images.pexels.com/photos/5325710/pexels-photo-5325710.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1" /> */}
-            </a>
+            
+            
 
-            <a href="#" >
-              <p>بچه گانه</p>
-              <div className='flex justify-center items-center w-full h-[88%] svg transition'>
-                <SvgKid />
-                </div>
-              {/* <img src="https://images.pexels.com/photos/4715329/pexels-photo-4715329.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1" /> */}
-            </a>
-
-            <a href="#" >
-              <p className="align-right">عطر و ادکلن</p>
-              <div className='flex justify-center items-center w-full h-[92%] svg transition'>
-                <SvgPerfeum />
-                </div>
-              {/* <img src="https://images.pexels.com/photos/1190829/pexels-photo-1190829.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1" /> */}
-            </a>
-
-            <a href="#" >
-              <p> مردانه</p>
-              <div className='flex justify-center items-center w-full h-[98%] svg transition'>
-                <SvgMale />
-                </div>
-              {/* <img src="https://images.pexels.com/photos/19606373/pexels-photo-19606373/free-photo-of-smiling-men-in-shirts-standing-together-at-sunset.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1" /> */}
-            </a>
+           
 
 
 
