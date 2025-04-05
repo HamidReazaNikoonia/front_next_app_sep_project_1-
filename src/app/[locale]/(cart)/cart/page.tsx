@@ -3,7 +3,7 @@
 import React, { useEffect, useState } from 'react'
 import Link from 'next/link';
 import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
-import { useRouter, usePathname } from "next/navigation";
+import { useRouter } from "next/navigation";
 import Image from 'next/image'
 
 import AddressSelector from '@/sections/cart/AddressSelector';
@@ -87,19 +87,19 @@ export default function ShoppingCart() {
   const [taxPrice, settaxPrice] = useState();
 
   const queryClient = useQueryClient();
-  const router = useRouter();
+  // const router = useRouter();
 
 
   const isMobileScreen = useResponsiveEvent(768, 200);
 
 
-  const { isAuthenticated, user } = useAuth();
+  // const { isAuthenticated, user } = useAuth();
 
-  useEffect(() => {
-    if (!isAuthenticated || !user) {
-      router.push('/sign-in');
-    }
-  }, [])
+  // useEffect(() => {
+  //   if (!isAuthenticated || !user) {
+  //     router.push('/sign-in');
+  //   }
+  // }, [])
 
 
   // Get Cartd Items from API

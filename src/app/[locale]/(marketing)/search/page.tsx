@@ -1,6 +1,6 @@
 'use client';
 
-import { useEffect, useState } from 'react';
+import { useEffect, useState, Suspense } from 'react';
 import { useSearchParams } from 'next/navigation';
 
 // API
@@ -13,8 +13,16 @@ import { Input } from '@/components/ui/input';
 import Button from '@/components/LoadingButton';
 import { Search } from 'lucide-react';
 
+const GeneralSearchPage = () => {
+  return (
+    <Suspense fallback={<p>Loading...</p>}>
+      <GeneralSearch />
+    </Suspense>
+  );
+}
 
-export default function GeneralSearch() {
+
+function GeneralSearch() {
 
   const searchParams = useSearchParams();
   const query = searchParams.get('query') || '';
@@ -115,3 +123,6 @@ export default function GeneralSearch() {
     </div>
   );
 };
+
+
+export default GeneralSearchPage;
