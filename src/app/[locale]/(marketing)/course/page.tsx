@@ -10,8 +10,6 @@ import {SERVER_API_URL} from '@/API/config';
 
 
 
-
-
 type IPortfolioProps = {
   params: Promise<{ locale: string }>;
 };
@@ -60,8 +58,10 @@ export default async function Portfolio(props: IPortfolioProps) {
       </div> */}
 
       
+
       
-      <div className=' mx-8 pt-16'>
+      
+      <div className=''>
         <HeroSwiperSection />
       </div>
 
