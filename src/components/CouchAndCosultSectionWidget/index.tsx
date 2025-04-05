@@ -7,7 +7,8 @@ import { ChevronLeft } from 'lucide-react';
 
 import './styles.css';
 
-import CoachImage from '@/public/assets/images/sec-1-l.webp';
+// import CoachImage from '@/public/assets/images/sec-1-l.webp';
+import CoachImgBanner from '@/public/assets/images/customer_support_baner.png';
 
 const options1= [
   { value: "option1", label: "مشاوره خانواده" },
@@ -103,8 +104,8 @@ export default function CouchAndCosultSectionWidget() {
 
 
 
-        <div className='bg-white px-8 rounded-3xl'>
-          <Image className='' src={CoachImage} alt='Coach Image' />
+        <div className=' px-8 rounded-3xl'>
+          <Image width={380} height={380} className='' src={CoachImgBanner} alt='Coach Image' />
         </div>
 
       </div>

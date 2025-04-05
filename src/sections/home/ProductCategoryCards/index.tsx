@@ -6,6 +6,13 @@ import cardItemForConsult from '@/public/assets/svg/card_item_home_consult.svg';
 import cardItemForConsult2 from '@/public/assets/svg/card_item_home_consult_2.svg';
 import cardItemForProduct from '@/public/assets/svg/card_item_home_product.svg';
 
+
+import ProductCat1 from '@/public/assets/images/product_cat_1.jpg';
+import ProductCat2 from '@/public/assets/images/product_cat_2.jpg';
+import ProductCat3 from '@/public/assets/images/product_cat_3.jpg';
+import ProductCat4 from '@/public/assets/images/product_cat_4.jpg';
+
+
 import imageforme from '@/public/assets/images/s1.jpg';
 
 
@@ -30,7 +37,7 @@ import './styles.css';
 
 export default function ProductCategoryCards() {
   return (
-    <div className=' py-20 overflow-x-hidden relative'>
+    <div className=' py-20 overflow-x-hidden relative bg-white'>
       {/* Course Card */}
       <div className='w-full flex flex-col items-center'>
         {/* Header */}
@@ -38,26 +45,26 @@ export default function ProductCategoryCards() {
           دسته بندی محصولات
         </div>
 
-        <div className='text-lg text-center md:text-4xl font-semibold px-8 md:px-0 text-black'>
+        <div className='text-lg text-center md:text-4xl font-semibold px-12 md:px-0 text-black'>
           محصولاتی که به زندگی شما ارزش می دهند
         </div>
 
 
         {/* Card Items */}
-        <div className='w-full mt-12 '>
+        <div className='w-full mt-12 px-6 md:px-0 '>
           <div className="flex flex-box-wrapper flex-wrap gap-4 justify-center">
 
-            <a className='w-[45%]' href="#" >
+            <a className='w-full md:w-[45%]' href="#" >
               {/* <p className="align-right">لباس ورزشی</p> */}
-              <img src="https://images.pexels.com/photos/6311237/pexels-photo-6311237.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1" />
+              <Image alt="product_cat_1" src={ProductCat1} />
                 <div className='flex justify-center items-center w-full h-[88%] svg transition'>
                 {/* <SvgSport /> */}
                 </div>
             </a>
 
-            <a className='w-1/2' href="#" >
+            <a className='w-full md:w-1/2' href="#" >
               {/* <p>محصولات گرافیکی</p> */}
-              <img src="https://images.pexels.com/photos/5592602/pexels-photo-5592602.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1" />
+              <Image src={ProductCat2} alt="product_cat_2" />
               <div className='flex justify-center items-center w-full h-[20%] svg transition'>
                 {/* <SvgTelescop /> */}
                 </div>
@@ -65,20 +72,20 @@ export default function ProductCategoryCards() {
 
             
 
-            <a href="#" className='w-[50%]' >
+            <a href="#" className='w-full md:w-[50%]' >
               {/* <p>زنانه </p> */}
               <div className='flex justify-center items-center w-full svg transition'>
                 {/* <SvgWomen /> */}
                 </div>
-              <img src="https://images.pexels.com/photos/720606/pexels-photo-720606.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1" />
+              <Image src={ProductCat3} alt="product_cat_3" />
             </a>
 
-            <a href="#" className='w-[45%]'>
+            <a href="#" className='w-full md:w-[45%]'>
               {/* <p>مردانه</p> */}
                <div className='flex justify-center items-center w-full h-[0%] svg transition'>
                 {/* <SvgMen /> */}
                 </div>
-              <img src="https://images.pexels.com/photos/5325710/pexels-photo-5325710.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1" />
+              <Image src={ProductCat4} alt="pc4" />
             </a>
 
             
