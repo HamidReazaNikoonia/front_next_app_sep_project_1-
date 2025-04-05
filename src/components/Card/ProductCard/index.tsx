@@ -159,7 +159,7 @@ export default function ProductCard({ product }: { product: IProduct }) {
                   } px-5 py-2.5 text-center text-sm font-medium text-white focus:outline-none focus:ring-4 focus:ring-blue-300 transition-colors duration-300`}
               >
                 {isClicked ? (
-                  'اضافه به سبد خرید'
+                  'اضافه به سبد'
                 ) : (
                   <>
                     <ShoppingCart className="mr-2" size={19} />

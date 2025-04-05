@@ -29,7 +29,7 @@ export default function ProductListHeader() {
 
 
       {/* Left Side */}
-      <div className=' items-center flex mt-8 md:mt-0'>
+      <div className=' items-center flex mt-6 md:mt-0 self-start md:self-auto ml-4 md:ml-0'>
         <div className="relative w-max mx-auto">
           <button onClick={() => setSortDropDownOpen(!sortDropDownOpen)} type="button" id="dropdownToggle"
             className="px-3 inline-flex py-2.5 border border-gray-100 text-gray-800 text-xs outline-none bg-gray-100 hover:bg-gray-200 rounded-2xl shadow-sm">

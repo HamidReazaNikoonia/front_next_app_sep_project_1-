@@ -5,7 +5,7 @@ import { House, ChevronLeft } from 'lucide-react';
 
 export default function Breadcrumbs({ levels }) {
   return (
-    <nav className='flex mt-4' >
+    <nav className='flex mt-4 justify-end' >
       <ol className='flex flex-wrap-reverse justify-end items-center text-right text-gray-400'>
 
 
