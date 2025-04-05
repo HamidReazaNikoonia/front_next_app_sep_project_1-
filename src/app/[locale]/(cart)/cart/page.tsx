@@ -3,6 +3,7 @@
 import React, { useEffect, useState } from 'react'
 import Link from 'next/link';
 import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
+import { useRouter, usePathname } from "next/navigation";
 import Image from 'next/image'
 
 import AddressSelector from '@/sections/cart/AddressSelector';
@@ -31,6 +32,7 @@ import toast from 'react-hot-toast';
 import CartItemComponent from '@/sections/cart/CartList';
 import { submitCartToCreateOrderRequest } from '@/API/order/payment';
 import LoadingButton from '@/components/LoadingButton';
+import useAuth from '@/hooks/useAuth';
 
 
 const initialCartItems = [
@@ -85,9 +87,19 @@ export default function ShoppingCart() {
   const [taxPrice, settaxPrice] = useState();
 
   const queryClient = useQueryClient();
+  const router = useRouter();
 
 
   const isMobileScreen = useResponsiveEvent(768, 200);
+
+
+  const { isAuthenticated, user } = useAuth();
+
+  useEffect(() => {
+    if (!isAuthenticated || !user) {
+      router.push('/sign-in');
+    }
+  }, [])
 
 
   // Get Cartd Items from API
@@ -230,6 +242,8 @@ export default function ShoppingCart() {
 
 
   }, [data, isSuccess])
+
+
 
 
   const updateQuantity = (id: string, newQuantity: number) => {

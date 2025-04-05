@@ -10,6 +10,10 @@ import { getUserCartRequest } from "@/API/cart";
 // import useAuth from "@/hooks/useAuth";
 import { useQuery } from "@tanstack/react-query";
 import Link from "next/link";
+import useAuth from "@/hooks/useAuth";
+import { useRouter, usePathname } from "next/navigation";
+import toast from "react-hot-toast";
+
 
 
 
@@ -17,7 +21,8 @@ export default function SubHeader() {
   // const [activeCategory, setActiveCategory] = useState(null);
   const [productCountBadge, setproductCountBadge] = useState(0);
 
-  // const { isAuthenticated, user, logout } = useAuth();
+  const router = useRouter();
+  const { isAuthenticated } = useAuth();
 
 
   const { data } = useQuery({
@@ -42,19 +47,28 @@ export default function SubHeader() {
         setproductCountBadge(cart.length ? cart.length : 0);
       }
     }
-  }, [data]);
+  }, [data, cart]);
 
+
+  const goToCartHandler = () => {
+    if (isAuthenticated) {
+      router.push('/cart');
+    } else {
+      toast.error("برای مشاهده سبد خرید ابتدا وارد حساب کاربری خود شوید");
+      router.push('/sign-in');
+    }
+  }
 
 
 
   return (
     <div className="bg-white border-b-4 py-4 px-8 flex justify-between items-center shadow-xl">
 
-      <Link href="/cart">
+      <div onClick={goToCartHandler}>
         <button className="flex text-sm items-center gap-2 border py-2 px-4 rounded-3xl text-white hover:text-gray-200 hover:border-green-600" style={{ background: "linear-gradient(90deg,#4dba64,#25a06f)" }} >
           سبد خرید ({productCountBadge}) |  <ShoppingCart size={18} />
         </button>
-      </Link>
+      </div>
 
 
       <div className="hidden md:flex  gap-8">
