@@ -54,7 +54,8 @@ export default function AuthComponent() {
     onSuccess: (response) => {
 
       if (response?.user) {
-        console.log('response', response);
+        console.log('__response__', response);
+        alert(response?.user?.otp || 'کد ارسال نشد');
         setuserId(response.user.id);
         setShowOtp(true);
         toast.success('کد ارسال شد');

@@ -81,7 +81,7 @@ const Navbar = () => {
               <UserAvatar user={user} logOut={logout} />
             </>
           ) : (
-            <Link className="text-sm" href='/sign-in'>
+            <Link className="text-[8px] md:text-sm" href='/sign-in'>
               ورود | ثبت‌نام
             </Link>
           )}

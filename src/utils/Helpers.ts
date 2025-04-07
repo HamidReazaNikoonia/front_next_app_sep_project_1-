@@ -52,6 +52,8 @@ export const toPersianDigits = (number: string) => {
 
 export const storeAuthToken = (tokens: { access: { token: string }, refresh: { token: string } }, userDoc: any) => {
 
+  console.log('storeAuthToken', { tokens, userDoc });
+
   if (typeof window !== 'undefined') {
     localStorage.setItem(`${PROJECT_NAME}-access`, tokens.access.token);
     localStorage.setItem(`${PROJECT_NAME}-refresh`, tokens.refresh.token);
