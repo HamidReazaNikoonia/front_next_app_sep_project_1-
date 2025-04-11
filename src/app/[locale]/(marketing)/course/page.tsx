@@ -1,14 +1,8 @@
-import Image from 'next/image';
-import Link from 'next/link';
-// import { getTranslations, setRequestLocale } from 'next-intl/server';
-import CourseListHeader from '@/sections/course/CourseListHeader';
-import HeroSwiperSection from '@/sections/course/HeroSwiperSection';
-import CourseCategoryCardSection from '@/sections/course/CourseCategoryCard';
+import { SERVER_API_URL } from '@/API/config';
 import CourseList from '@/sections/course/CourseList';
+// import { getTranslations, setRequestLocale } from 'next-intl/server';
 
-import {SERVER_API_URL} from '@/API/config';
-
-
+import HeroSwiperSection from '@/sections/course/HeroSwiperSection';
 
 type IPortfolioProps = {
   params: Promise<{ locale: string }>;
@@ -39,7 +33,6 @@ const fetchRepo = async () => {
   return res.json();
 };
 
-
 export default async function Portfolio(props: IPortfolioProps) {
   // const { locale } = await props.params;
   // setRequestLocale(locale);
@@ -52,30 +45,22 @@ export default async function Portfolio(props: IPortfolioProps) {
   // console.log({coursesData: coursesData.data.courses})
 
   return (
-    <div className='overflow-hidden bg-[#E1EBEE] text-black min-h-screen'>
+    <div className="min-h-screen overflow-hidden bg-[#E1EBEE] text-black">
       {/* <div className="container mx-auto pt-20">
         <CourseListHeader />
       </div> */}
 
-      
-
-      
-      
-      <div className=''>
+      <div className="">
         <HeroSwiperSection />
       </div>
 
-
-      
       {/* <div className=' container mx-auto my-28'>
         <CourseCategoryCardSection />
       </div> */}
 
+      <div className=" container mx-auto mb-24">
 
-      <div className=' container mx-auto mb-24'>
-
-
-      <CourseList data={coursesData.data} />
+        <CourseList data={coursesData.data} />
 
       </div>
     </div>

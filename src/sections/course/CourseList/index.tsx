@@ -1,45 +1,40 @@
-'use client'
-import React, { useState, useEffect } from 'react';
+'use client';
+import { useQuery } from '@tanstack/react-query';
 import { Clapperboard } from 'lucide-react';
-import { useQuery } from "@tanstack/react-query";
+import React, { useEffect, useState } from 'react';
 
 // API
 import { getCoursesRequest } from '@/API/course';
 
 // Types
-import { ICourseTypes } from '@/types/Course';
+import type { ICourseTypes } from '@/types/Course';
 
 // components
 // import CourseItem from '@/components/CourseItem';
 import CourseCardItem from '@/components/Card/CourseCard';
 import CourseListFilter from '@/sections/course/CourseListFilter';
-import { useProductsStore } from '@/_store/Product';
 // import { getProductsRequest } from '@/API/product';
-import { isEmpty } from '@/utils/Helpers';
 
 // const NEXT_PUBLIC_SERVER_FILES_URL = process.env.NEXT_PUBLIC_SERVER_FILES_URL || '';
 // const NEXT_PUBLIC_SERVER_URL = process.env.NEXT_PUBLIC_SERVER_URL || '';
 
-
-interface FilterParams {
+type FilterParams = {
   keyword?: string;
   sort?: string;
   category?: string;
   brand?: string;
   price_from?: number;
   price_to?: number;
-}
+};
 
-
-export default function CourseList({ data }: { data: { courses: ICourseTypes[], count: number } }) {
-
+export default function CourseList({ data }: { data: { courses: ICourseTypes[]; count: number } }) {
   const [filteredCourses, setFilteredCourses] = useState(data?.courses);
   const [filterParams, setFilterParams] = useState<FilterParams | null>(null);
 
   const { data: courseDataFromQuery, isLoading, isError, isSuccess } = useQuery({
     queryFn: async () => await getCoursesRequest(filterParams || {}),
     enabled: filterParams !== null,
-    queryKey: ["course", filterParams], //Array according to Documentation
+    queryKey: ['course', filterParams], // Array according to Documentation
   });
 
   // const product_sortType = useProductsStore((state) => state.product_sortType);
@@ -47,10 +42,9 @@ export default function CourseList({ data }: { data: { courses: ICourseTypes[], 
   useEffect(() => {
     console.log({ dataInUseEffect: courseDataFromQuery });
     if (courseDataFromQuery?.data?.courses && isSuccess) {
-      setFilteredCourses(courseDataFromQuery?.data?.courses)
+      setFilteredCourses(courseDataFromQuery?.data?.courses);
     }
-  }, [courseDataFromQuery, isSuccess])
-
+  }, [courseDataFromQuery, isSuccess]);
 
   // useEffect(() => {
 
@@ -58,60 +52,44 @@ export default function CourseList({ data }: { data: { courses: ICourseTypes[], 
   //     setFilterParams({ ...filterParams, sort: product_sortType });
   //   }
 
-
   // }, [product_sortType])
 
-
-
-
   const filterHandler = (options) => {
-
     const queryOptionsReq = {};
 
-    console.log(options)
+    console.log(options);
     setFilterParams(options);
-  }
-
-
-
+  };
 
   console.log(data);
-
-
-
 
   return (
     <>
 
-
-
-      <div className='mx-8 justify-between flex mb-8'>
+      <div className="mx-8 mb-8 flex justify-between">
 
         {/* Filter Modal */}
         <CourseListFilter filterHandler={(d: any) => filterHandler(d)} />
 
-        <div className='flex'>
-          <h3 className=' text-right mr-3 text-xl font-bold'> دوره ها</h3>
+        <div className="flex">
+          <h3 className=" mr-3 text-right text-xl font-bold"> دوره ها</h3>
           <Clapperboard />
         </div>
 
-
-
       </div>
-      <div className="flex w-full flex-wrap gap-3 px-4 md:px-0 justify-center md:justify-end">
+      <div className="flex w-full flex-wrap justify-center gap-3 px-4 md:justify-end md:px-0">
 
         {filteredCourses.length === 0 && (
-          <div className='w-full justify-center items-center text-black text-lg font-semibold text-center py-12'>
+          <div className="w-full items-center justify-center py-12 text-center text-lg font-semibold text-black">
             موردی یافت نشد
           </div>
         )}
 
-        {filteredCourses && filteredCourses.map((course) => (
+        {filteredCourses && filteredCourses.map(course => (
           <CourseCardItem data={course} key={course._id} isLikedByUser />
         ))}
 
-
       </div>
     </>
-  )
+  );
 }
