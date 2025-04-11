@@ -11,16 +11,9 @@ import './styles.css';
 import CoachImgBanner from '@/public/assets/images/customer_support_baner.png';
 
 const options1= [
-  { value: "option1", label: "مشاوره خانواده" },
-  { value: "option2", label: "مشاوره فرهنگی" },
-  { value: "option3", label: "مشاوره فرهنگی" },
-  { value: "option4", label: "مشاوره فرهنگی" },
-  { value: "option5", label: "مشاوره فرهنگی" },
-  { value: "option6", label: "مشاوره فرهنگی" },
-  { value: "option7", label: "مشاوره فرهنگی" },
-  { value: "option8", label: "مشاوره فرهنگی" },
-  { value: "option9", label: "مشاوره فرهنگی" },
-  { value: "option10", label: "مشاوره فرهنگی" },
+  { value: "option1", label: "مشاوره نوجوانان" },
+  { value: "option2", label: "مشاوره مربیان" },
+  { value: "option3", label: "مشاوره والدین" },
 
 ];
 
