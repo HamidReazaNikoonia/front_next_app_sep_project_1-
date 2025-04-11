@@ -2,7 +2,9 @@
 'use client'
 
 import React, { useState, useEffect } from "react";
+import { usePathname } from 'next/navigation';
 import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
+import useResponsiveEvent from '@/hooks/useResponsiveEvent';
 import Link from "next/link";
 import { X, Search, ShoppingBasket, Menu, ChevronDown } from 'lucide-react';
 
@@ -13,6 +15,7 @@ import { getUserCartRequest } from "@/API/cart";
 
 import useAuth from "@/hooks/useAuth";
 import UserAvatar from "@/components/UserAvatar";
+import clsx from "clsx";
 
 const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
@@ -69,8 +72,13 @@ const Navbar = () => {
     setIsSearching(!isSearching);
   };
 
+  const pathname = usePathname();
+  const isMobileScreen = useResponsiveEvent(768, 200);
+  const isCartPage = pathname === '/cart';
+  const shouldNavFixed = (isCartPage && !isMobileScreen)
+
   return (
-    <nav className="bg-white text-gray-700 w-full border-b">
+    <nav className={clsx("bg-white text-gray-700 w-full border-b", {"fixed": shouldNavFixed})}>
       <div className="container mx-auto py-5 px-6 ">
         {/* Search Mode */}
         <div className="flex justify-between items-center">

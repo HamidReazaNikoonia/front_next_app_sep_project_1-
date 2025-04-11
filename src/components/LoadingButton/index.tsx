@@ -36,7 +36,7 @@ const Button: FC<ButtonProps> = ({
       )}
 
       {/* Button text (hidden when loading) */}
-      <span className={clsx({ "opacity-0": isLoading, "opacity-100": !isLoading })}>
+      <span className={clsx('flex items-center', { "opacity-0": isLoading, "opacity-100": !isLoading })}>
         {children}
       </span>
     </button>

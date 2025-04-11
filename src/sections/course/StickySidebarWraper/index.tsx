@@ -26,6 +26,10 @@ import CommentLayout from '@/components/Comment';
 
 // utils
 import useResponsiveEvent from '@/hooks/useResponsiveEvent'; // Adjust the path
+import useAuth from '@/hooks/useAuth';
+import { addProductToCartRequest } from '@/API/cart';
+import { useQueryClient, useMutation } from '@tanstack/react-query';
+import LoadingButton from '@/components/LoadingButton';
 
 moment.loadPersian({ usePersianDigits: true });
 
@@ -36,8 +40,19 @@ export default function StickyComponent({ dataFromServer }: { dataFromServer: IC
   const [isSticky, setIsSticky] = useState(false)
   const isMobileScreen = useResponsiveEvent(768, 200);
 
+  const queryClient = useQueryClient();
 
-  const addToCart = useCartStore(state => state.addToCart)
+
+  const addToCartMutation = useMutation({
+    mutationFn: addProductToCartRequest,
+    onSuccess: () => {
+      // @ts-expect-error
+      queryClient.invalidateQueries("cart");
+    },
+  });
+
+  const { isAuthenticated } = useAuth();
+  const addToCartInLocalStorage = useCartStore(state => state.addToCart)
 
   useEffect(() => {
     const handleScroll = () => {
@@ -90,8 +105,19 @@ export default function StickyComponent({ dataFromServer }: { dataFromServer: IC
 
   const attToBasketHandler = () => {
     if (dataFromServer) {
-      addToCart(dataFromServer);
+      // addToCart(dataFromServer);
       toast.success('محصول به سبد خرید شما اضافه شد'); // Displays a success message
+       // if user authenticated, add product to cart in database
+    // Send a request to the server to add the product to the cart
+    if (isAuthenticated) {
+      console.log('Add course to cart in database');
+      console.log({dataFromServer, isAuthenticated})
+      addToCartMutation.mutate({ courseId: dataFromServer._id, quantity: 1 });
+    } else {
+      // Add product to cart in local storage
+      addToCartInLocalStorage(dataFromServer);
+    }
+      
       return true;
     }
 
@@ -134,9 +160,13 @@ export default function StickyComponent({ dataFromServer }: { dataFromServer: IC
               {/* Buttons Section */}
               <div className='flex flex-col space-y-2 mt-6 w-full justify-between items-center'>
 
-                <button onClick={attToBasketHandler} className="green-gradient-bg text-white  flex justify-center items-center w-full hover:bg-blue-600 px-4 py-3 rounded mr-2 text-sm md:text-lg">
+                <LoadingButton disabled={addToCartMutation.isPending} isLoading={addToCartMutation.isPending} onClick={attToBasketHandler} className=" text-white  flex justify-center items-center w-full hover:bg-blue-600 px-4 py-3 rounded mr-2 text-sm md:text-lg">
                   افزودن به سبد خرید
                   <ShoppingBasket className='ml-2' />
+                </LoadingButton>
+                
+                <button >
+                  
                 </button>
 
 

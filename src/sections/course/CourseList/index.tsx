@@ -98,7 +98,7 @@ export default function CourseList({ data }: { data: { courses: ICourseTypes[], 
 
 
       </div>
-      <div className="flex w-full flex-wrap gap-3 px-4 md:px-0">
+      <div className="flex w-full flex-wrap gap-3 px-4 md:px-0 justify-center md:justify-end">
 
         {filteredCourses.length === 0 && (
           <div className='w-full justify-center items-center text-black text-lg font-semibold text-center py-12'>

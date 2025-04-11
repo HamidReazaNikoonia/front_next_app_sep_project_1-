@@ -497,3 +497,10 @@ Looking for a custom boilerplate to kick off your project? I'd be glad to discus
 
 1- create FAQ section
 2- Gallery (Upload Images)
+
+
+
+
+
+## Deploy Configuration
+https://www.digitalocean.com/community/developer-center/deploying-a-next-js-application-on-a-digitalocean-droplet
