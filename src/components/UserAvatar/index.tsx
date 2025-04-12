@@ -1,30 +1,36 @@
-import React, { useState, useEffect, useRef } from 'react';
+import useAuth from '@/hooks/useAuth';
 
-import { UserRound, LayoutDashboard, Logs, LogOut } from 'lucide-react';
+/* eslint-disable react/no-array-index-key */
+/* eslint-disable react-dom/no-missing-button-type */
+import { toPersianDigits } from '@/utils/Helpers';
 
-import {toPersianDigits} from '@/utils/Helpers'
+import { LayoutDashboard, LogOut, Logs, UserRound } from 'lucide-react';
+
+import React, { useEffect, useRef, useState } from 'react';
 
 // Define types for the props
-interface User {
+type User = {
   first_name: string;
   last_name: string;
   mobile: string;
-}
+};
 
-interface UserAvatarProps {
+type UserAvatarProps = {
   userName: string;
   user: User;
-}
+};
 
-interface DropdownItem {
+type DropdownItem = {
   title: string;
   link: string;
   icon?: JSX.Element;
-}
+};
 
 const UserAvatar: React.FC<UserAvatarProps> = ({ user }) => {
   const [isDropdownOpen, setIsDropdownOpen] = useState<boolean>(false);
   const dropdownRef = useRef<HTMLDivElement>(null);
+
+  const { logout } = useAuth();
 
   console.log('user', user);
 
@@ -50,56 +56,78 @@ const UserAvatar: React.FC<UserAvatarProps> = ({ user }) => {
 
   // Dropdown items
   const items: DropdownItem[] = [
-    { title: 'داشبورد', link: '/dashboard', icon: <LayoutDashboard size={16} color='rgb(55, 65, 81)' /> },
-    { title: 'سفارش ها', link: '/dashboard/orders', icon: <Logs size={16} color='rgb(55, 65, 81)'  /> },
-    {title: 'خروج', link: '/logout', icon: <LogOut size={16} color='rgb(55, 65, 81)'  />},
+    { title: 'داشبورد', link: '/dashboard', icon: <LayoutDashboard size={16} color="rgb(55, 65, 81)" /> },
+    { title: 'سفارش ها', link: '/dashboard/orders', icon: <Logs size={16} color="rgb(55, 65, 81)" /> },
   ];
+
+  const logoutHandler = () => {
+    setIsDropdownOpen(false);
+    logout();
+  };
 
   return (
     <div className="relative" ref={dropdownRef}>
       {/* Avatar Button */}
       <button
         onClick={toggleDropdown}
-        className="flex items-center justify-center w-10 h-10 bg-white border rounded-full cursor-pointer hover:bg-gray-100 focus:outline-none"
+        className="flex size-10 cursor-pointer items-center justify-center rounded-full border bg-white hover:bg-gray-100 focus:outline-none"
       >
-        
-          <span className="text-gray-700 font-semibold">
-            <UserRound color="gray" />
-          </span>
-        
+
+        <span className="font-semibold text-gray-700">
+          <UserRound color="gray" />
+        </span>
+
       </button>
 
       {/* Dropdown Menu */}
       {isDropdownOpen && (
-        <div className="absolute text-right left-0 mt-2 pb-2 w-48 bg-white rounded-lg shadow-lg border border-gray-200 z-10">
-          <div className='w-full border-b pb-1'>
-          <div className='text-gray-700 py-2 mr-3 text-xs md:text-sm'>
-            {user.first_name} {user.last_name}
-          </div>
+        <div className="absolute left-0 z-10 mt-2 w-48 rounded-lg border border-gray-200 bg-white pb-2 text-right shadow-lg">
+          <div className="w-full border-b pb-1">
+            <div className="mr-3 py-2 text-xs text-gray-700 md:text-sm">
+              {user.first_name}
+              {' '}
+              {user.last_name}
+            </div>
 
-          <div className='text-gray-400 pb-1 mr-3 text-xs'>
-            {user.mobile && toPersianDigits(user.mobile)}  موبایل
+            <div className="mr-3 pb-1 text-xs text-gray-400">
+              {user.mobile && toPersianDigits(user.mobile)}
+              {' '}
+              موبایل
+            </div>
           </div>
-          </div>
-          <ul className='pt-1'>
+          <ul className="pt-1">
             {items.map((item, index) => (
-              <li className='' key={index}>
+              <li className="" key={index}>
                 <a
                   href={item.link}
-                  className="flex justify-end items-center px-4 py-2 text-gray-700 text-xs md:text-sm rounded-lg hover:bg-gray-100"
+                  className="flex items-center justify-end rounded-lg px-4 py-2 text-xs text-gray-700 hover:bg-gray-100 md:text-sm"
                 >
-                  <div className='mr-2'>
-                  {item.title}
+                  <div className="mr-2">
+                    {item.title}
                   </div>
 
-                    <div>
+                  <div>
                     {item.icon}
-                    </div>
+                  </div>
                 </a>
 
-               
               </li>
             ))}
+            <li className="mt-4 flex w-full justify-end">
+              <button
+                onClick={logoutHandler}
+                className="mr-2 flex items-center justify-end rounded-lg bg-red-600 px-4 py-2 text-xs text-gray-100 hover:bg-red-700 md:text-sm"
+              >
+                <div className="mr-2">
+                  خروج
+                </div>
+
+                <div>
+                  <LogOut size={16} color="white" />
+                </div>
+              </button>
+
+            </li>
           </ul>
         </div>
       )}
