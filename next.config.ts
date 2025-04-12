@@ -33,6 +33,11 @@ export default withSentryConfig(
             port: '',
           },
           {
+            protocol: 'http',
+            hostname: '37.152.189.219',
+            port: '9000',
+          },
+          {
             protocol: 'https',
             hostname: 's3.eseminar.tv',
             port: '',
