@@ -1,36 +1,36 @@
-'use client'
+/* eslint-disable jsx-a11y/no-autofocus */
+'use client';
 
-import { useState, useEffect } from 'react'
-import { useRouter } from 'next/navigation'
-import Image from 'next/image'
-import toast from 'react-hot-toast'
-import { useMutation } from '@tanstack/react-query'
-
+import { useMutation } from '@tanstack/react-query';
+import Image from 'next/image';
+import { useRouter } from 'next/navigation';
+import { useEffect, useState } from 'react';
+import toast from 'react-hot-toast';
 
 // assets
 import AuthVector from '@/public/assets/svg/undraw_authentication_tbfc.svg';
 
 // API
-import { loginByOTPRequest, validateOTPRequest } from '@/API/auth'
+import { completeProfileRequest, loginByOTPRequest, validateOTPRequest } from '@/API/auth';
 
 // Components
 import LoadingButton from '@/components/LoadingButton';
 
 // utils
-import { storeAuthToken, toPersianDigits } from '@/utils/Helpers'
-
-
-
+import { isEmpty, isValidIranianMobileNumber, storeAuthToken, toPersianDigits } from '@/utils/Helpers';
 
 export default function AuthComponent() {
   const [mobileNumber, setMobileNumber] = useState('');
   const [userId, setuserId] = useState(null);
-  const [name, setName] = useState('')
-  const [family, setFamily] = useState('')
+  const [name, setName] = useState('');
+  const [family, setFamily] = useState('');
   const [otp, setOtp] = useState('');
   const [timer, setTimer] = useState(120); // 2-minute timer
   const [canResend, setCanResend] = useState(false);
   const [showOtp, setShowOtp] = useState(false);
+  const [isFirstLogin, setisFirstLogin] = useState(false);
+  const [showSetProfileInfo, setshowSetProfileInfo] = useState(false);
+  const [curentLoginUserId, setCurentLoginUserId] = useState(null);
 
   const router = useRouter();
 
@@ -39,7 +39,7 @@ export default function AuthComponent() {
     if (showOtp && timer > 0) {
       setCanResend(false); // Disable resend initially
       interval = setInterval(() => {
-        setTimer((prev) => prev - 1);
+        setTimer(prev => prev - 1);
       }, 1000);
     } else if (timer === 0) {
       setCanResend(true); // Enable resend when timer reaches 0
@@ -48,32 +48,47 @@ export default function AuthComponent() {
     return () => clearInterval(interval);
   }, [showOtp, timer]);
 
+  /**
+   * API Mutation
+   */
+  const completeProfileMutation = useMutation({
+    mutationFn: completeProfileRequest,
+    onSuccess: (response) => {
+      if (response?.id) {
+        // eslint-disable-next-line no-console
+        console.log('__response__', response);
+        router.push('/');
+        toast.success(' ارسال شد');
+      } else {
+        toast.error('خطا در ارسال کد');
+      }
+    },
+  });
 
   const loginByOTPMutation = useMutation({
     mutationFn: loginByOTPRequest,
     onSuccess: (response) => {
-
       if (response?.user) {
+        // eslint-disable-next-line no-console
         console.log('__response__', response);
+        // eslint-disable-next-line no-alert
         alert(response?.user?.otp || 'کد ارسال نشد');
         setuserId(response.user.id);
         setShowOtp(true);
+        setisFirstLogin(response?.firstLogin);
         toast.success('کد ارسال شد');
       } else {
         toast.error('خطا در ارسال کد');
       }
-
     },
   });
 
-
   // When we Send The Login Request to The API
-  // Then we will send a code to user mobile number 
+  // Then we will send a code to user mobile number
   // then user, give us the code and we will send it to the API
   const validateOTPMutation = useMutation({
     mutationFn: validateOTPRequest,
     onSuccess: (response) => {
-
       if (!response) {
         toast.error('مشکلی پیش آمده است');
         return false;
@@ -85,7 +100,6 @@ export default function AuthComponent() {
       }
 
       if (!response?.tokens) {
-
         // if ()
         toast.error('مشکلی پیش آمده است');
         toast.error('توکن از سمت سرور وجود ندارد');
@@ -93,40 +107,50 @@ export default function AuthComponent() {
         return false;
       }
 
-
+      // eslint-disable-next-line no-console
       console.log({ response });
+      toast.success('کد تایید شد');
 
       // navigate User
       // save token in storage
       storeAuthToken(response.tokens, response.userDoc);
-      router.push('/');
+      setCurentLoginUserId(response.userDoc?.id);
+
+      if (!isFirstLogin) {
+        router.push('/');
+        return false;
+      } else {
+        setshowSetProfileInfo(true);
+      }
 
       return true;
-
     },
   });
 
   const handleSubmit = (e: React.FormEvent) => {
-    e.preventDefault()
+    e.preventDefault();
     if (!showOtp) {
+      // validate mobile number
+
+      const isValidMobileNumber = isValidIranianMobileNumber(mobileNumber);
+
+      if (!isValidMobileNumber) {
+        toast.error('شماره موبایل را درست وارد کنید');
+        return false;
+      }
+
       // TODO: Implement OTP sending logic
       // Send OTP Login Logic
-      loginByOTPMutation.mutate({ mobile: mobileNumber, name, family });
-
+      loginByOTPMutation.mutate({ mobile: mobileNumber });
     } else {
       // TODO: Implement OTP verification logic
-
       if (!userId || !otp) {
         toast.error('خطا در ارسال کد');
         return false;
       }
       validateOTPMutation.mutate({ userId, otpCode: otp });
-      toast.success('کد تایید شد');
-
     }
-    return;
-  }
-
+  };
 
   const handleSendOtp = () => {
     setShowOtp(true);
@@ -135,18 +159,78 @@ export default function AuthComponent() {
 
   const handleResendOtp = () => {
     if (canResend) {
-      console.log("Resending OTP...");
+      // console.log('Resending OTP...');
       setTimer(120); // Reset timer on resend
       setCanResend(false);
     }
   };
 
+  const setProfileSubmit = () => {
+    if (!name || isEmpty(name)) {
+      toast.error('لطفا نام خود را وارد کنید');
+      return false;
+    }
+
+    if (!family || isEmpty(family)) {
+      toast.error('لطفا نام خانوادگی خود را وارد کنید');
+      return false;
+    }
+
+    if (!curentLoginUserId) {
+      toast.error('مشکلی پیش آمده , لطفا صفحه را رفرش کنید و دوباره امتحان کنید');
+      return false;
+    }
+
+    // send complete Profile Request to API
+    completeProfileMutation.mutate({ userId: curentLoginUserId, data: { name, family } });
+    return true;
+  };
+
+  if (showSetProfileInfo) {
+    return (
+      <div className="flex h-screen w-full bg-gray-900 text-white">
+        <div className="mx-auto flex w-full  max-w-xl flex-col items-center justify-center px-8 md:px-0">
+          <div className="text-center">
+            <h2 className="mb-8 text-sm font-extrabold text-white md:text-xl">
+              نام و نام خانوادگی خود را وارد کنید
+            </h2>
+          </div>
+
+          {/* Form */}
+          <div dir="rtl" className="flex w-full flex-col ">
+            <input
+              type="text"
+              placeholder="نام خود را وارد کنید "
+              value={name}
+              onChange={e => setName(e.target.value)}
+              required
+              className="mb-4 rounded-md border-gray-700 bg-gray-800 px-4 py-2 text-xs text-white placeholder:text-gray-400 md:text-sm"
+            />
+            <input
+              type="text"
+              placeholder=" فامیلی خود را وارد کنید "
+              value={family}
+              onChange={e => setFamily(e.target.value)}
+              required
+              className="mb-4 rounded-md border-gray-700 bg-gray-800 px-4 py-2 text-xs text-white placeholder:text-gray-400 md:text-sm"
+            />
+
+            <div className="flex justify-center">
+              <LoadingButton onClick={setProfileSubmit} isLoading={completeProfileMutation.isPending} className="mt-4 w-52 py-2 text-xs md:w-72 md:text-sm ">
+                ثبت نام
+              </LoadingButton>
+            </div>
+          </div>
+        </div>
+      </div>
+    );
+  }
 
   return (
-    <div className="flex w-full h-screen bg-gray-900 text-white">
+    <div className="flex h-screen w-full bg-gray-900 text-white">
       {/* Image half */}
-      <div className="w-1/2 relative hidden md:block ">
-        <div className='flex justify-center items-center mt-16'>
+      <div className="relative hidden w-1/2 md:block ">
+        <div className="mt-16 flex items-center justify-center">
           <Image
             src={AuthVector}
             alt="Authentication background"
@@ -158,71 +242,63 @@ export default function AuthComponent() {
       </div>
 
       {/* Form half */}
-      <div className=" w-full md:w-1/2 flex items-center justify-center p-8">
+      <div className=" flex w-full items-center justify-center p-8 md:w-1/2">
         <div className="w-full max-w-md space-y-8">
           <div className="text-center">
-            <h2 className="mt-6 text-sm md:text-xl font-extrabold text-white">
+            <h2 className="mt-6 text-sm font-extrabold text-white md:text-xl">
               {showOtp ? 'کد را وارد کنید' : 'با شماره موبایل خود وارد شوید'}
             </h2>
           </div>
-          <form dir='rtl' className="flex flex-col justify-center items-center mt-8 text-right" onSubmit={handleSubmit}>
-            {!showOtp ? (
-              <>
+          <form dir="rtl" className="mt-8 flex flex-col items-center justify-center text-right" onSubmit={handleSubmit}>
+            {!showOtp
+              ? (
+
                 <input
                   type="tel"
                   autoFocus
                   placeholder=" شماره موبایل "
                   value={mobileNumber}
-                  onChange={(e) => setMobileNumber(e.target.value)}
+                  onChange={e => setMobileNumber(e.target.value)}
                   required
-                  className="bg-gray-800 text-xs md:text-sm border-gray-700 mb-4 text-white placeholder-gray-400 px-4 py-2 rounded-md"
+                  className="mb-4 rounded-md border-gray-700 bg-gray-800 px-4 py-2 text-xs text-white placeholder:text-gray-400 md:text-sm"
                 />
-                <input
-                  type="text"
-                  placeholder="نام خود را وارد کنید "
-                  value={name}
-                  onChange={(e) => setName(e.target.value)}
-                  required
-                  className="bg-gray-800 text-xs md:text-sm border-gray-700 mb-4 text-white placeholder-gray-400 px-4 py-2 rounded-md"
-                />
-                <input
-                  type="text"
-                  placeholder=" فامیلی خود را وارد کنید "
-                  value={family}
-                  onChange={(e) => setFamily(e.target.value)}
-                  required
-                  className="bg-gray-800 text-xs md:text-sm border-gray-700 mb-4 text-white placeholder-gray-400 px-4 py-2 rounded-md"
-                />
-              </>
-            ) : (
-              <div>
-                <p className='text-xs text-center mt-1 mb-3 text-gray-300'> شماره موبایل شما {mobileNumber && toPersianDigits(mobileNumber) } </p>
-                <input
-                  type="text"
-                  placeholder=""
-                  value={otp}
-                  onChange={(e) => setOtp(e.target.value)}
-                  required
-                  className="bg-gray-800 border-gray-700 text-white mb-4 placeholder-gray-400 px-4 py-1 rounded-md"
-                />
-
-
-                {!canResend && (
-                  <p className="mt-2 text-gray-600 text-xs">
-                    ارسال مجدد کد به شماره موبایل شما بعد از {timer} ثانیه
+              )
+              : (
+                <div>
+                  <p className="mb-3 mt-1 text-center text-xs text-gray-300">
+                    {' '}
+                    شماره موبایل شما
+                    {mobileNumber && toPersianDigits(mobileNumber)}
                   </p>
-                )}
-                <button
-                  onClick={handleResendOtp}
-                  disabled={!canResend}
-                  className={`mt-2 text-center text-xs w-full text-blue-500 ${!canResend ? "opacity-50 cursor-not-allowed" : "cursor-pointer"
-                    }`}
-                >
-                  ارسال مجدد کد
-                </button>
-              </div>
-            )}
-            <LoadingButton isLoading={(loginByOTPMutation.isPending || validateOTPMutation.isPending)} className='w-52 md:w-72 text-xs md:text-sm py-2 mt-4 ' type="submit"  >
+                  <input
+                    type="text"
+                    placeholder=""
+                    value={otp}
+                    onChange={e => setOtp(e.target.value)}
+                    required
+                    className="mb-4 rounded-md border-gray-700 bg-gray-800 px-4 py-1 text-white placeholder:text-gray-400"
+                  />
+
+                  {!canResend && (
+                    <p className="mt-2 text-xs text-gray-600">
+                      ارسال مجدد کد به شماره موبایل شما بعد از
+                      {' '}
+                      {timer}
+                      {' '}
+                      ثانیه
+                    </p>
+                  )}
+                  <button
+                    onClick={handleResendOtp}
+                    disabled={!canResend}
+                    className={`mt-2 w-full text-center text-xs text-blue-500 ${!canResend ? 'cursor-not-allowed opacity-50' : 'cursor-pointer'
+                      }`}
+                  >
+                    ارسال مجدد کد
+                  </button>
+                </div>
+              )}
+            <LoadingButton isLoading={(loginByOTPMutation.isPending || validateOTPMutation.isPending)} className="mt-4 w-52 py-2 text-xs md:w-72 md:text-sm " type="submit">
               {showOtp ? 'تایید کد' : 'وارد شوید'}
 
             </LoadingButton>
@@ -230,6 +306,5 @@ export default function AuthComponent() {
         </div>
       </div>
     </div>
-  )
+  );
 }
-

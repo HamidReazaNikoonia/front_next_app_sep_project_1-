@@ -1,4 +1,5 @@
 import useAuth from '@/hooks/useAuth';
+import { useRouter } from 'next/navigation';
 
 /* eslint-disable react/no-array-index-key */
 /* eslint-disable react-dom/no-missing-button-type */
@@ -31,6 +32,7 @@ const UserAvatar: React.FC<UserAvatarProps> = ({ user }) => {
   const dropdownRef = useRef<HTMLDivElement>(null);
 
   const { logout } = useAuth();
+  const router = useRouter();
 
   console.log('user', user);
 
@@ -63,6 +65,12 @@ const UserAvatar: React.FC<UserAvatarProps> = ({ user }) => {
   const logoutHandler = () => {
     setIsDropdownOpen(false);
     logout();
+    setTimeout(() => {
+      // router.refresh();
+      if (window) {
+        window.location.reload();
+      }
+    }, 1500);
   };
 
   return (
