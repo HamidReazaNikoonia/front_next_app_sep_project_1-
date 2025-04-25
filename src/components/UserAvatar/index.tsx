@@ -1,11 +1,10 @@
 import useAuth from '@/hooks/useAuth';
-import { useRouter } from 'next/navigation';
 
 /* eslint-disable react/no-array-index-key */
 /* eslint-disable react-dom/no-missing-button-type */
 import { toPersianDigits } from '@/utils/Helpers';
 
-import { LayoutDashboard, LogOut, Logs, UserRound } from 'lucide-react';
+import { GraduationCap, LayoutDashboard, LogOut, Logs, UserRound } from 'lucide-react';
 
 import React, { useEffect, useRef, useState } from 'react';
 
@@ -14,6 +13,7 @@ type User = {
   first_name: string;
   last_name: string;
   mobile: string;
+  role?: string;
 };
 
 type UserAvatarProps = {
@@ -59,6 +59,11 @@ const UserAvatar: React.FC<UserAvatarProps> = ({ user }) => {
   const items: DropdownItem[] = [
     { title: 'داشبورد', link: '/dashboard', icon: <LayoutDashboard size={16} color="rgb(55, 65, 81)" /> },
     { title: 'سفارش ها', link: '/dashboard/orders', icon: <Logs size={16} color="rgb(55, 65, 81)" /> },
+    ...(user?.role === 'coach'
+      ? [
+          { title: 'پنل مربی', link: '/dashboard/coach', icon: <GraduationCap size={16} color="rgb(55, 65, 81)" /> },
+        ]
+      : []),
   ];
 
   const logoutHandler = () => {
