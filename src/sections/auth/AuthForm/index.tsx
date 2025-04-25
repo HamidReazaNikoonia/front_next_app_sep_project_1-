@@ -16,6 +16,7 @@ import { completeProfileRequest, loginByOTPRequest, validateOTPRequest } from '@
 // Components
 import LoadingButton from '@/components/LoadingButton';
 
+import { Button } from '@/components/ui/button';
 // utils
 import { isEmpty, isValidIranianMobileNumber, storeAuthToken, toPersianDigits } from '@/utils/Helpers';
 
@@ -27,16 +28,17 @@ export default function AuthComponent() {
   const [otp, setOtp] = useState('');
   const [timer, setTimer] = useState(120); // 2-minute timer
   const [canResend, setCanResend] = useState(false);
-  const [showOtp, setShowOtp] = useState(false);
+  const [uiSteps, setUISteps] = useState(0);
   const [isFirstLogin, setisFirstLogin] = useState(false);
   const [showSetProfileInfo, setshowSetProfileInfo] = useState(false);
   const [curentLoginUserId, setCurentLoginUserId] = useState(null);
+  const [userRole, setuserRole] = useState('user');
 
   const router = useRouter();
 
   useEffect(() => {
     let interval: string | number | NodeJS.Timeout | undefined;
-    if (showOtp && timer > 0) {
+    if (uiSteps === 2 && timer > 0) {
       setCanResend(false); // Disable resend initially
       interval = setInterval(() => {
         setTimer(prev => prev - 1);
@@ -46,7 +48,7 @@ export default function AuthComponent() {
       clearInterval(interval);
     }
     return () => clearInterval(interval);
-  }, [showOtp, timer]);
+  }, [uiSteps, timer]);
 
   /**
    * API Mutation
@@ -74,7 +76,7 @@ export default function AuthComponent() {
         // eslint-disable-next-line no-alert
         alert(response?.user?.otp || 'کد ارسال نشد');
         setuserId(response.user.id);
-        setShowOtp(true);
+        setUISteps(2);
         setisFirstLogin(response?.firstLogin);
         toast.success('کد ارسال شد');
       } else {
@@ -129,7 +131,7 @@ export default function AuthComponent() {
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    if (!showOtp) {
+    if (uiSteps === 1) {
       // validate mobile number
 
       const isValidMobileNumber = isValidIranianMobileNumber(mobileNumber);
@@ -141,20 +143,16 @@ export default function AuthComponent() {
 
       // TODO: Implement OTP sending logic
       // Send OTP Login Logic
-      loginByOTPMutation.mutate({ mobile: mobileNumber });
-    } else {
+      loginByOTPMutation.mutate({ mobile: mobileNumber, role: userRole });
+    } else if (uiSteps === 2) {
       // TODO: Implement OTP verification logic
       if (!userId || !otp) {
         toast.error('خطا در ارسال کد');
         return false;
       }
-      validateOTPMutation.mutate({ userId, otpCode: otp });
+      validateOTPMutation.mutate({ userId, otpCode: otp, role: userRole });
     }
-  };
-
-  const handleSendOtp = () => {
-    setShowOtp(true);
-    setTimer(120); // Reset timer when sending OTP
+    return true;
   };
 
   const handleResendOtp = () => {
@@ -184,6 +182,11 @@ export default function AuthComponent() {
     // send complete Profile Request to API
     completeProfileMutation.mutate({ userId: curentLoginUserId, data: { name, family } });
     return true;
+  };
+
+  const setUserRoleHandler = (role: string) => {
+    setuserRole(role);
+    setUISteps(1);
   };
 
   if (showSetProfileInfo) {
@@ -246,62 +249,75 @@ export default function AuthComponent() {
         <div className="w-full max-w-md space-y-8">
           <div className="text-center">
             <h2 className="mt-6 text-sm font-extrabold text-white md:text-xl">
-              {showOtp ? 'کد را وارد کنید' : 'با شماره موبایل خود وارد شوید'}
+              {uiSteps === 1 && 'با شماره موبایل خود وارد شوید'}
+              {uiSteps === 2 && 'کد را وارد کنید'}
             </h2>
           </div>
           <form dir="rtl" className="mt-8 flex flex-col items-center justify-center text-right" onSubmit={handleSubmit}>
-            {!showOtp
-              ? (
+            {uiSteps === 0 && (
+              <div className="flex w-full flex-col space-y-4">
+                <Button onClick={() => setUserRoleHandler('user')} variant="secondary"> ورود کاربر</Button>
+                <Button onClick={() => setUserRoleHandler('coach')} variant="secondary"> ورود مربی</Button>
+              </div>
+            )}
 
+            {uiSteps === 1
+            && (
+
+              <input
+                type="tel"
+                autoFocus
+                placeholder=" شماره موبایل "
+                value={mobileNumber}
+                onChange={e => setMobileNumber(e.target.value)}
+                required
+                className="mb-4 rounded-md border-gray-700 bg-gray-800 px-4 py-2 text-xs text-white placeholder:text-gray-400 md:text-sm"
+              />
+            )}
+
+            {uiSteps === 2 && (
+              <div>
+                <p className="mb-3 mt-1 text-center text-xs text-gray-300">
+                  {' '}
+                  شماره موبایل شما
+                  {mobileNumber && toPersianDigits(mobileNumber)}
+                </p>
                 <input
-                  type="tel"
-                  autoFocus
-                  placeholder=" شماره موبایل "
-                  value={mobileNumber}
-                  onChange={e => setMobileNumber(e.target.value)}
+                  type="text"
+                  placeholder=""
+                  value={otp}
+                  onChange={e => setOtp(e.target.value)}
                   required
-                  className="mb-4 rounded-md border-gray-700 bg-gray-800 px-4 py-2 text-xs text-white placeholder:text-gray-400 md:text-sm"
+                  className="mb-4 rounded-md border-gray-700 bg-gray-800 px-4 py-1 text-white placeholder:text-gray-400"
                 />
-              )
-              : (
-                <div>
-                  <p className="mb-3 mt-1 text-center text-xs text-gray-300">
+
+                {!canResend && (
+                  <p className="mt-2 text-xs text-gray-600">
+                    ارسال مجدد کد به شماره موبایل شما بعد از
                     {' '}
-                    شماره موبایل شما
-                    {mobileNumber && toPersianDigits(mobileNumber)}
+                    {timer}
+                    {' '}
+                    ثانیه
                   </p>
-                  <input
-                    type="text"
-                    placeholder=""
-                    value={otp}
-                    onChange={e => setOtp(e.target.value)}
-                    required
-                    className="mb-4 rounded-md border-gray-700 bg-gray-800 px-4 py-1 text-white placeholder:text-gray-400"
-                  />
+                )}
+                <button
+                  type="button"
+                  onClick={handleResendOtp}
+                  disabled={!canResend}
+                  className={`mt-2 w-full text-center text-xs text-blue-500 ${!canResend ? 'cursor-not-allowed opacity-50' : 'cursor-pointer'
+                  }`}
+                >
+                  ارسال مجدد کد
+                </button>
+              </div>
+            )}
 
-                  {!canResend && (
-                    <p className="mt-2 text-xs text-gray-600">
-                      ارسال مجدد کد به شماره موبایل شما بعد از
-                      {' '}
-                      {timer}
-                      {' '}
-                      ثانیه
-                    </p>
-                  )}
-                  <button
-                    onClick={handleResendOtp}
-                    disabled={!canResend}
-                    className={`mt-2 w-full text-center text-xs text-blue-500 ${!canResend ? 'cursor-not-allowed opacity-50' : 'cursor-pointer'
-                      }`}
-                  >
-                    ارسال مجدد کد
-                  </button>
-                </div>
-              )}
-            <LoadingButton isLoading={(loginByOTPMutation.isPending || validateOTPMutation.isPending)} className="mt-4 w-52 py-2 text-xs md:w-72 md:text-sm " type="submit">
-              {showOtp ? 'تایید کد' : 'وارد شوید'}
-
-            </LoadingButton>
+            {uiSteps !== 0 && (
+              <LoadingButton isLoading={(loginByOTPMutation.isPending || validateOTPMutation.isPending)} className="mt-4 w-52 py-2 text-xs md:w-72 md:text-sm " type="submit">
+                {uiSteps === 1 && 'وارد شوید'}
+                {uiSteps === 2 && ' تایید کد'}
+              </LoadingButton>
+            )}
           </form>
         </div>
       </div>

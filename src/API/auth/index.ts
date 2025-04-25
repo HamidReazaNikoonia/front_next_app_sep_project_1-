@@ -30,7 +30,7 @@ async function getUserProfile({ userId }: { userId: string }) {
   return response;
 }
 
-async function loginByOTP({ mobile }: { mobile: string }) {
+async function loginByOTP({ mobile, role }: { mobile: string, role: string }) {
   const options = {
     method: 'POST',
     headers: {
@@ -41,7 +41,7 @@ async function loginByOTP({ mobile }: { mobile: string }) {
   };
 
   const response = fetch(
-    `${API_BASE_URL}/auth/login-otp`,
+    `${API_BASE_URL}/auth/login-otp${role === 'coach' ? '/coach' : ''}`,
     options,
   )
     .then(response => response.json())
@@ -50,7 +50,7 @@ async function loginByOTP({ mobile }: { mobile: string }) {
   return response;
 }
 
-async function validateOTP({ userId, otpCode }: { userId: string; otpCode: string }) {
+async function validateOTP({ userId, otpCode, role }: { userId: string; otpCode: string; role: string }) {
   const options = {
     method: 'POST',
     headers: {
@@ -61,7 +61,7 @@ async function validateOTP({ userId, otpCode }: { userId: string; otpCode: strin
   };
 
   const response = fetch(
-    `${API_BASE_URL}/auth/validate-otp`,
+    `${API_BASE_URL}/auth/validate-otp${role === 'coach' ? '/coach' : ''}`,
     options,
   )
     .then(response => response.json())
@@ -93,12 +93,12 @@ async function completeProfile({ userId, data }: { userId: string; data: { name:
 
 // EXPORT API REQUEST
 
-export async function loginByOTPRequest(body: { mobile: string }) {
+export async function loginByOTPRequest(body: { mobile: string; role: string }) {
   const data = await loginByOTP(body);
   return data;
 }
 
-export async function validateOTPRequest(body: { userId: string; otpCode: string }) {
+export async function validateOTPRequest(body: { userId: string; otpCode: string; role: string }) {
   const data = await validateOTP(body);
   return data;
 }

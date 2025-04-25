@@ -32,9 +32,8 @@ const UserAvatar: React.FC<UserAvatarProps> = ({ user }) => {
   const dropdownRef = useRef<HTMLDivElement>(null);
 
   const { logout } = useAuth();
-  const router = useRouter();
 
-  console.log('user', user);
+  // console.log('user', user);
 
   // Toggle dropdown visibility
   const toggleDropdown = () => {
