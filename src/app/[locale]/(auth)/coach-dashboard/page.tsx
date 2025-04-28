@@ -1,17 +1,21 @@
 /* eslint-disable tailwindcss/no-custom-classname */
 'use client';
+import { getCoachUserProfileRequest } from '@/API/coach';
+
+import LoadingSpinner from '@/components/LoadingSpiner';
+
 import useAuth from '@/hooks/useAuth';
-
-import { useState } from 'react';
-
+import { useEffect, useState } from 'react';
 // API
 import CoachForm from '@/sections/coachDashboard/CoachForm';
 import Stepper from '@/sections/coachDashboard/Stepper';
+import { useQuery } from '@tanstack/react-query';
 
 export default function CoachDashboardPage() {
   const [steps, setsteps] = useState(0);
+  const [isLoadingState, setisLoadingState] = useState(true);
 
-  const { user } = useAuth();
+  const { user, updateUser } = useAuth();
 
   // const [profileDataState, setProfileData] = useState({
   //   courseCount: 0,
@@ -19,47 +23,75 @@ export default function CoachDashboardPage() {
   //   favorites: 0
   // })
 
-  // const { data: profileData, isLoading: profileIsLoading, isError: profileIsError, error: profileError, isSuccess: profileIsSuccess } = useQuery({
-  //   // @ts-expect-error
-  //   queryKey: ['profile', user?.id],
-  //   // @ts-expect-error
-  //   queryFn: user ? () => getUserProfileRequest({ userId: user.id }) : undefined,
-  //   enabled: !!user  // Prevents query execution when user is null
-  // })
+  const {
+    data: coachProfile,
+    isLoading: profileIsLoading,
+    isError: profileIsError,
+    error: profileError,
+  } = useQuery({
+    queryKey: ['coachProfile', user?.id],
+    queryFn: () => getCoachUserProfileRequest(user?.id || ''),
+    enabled: !!user?.id, // Only run query when user ID exists
+  });
 
-  // useEffect(() => {
+  useEffect(() => {
+    if (coachProfile) {
+      // console.log('viiii', coachProfile);
+      updateUser(coachProfile);
 
-  //   if (profileData && profileData?.profile) {
+      if (coachProfile?.coach_Information) {
+        setsteps(1);
+      }
+    }
 
-  //     setProfileData({
-  //       courseCount: Array.isArray(profileData.courses) ? profileData.courses.length : 0,
-  //       orderCount: Array.isArray(profileData.orders) ? profileData.orders.length : 0,
-  //       favorites: 0
-  //     })
-  //   }
-  // }, [profileIsSuccess, profileData])
+    // check Steps
+    setisLoadingState(false);
+  }, [coachProfile, updateUser]);
 
   // Show a loading spinner or nothing while checking authentication
-  // if (profileIsLoading) {
-  //   return (
-  //     <div className="flex justify-center items-center min-h-screen">
-  //       <LoadingSpinner />
-  //     </div>
-  //   );
-  // }
+  // Show loading state
+  if (profileIsLoading || isLoadingState) {
+    return (
+      <div className="flex min-h-screen items-center justify-center">
+        <LoadingSpinner />
+      </div>
+    );
+  }
+
+  // Show error state
+  if (profileIsError) {
+    return (
+      <div className="flex min-h-screen items-center justify-center">
+        <div className="text-center">
+          <h2 className="text-xl font-semibold text-red-600">خطا در دریافت اطلاعات</h2>
+          <p className="mt-2 text-gray-600">
+            {profileError instanceof Error ? profileError.message : 'خطای ناشناخته'}
+          </p>
+        </div>
+      </div>
+    );
+  }
+
+  const moveToTheNextStepHandler = () => {
+    console.log('log from  dashboard');
+    setsteps(1);
+  };
+
+  console.log('_________user_____', user);
   return (
-    <div dir="rtl" className="border-1 bg-slate-100 px-1 py-12 md:px-4">
+    <div dir="rtl" className="border-1 min-h-svh bg-slate-100 px-1 py-12 md:px-4">
+
+      {/* Stepper */}
+      <div className="mr-4 w-full md:mr-0">
+        <Stepper activeStep={steps} />
+      </div>
+
       {/* Steps 0 ==> Coach Information Complete */}
       {steps === 0 && (
         <div className="flex w-full flex-col">
-          <Stepper activeStep={0} />
-          <CoachForm />
+          <CoachForm moveSteps={moveToTheNextStepHandler} />
         </div>
       )}
-
-      sssss
-      {' '}
-      {user?.role && user.role}
     </div>
   );
 }

@@ -70,7 +70,7 @@ export default function CoachDashboardLayout({
 
   return (
     <div className="flex-1 space-y-4 pt-6">
-      <div className="flex flex-col space-y-2 md:flex-row px-4 py-2 md:items-center md:justify-between">
+      <div className="flex flex-col space-y-2 px-4 py-2 md:flex-row md:items-center md:justify-between">
         <div className="flex items-center space-x-2">
           <Button variant="destructive" size="sm" className="flex w-full md:w-auto">
             <span>خروج</span>
@@ -85,7 +85,7 @@ export default function CoachDashboardLayout({
           </Link>
         </div>
 
-        <h2 className="pt-4 text-sm font-bold tracking-tight text-gray-700 md:pt-0 md:text-xl">
+        <h2 className="pt-4 text-right text-sm font-bold tracking-tight text-gray-700 md:pt-0 md:text-xl">
           <span> پنل کاربری : </span>
           <span className="text-primary-500">
             {' '}

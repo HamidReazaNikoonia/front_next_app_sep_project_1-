@@ -34,6 +34,17 @@ const useAuth = () => {
     setUser(userDoc);
   };
 
+  // @ts-ignore
+  const updateUser = (userDoc) => {
+    if (!userDoc || !userDoc?.id) {
+      return false;
+    }
+    if (typeof window !== 'undefined') {
+      localStorage.setItem(`${PROJECT_NAME}-user`, JSON.stringify(userDoc));
+    }
+    setUser(userDoc);
+  };
+
   // Function to log out and clear data
   const logout = () => {
     if (typeof window !== 'undefined') {
@@ -48,7 +59,7 @@ const useAuth = () => {
     setUser(null);
   };
 
-  return { isAuthenticated, user, login, logout };
+  return { isAuthenticated, user, login, logout, updateUser };
 };
 
 export default useAuth;

@@ -1,4 +1,8 @@
+/* eslint-disable tailwindcss/no-custom-classname */
 'use client';
+import { useMutation, useQueryClient } from '@tanstack/react-query';
+import { completeCoachInfoRequest } from '@/API/coach';
+import useAuth from '@/hooks/useAuth';
 import LoadingButton from '@/components/LoadingButton';
 import React, { useEffect, useState } from 'react';
 
@@ -25,7 +29,11 @@ type FormErrors = {
   [key: string]: string | undefined;
 };
 
-export default function ProfileForm() {
+export default function ProfileForm({moveSteps}) {
+  const { user } = useAuth();
+  const queryClient = useQueryClient();
+
+
   const [formData, setFormData] = useState<FormData>({
     father_name: '',
     national_code: '',
@@ -37,6 +45,22 @@ export default function ProfileForm() {
   });
   const [errors, setErrors] = useState({});
   const [states, setStates] = useState<string[]>([]);
+
+  const { mutate: completeCoachInfo, isLoading } = useMutation({
+    mutationFn: (data: FormData) => completeCoachInfoRequest(user?.id || '', data),
+    onSuccess: (response) => {
+      // Invalidate and refetch coach profile query
+      queryClient.invalidateQueries({ queryKey: ['coachProfile'] });
+      toast.success('اطلاعات با موفقیت ثبت شد');
+
+      // validate Response and Move to the Next Step in The Dashboard
+      moveSteps();
+      console.log('log from onSuccess', response);
+    },
+    onError: (error: Error) => {
+      toast.error(error.message || 'خطا در ثبت اطلاعات');
+    },
+  });
 
   // Get cities and provinces data
   // const cities = new Cities().list();
@@ -135,6 +159,8 @@ export default function ProfileForm() {
     }
 
     console.log('Form Data:', formData);
+     // Call the mutation with form data
+     completeCoachInfo(formData);
     // Handle form submission here
   };
 
@@ -176,7 +202,7 @@ export default function ProfileForm() {
         )}
       </div>
 
-      <div className="mb-6 mt-8">
+      <div className={`mb-6 mt-8 p-2 ${errors?.birth_date ? 'border border-red-500' : 'border-0'}`}>
         <label htmlFor="birth_date" className="mb-3 block border-b-2 pb-2 text-sm font-medium text-gray-700">
           تاریخ تولد
         </label>
@@ -267,7 +293,7 @@ export default function ProfileForm() {
 
       <LoadingButton
         type="submit"
-        isLoading={false}
+        isLoading={isLoading}
         className="w-full rounded-md bg-blue-600 px-4 py-2 text-white hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2"
       >
         ثبت اطلاعات
