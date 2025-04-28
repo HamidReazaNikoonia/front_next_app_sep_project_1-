@@ -22,6 +22,7 @@ interface CourseObject {
 }
 
 export interface CoachCourseProgram {
+  course_object_titles: any;
   _id: string;
   title: string;
   description: string;
@@ -29,13 +30,12 @@ export interface CoachCourseProgram {
   is_have_penalty: boolean;
   penalty_fee: number;
   course_subject_count: number;
-  course_object: CourseObject[];
+  course_object?: CourseObject[];
   createdBy: string; // Can be ObjectId or populated user
   isPublished: boolean;
   createdAt: Date;
   updatedAt: Date;
 }
-
 
 export type CoachProfile = {
   coach_Information: CompleteCoachInfoPayload;

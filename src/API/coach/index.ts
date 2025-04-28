@@ -1,4 +1,4 @@
-import type { CoachProfile, CompleteCoachInfoPayload } from '@/types/Coach';
+import type { CoachCourseProgram, CoachProfile, CompleteCoachInfoPayload } from '@/types/Coach';
 
 import { getAuthToken, SERVER_API_URL } from '../config';
 
@@ -52,6 +52,29 @@ async function completeCoachInfo(coachId: string, data: CompleteCoachInfoPayload
   return response.json();
 }
 
+// Complete coach information
+async function getCoachCourseProgram(): Promise<CoachCourseProgram> {
+  const options = {
+    method: 'GET',
+    headers: {
+      'accept': 'application/json',
+      'Content-Type': 'application/json',
+      'Authorization': `Bearer ${getAuthToken()}`,
+    },
+  };
+
+  const response = await fetch(
+    `${API_BASE_URL}/coach/coach-course-program`,
+    options,
+  );
+
+  if (!response.ok) {
+    throw new Error('Failed to complete coach information');
+  }
+
+  return response.json();
+}
+
 // Export request functions
 export async function getCoachUserProfileRequest(coachId: string) {
   const data = await getCoachUserProfile(coachId);
@@ -60,5 +83,10 @@ export async function getCoachUserProfileRequest(coachId: string) {
 
 export async function completeCoachInfoRequest(coachId: string, coachData: CompleteCoachInfoPayload) {
   const data = await completeCoachInfo(coachId, coachData);
+  return data;
+}
+
+export async function getCoachCourseProgramRequest() {
+  const data = await getCoachCourseProgram();
   return data;
 }

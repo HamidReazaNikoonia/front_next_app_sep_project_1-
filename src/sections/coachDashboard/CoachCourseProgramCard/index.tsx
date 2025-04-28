@@ -1,3 +1,4 @@
+/* eslint-disable react/no-array-index-key */
 /* eslint-disable react-dom/no-missing-button-type */
 import type { CoachCourseProgram } from '@/types/Coach';
 import React, { useState } from 'react';
@@ -42,9 +43,9 @@ const CoachCourseCard: React.FC<CoachCourseCardProps> = ({ program }) => {
               <div className="flex items-center justify-center rounded-lg bg-green-50 p-2">
 
                 <span className="font-medium text-green-700">
-                  {program.course_subject_count}
+                  {program.course_subject_count && formatPrice(program.course_subject_count)}
                   {' '}
-                  موضوع
+                  فصل
                 </span>
               </div>
 
@@ -100,16 +101,16 @@ const CoachCourseCard: React.FC<CoachCourseCardProps> = ({ program }) => {
           </div>
 
           <div className="grow overflow-y-auto py-4">
-            {program.course_object.map((item, index) => (
+            {program.course_object_titles.map((item: string, index: any) => (
               <div
-                key={item._id}
+                key={index}
                 className="mb-3 rounded-lg border border-gray-200 bg-gray-50 p-3 transition-colors hover:bg-gray-100"
               >
                 <div className="flex items-center">
                   <span className="ml-2 rounded-full bg-blue-100 px-2.5 py-0.5 text-sm font-medium text-blue-800">
                     {index + 1}
                   </span>
-                  <span className="text-gray-700">{item.title}</span>
+                  <span className="text-gray-700">{item}</span>
                 </div>
               </div>
             ))}
