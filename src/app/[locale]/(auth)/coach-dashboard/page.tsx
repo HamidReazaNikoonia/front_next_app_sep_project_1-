@@ -1,15 +1,31 @@
 /* eslint-disable tailwindcss/no-custom-classname */
 'use client';
+import type { CoachCourseProgram } from '@/types/Coach';
+
 import { getCoachUserProfileRequest } from '@/API/coach';
 
 import LoadingSpinner from '@/components/LoadingSpiner';
-
 import useAuth from '@/hooks/useAuth';
+import CoachCourseCard from '@/sections/coachDashboard/CoachCourseProgramCard';
 import { useEffect, useState } from 'react';
 // API
 import CoachForm from '@/sections/coachDashboard/CoachForm';
 import Stepper from '@/sections/coachDashboard/Stepper';
+
 import { useQuery } from '@tanstack/react-query';
+import { mockCoachCoursePrograms } from '../../../../mocks/coach-course-program';
+
+const CoursesPage = ({ programs }: { programs: CoachCourseProgram[] }) => {
+  return (
+    <div className="mx-4 flex flex-col flex-wrap justify-center gap-4 md:mx-0 md:flex-row md:justify-start">
+      {programs.map(program => (
+        <div key={program._id} className="h-96 w-full  md:w-[48%]">
+          <CoachCourseCard program={program} />
+        </div>
+      ))}
+    </div>
+  );
+};
 
 export default function CoachDashboardPage() {
   const [steps, setsteps] = useState(0);
@@ -73,11 +89,10 @@ export default function CoachDashboardPage() {
   }
 
   const moveToTheNextStepHandler = () => {
-    console.log('log from  dashboard');
     setsteps(1);
   };
 
-  console.log('_________user_____', user);
+  // console.log('_________user_____', user);
   return (
     <div dir="rtl" className="border-1 min-h-svh bg-slate-100 px-1 py-12 md:px-4">
 
@@ -90,6 +105,12 @@ export default function CoachDashboardPage() {
       {steps === 0 && (
         <div className="flex w-full flex-col">
           <CoachForm moveSteps={moveToTheNextStepHandler} />
+        </div>
+      )}
+
+      {steps !== 0 && (
+        <div className=" mt-12 w-full">
+          <CoursesPage programs={mockCoachCoursePrograms} />
         </div>
       )}
     </div>

@@ -1,3 +1,42 @@
+/* eslint-disable ts/consistent-type-definitions */
+interface QuestionOption {
+  _id: string;
+  text: string;
+  isCorrect: boolean;
+}
+
+interface CourseQuestion {
+  _id: string;
+  question_title: string;
+  options: QuestionOption[];
+  points: number;
+}
+
+interface CourseObject {
+  _id: string;
+  title: string;
+  description: string;
+  video_file: string | string; // Can be ObjectId or populated document
+  exam: CourseQuestion[];
+  order: number;
+}
+
+export interface CoachCourseProgram {
+  _id: string;
+  title: string;
+  description: string;
+  amount: number;
+  is_have_penalty: boolean;
+  penalty_fee: number;
+  course_subject_count: number;
+  course_object: CourseObject[];
+  createdBy: string; // Can be ObjectId or populated user
+  isPublished: boolean;
+  createdAt: Date;
+  updatedAt: Date;
+}
+
+
 export type CoachProfile = {
   coach_Information: CompleteCoachInfoPayload;
   id: string;
