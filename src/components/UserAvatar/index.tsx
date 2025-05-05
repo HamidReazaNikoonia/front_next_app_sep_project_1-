@@ -61,7 +61,7 @@ const UserAvatar: React.FC<UserAvatarProps> = ({ user }) => {
     { title: 'سفارش ها', link: '/dashboard/orders', icon: <Logs size={16} color="rgb(55, 65, 81)" /> },
     ...(user?.role === 'coach'
       ? [
-          { title: 'پنل مربی', link: '/dashboard/coach', icon: <GraduationCap size={16} color="rgb(55, 65, 81)" /> },
+          { title: 'پنل مربی', link: '/coach-dashboard', icon: <GraduationCap size={16} color="rgb(55, 65, 81)" /> },
         ]
       : []),
   ];

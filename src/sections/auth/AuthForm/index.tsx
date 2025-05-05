@@ -19,12 +19,15 @@ import LoadingButton from '@/components/LoadingButton';
 import { Button } from '@/components/ui/button';
 // utils
 import { isEmpty, isValidIranianMobileNumber, storeAuthToken, toPersianDigits } from '@/utils/Helpers';
+import useAuth from '@/hooks/useAuth';
+
 
 export default function AuthComponent() {
   const [mobileNumber, setMobileNumber] = useState('');
   const [userId, setuserId] = useState(null);
   const [name, setName] = useState('');
   const [family, setFamily] = useState('');
+  const [gender, setGender] = useState('');
   const [otp, setOtp] = useState('');
   const [timer, setTimer] = useState(120); // 2-minute timer
   const [canResend, setCanResend] = useState(false);
@@ -35,6 +38,7 @@ export default function AuthComponent() {
   const [userRole, setuserRole] = useState('user');
 
   const router = useRouter();
+  const { updateUser } = useAuth();
 
   useEffect(() => {
     let interval: string | number | NodeJS.Timeout | undefined;
@@ -59,6 +63,7 @@ export default function AuthComponent() {
       if (response?.id) {
         // eslint-disable-next-line no-console
         console.log('__response__', response);
+        updateUser(response);
         router.push('/');
         toast.success(' ارسال شد');
       } else {
@@ -180,7 +185,7 @@ export default function AuthComponent() {
     }
 
     // send complete Profile Request to API
-    completeProfileMutation.mutate({ userId: curentLoginUserId, data: { name, family } });
+    completeProfileMutation.mutate({ userId: curentLoginUserId, data: { name, family, gender } });
     return true;
   };
 
@@ -217,6 +222,24 @@ export default function AuthComponent() {
               required
               className="mb-4 rounded-md border-gray-700 bg-gray-800 px-4 py-2 text-xs text-white placeholder:text-gray-400 md:text-sm"
             />
+
+            <div className="relative mb-4">
+              <select
+                value={gender}
+                onChange={e => setGender(e.target.value)}
+                required
+                className="w-full appearance-none rounded-md border-gray-700 bg-gray-800 px-4 py-2 pr-10 text-xs text-white placeholder:text-gray-400 md:text-sm"
+              >
+                <option style={{padding: '10px 0'}} value="" disabled>جنسیت خود را انتخاب کنید</option>
+                <option value="W">زن</option>
+                <option value="M">مرد</option>
+              </select>
+              <div className="pointer-events-none absolute inset-y-0 left-0 flex items-center px-3 text-gray-400">
+                <svg className="h-4 w-4 fill-current" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20">
+                  <path d="M9.293 12.95l.707.707L15.657 8l-1.414-1.414L10 10.828 5.757 6.586 4.343 8z" />
+                </svg>
+              </div>
+            </div>
 
             <div className="flex justify-center">
               <LoadingButton onClick={setProfileSubmit} isLoading={completeProfileMutation.isPending} className="mt-4 w-52 py-2 text-xs md:w-72 md:text-sm ">
@@ -262,18 +285,18 @@ export default function AuthComponent() {
             )}
 
             {uiSteps === 1
-            && (
+              && (
 
-              <input
-                type="tel"
-                autoFocus
-                placeholder=" شماره موبایل "
-                value={mobileNumber}
-                onChange={e => setMobileNumber(e.target.value)}
-                required
-                className="mb-4 rounded-md border-gray-700 bg-gray-800 px-4 py-2 text-xs text-white placeholder:text-gray-400 md:text-sm"
-              />
-            )}
+                <input
+                  type="tel"
+                  autoFocus
+                  placeholder=" شماره موبایل "
+                  value={mobileNumber}
+                  onChange={e => setMobileNumber(e.target.value)}
+                  required
+                  className="mb-4 rounded-md border-gray-700 bg-gray-800 px-4 py-2 text-xs text-white placeholder:text-gray-400 md:text-sm"
+                />
+              )}
 
             {uiSteps === 2 && (
               <div>
@@ -305,7 +328,7 @@ export default function AuthComponent() {
                   onClick={handleResendOtp}
                   disabled={!canResend}
                   className={`mt-2 w-full text-center text-xs text-blue-500 ${!canResend ? 'cursor-not-allowed opacity-50' : 'cursor-pointer'
-                  }`}
+                    }`}
                 >
                   ارسال مجدد کد
                 </button>

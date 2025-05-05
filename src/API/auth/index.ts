@@ -1,4 +1,4 @@
-import { SERVER_API_TOKEN, SERVER_API_URL, getAuthToken } from '../config';
+import { getAuthToken, SERVER_API_TOKEN, SERVER_API_URL } from '../config';
 
 const API_BASE_URL = SERVER_API_URL;
 const API_TOKEN = SERVER_API_TOKEN;
@@ -30,7 +30,7 @@ async function getUserProfile({ userId }: { userId: string }) {
   return response;
 }
 
-async function loginByOTP({ mobile, role }: { mobile: string, role: string }) {
+async function loginByOTP({ mobile, role }: { mobile: string; role: string }) {
   const options = {
     method: 'POST',
     headers: {
@@ -70,7 +70,7 @@ async function validateOTP({ userId, otpCode, role }: { userId: string; otpCode:
   return response;
 }
 
-async function completeProfile({ userId, data }: { userId: string; data: { name: string; family: string } }) {
+async function completeProfile({ userId, data }: { userId: string; data: { name: string; family: string; gender: string } }) {
   const options = {
     method: 'PATCH',
     headers: {
@@ -78,7 +78,7 @@ async function completeProfile({ userId, data }: { userId: string; data: { name:
       'Content-Type': 'application/json',
       'Authorization': `Bearer ${getAuthToken()}`,
     },
-    body: JSON.stringify({ name: data.name, family: data.family }),
+    body: JSON.stringify({ name: data.name, family: data.family, gender: data.gender }),
   };
 
   const response = fetch(
@@ -108,7 +108,7 @@ export async function getUserProfileRequest(body: { userId: string }) {
   return data;
 }
 
-export async function completeProfileRequest(body: { userId: string; data: { name: string; family: string } }) {
+export async function completeProfileRequest(body: { userId: string; data: { name: string; family: string; gender: string } }) {
   const data = await completeProfile(body);
   return data;
 }

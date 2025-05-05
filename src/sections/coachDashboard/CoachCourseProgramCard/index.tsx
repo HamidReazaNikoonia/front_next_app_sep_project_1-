@@ -1,6 +1,7 @@
 /* eslint-disable react/no-array-index-key */
 /* eslint-disable react-dom/no-missing-button-type */
 import type { CoachCourseProgram } from '@/types/Coach';
+import { useRouter } from 'next/navigation';
 import React, { useState } from 'react';
 
 type CoachCourseCardProps = {
@@ -10,6 +11,8 @@ type CoachCourseCardProps = {
 const CoachCourseCard: React.FC<CoachCourseCardProps> = ({ program }) => {
   const [isFlipped, setIsFlipped] = useState(false);
 
+  const router = useRouter();
+
   const handleFlip = () => {
     setIsFlipped(!isFlipped);
   };
@@ -17,6 +20,10 @@ const CoachCourseCard: React.FC<CoachCourseCardProps> = ({ program }) => {
   // Format price with commas
   const formatPrice = (price: number) => {
     return new Intl.NumberFormat('fa-IR').format(price);
+  };
+
+  const startCourseHandler = () => {
+    router.push(`/coach-dashboard/coach-course-program/${program._id}`);
   };
 
   return (
@@ -78,7 +85,7 @@ const CoachCourseCard: React.FC<CoachCourseCardProps> = ({ program }) => {
               </svg>
             </button>
             <button
-              onClick={handleFlip}
+              onClick={startCourseHandler}
               className="mt-auto w-full rounded-md bg-green-600 px-4 py-2 text-white transition-colors hover:bg-green-700"
             >
               شروع دوره
