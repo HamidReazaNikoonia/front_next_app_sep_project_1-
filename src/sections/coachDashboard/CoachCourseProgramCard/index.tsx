@@ -3,6 +3,8 @@
 import type { CoachCourseProgram } from '@/types/Coach';
 import { useRouter } from 'next/navigation';
 import React, { useState } from 'react';
+import { Banknote, BookOpen, AlertTriangle, Clock } from 'lucide-react';
+import { filterPriceNumber } from '@/utils/Helpers';
 
 type CoachCourseCardProps = {
   program: CoachCourseProgram;
@@ -36,41 +38,54 @@ const CoachCourseCard: React.FC<CoachCourseCardProps> = ({ program }) => {
             <p className="mb-4 line-clamp-3 text-gray-600">{program.description}</p>
 
             {/* Course Metadata */}
-            <div className="mb-4 mt-8 grid grid-cols-2 gap-4">
+            <div className="mb-6 mt-8 flex flex-col gap-4">
               {/* Price */}
-              <div className="flex items-center justify-center rounded-lg bg-blue-50 p-2">
-                <span className="font-medium text-blue-700">
-                  {formatPrice(program.amount)}
-                  {' '}
-                  تومان
-                </span>
+              <div className="flex items-center gap-3 text-gray-700">
+                <Banknote className="h-5 w-5 text-green-600" />
+                <div>
+                  <span className="text-sm text-gray-500">قیمت دوره:</span>
+                  <span className="mr-1 font-medium text-blue-900">
+                    {filterPriceNumber(program.amount)} تومان
+                  </span>
+                </div>
               </div>
 
               {/* Subjects Count */}
-              <div className="flex items-center justify-center rounded-lg bg-green-50 p-2">
-
-                <span className="font-medium text-green-700">
-                  {program.course_subject_count && formatPrice(program.course_subject_count)}
-                  {' '}
-                  فصل
-                </span>
+              <div className="flex items-center gap-3 text-gray-700">
+                <BookOpen className="h-5 w-5 text-green-600" />
+                <div>
+                  <span className="text-sm text-gray-500">تعداد فصل:</span>
+                  <span className="mr-2 font-medium text-blue-900">
+                    {program.course_subject_count || 0}
+                  </span>
+                </div>
               </div>
+
+              {/* Course Duration */}
+              <div className="flex items-center gap-3 text-gray-700">
+                  <Clock className="h-5 w-5 text-green-600" />
+                  <div>
+                    <span className="text-sm text-gray-500"> زمان دوره:</span>
+                    <span className="mr-2 font-medium text-blue-900">
+                      10  ساعت
+                    </span>
+                  </div>
+                </div>
 
               {/* Penalty Info */}
               {program.is_have_penalty && (
-                <div className="col-span-2 flex items-center rounded-lg bg-red-50 p-2">
-                  <svg className="ml-2 size-5 text-red-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z" />
-                  </svg>
-                  <span className="font-medium text-red-600">
-                    جریمه تاخیر:
-                    {' '}
-                    {formatPrice(program.penalty_fee)}
-                    {' '}
-                    تومان
-                  </span>
+                <div className="flex items-center gap-3 text-gray-700">
+                  <AlertTriangle className="h-5 w-5 text-green-600" />
+                  <div>
+                    <span className="text-sm text-gray-500">جریمه تاخیر:</span>
+                    <span className="mr-2 font-medium text-blue-900">
+                      {filterPriceNumber(program.penalty_fee)} تومان
+                    </span>
+                  </div>
                 </div>
               )}
+
+              
             </div>
           </div>
 

@@ -15,6 +15,7 @@ import Stepper from '@/sections/coachDashboard/Stepper';
 import { useQuery } from '@tanstack/react-query';
 import { mockCoachCoursePrograms } from '../../../../mocks/coach-course-program';
 import CoursesPage from '../dashboard/courses/page';
+import CoachCourseProgramListPage from '@/sections/coachDashboard/CoachCourseProgramList';
 
 
 export default function CoachDashboardPage() {
@@ -100,7 +101,7 @@ export default function CoachDashboardPage() {
 
       {steps !== 0 && (
         <div className=" mt-12 w-full">
-          <CoursesPage programs={mockCoachCoursePrograms} />
+          {user && <CoachCourseProgramListPage user={user} />}
         </div>
       )}
     </div>

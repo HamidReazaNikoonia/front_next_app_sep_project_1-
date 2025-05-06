@@ -66,7 +66,7 @@ export default function CoursesPage() {
     return (
       <Card>
         <CardHeader>
-          <CardTitle>سفارشات</CardTitle>
+          <CardTitle>دوره ها</CardTitle>
         </CardHeader>
         <CardContent>
           <div className="text-center py-4">در حال دریافت اطلاعات...</div>
