@@ -1,6 +1,6 @@
+/* eslint-disable no-console */
 /* eslint-disable regexp/prefer-character-class */
 import { AppConfig } from './AppConfig';
-
 
 const PROJECT_NAME = process.env.NEXT_PUBLIC_PROJECT_NAME || 'sepah';
 
@@ -31,28 +31,25 @@ export const getI18nPath = (url: string, locale: string) => {
   return `/${locale}${url}`;
 };
 
-
 export const isEmpty = function (string: string | null) {
-  if (!string) return true;
-  // This doesn't work the same way as the isEmpty function used 
+  if (!string) {
+    return true;
+  }
+  // This doesn't work the same way as the isEmpty function used
   // in the first example, it will return true for strings containing only whitespace
   return (string.length === 0 || !string.trim());
 };
 
-
 export const filterPriceNumber = (priceNumber: number) => {
-  return priceNumber.toLocaleString('fa-IR')
-}
-
-export const toPersianDigits = (number: string) => {
-  const persianDigits = "۰۱۲۳۴۵۶۷۸۹"; // Persian numbers
-  return number.replace(/\d/g, (d) => persianDigits[d]); // Replace each digit
+  return priceNumber.toLocaleString('fa-IR');
 };
 
+export const toPersianDigits = (number: string) => {
+  const persianDigits = '۰۱۲۳۴۵۶۷۸۹'; // Persian numbers
+  return number.replace(/\d/g, d => persianDigits[d]); // Replace each digit
+};
 
-
-export const storeAuthToken = (tokens: { access: { token: string }, refresh: { token: string } }, userDoc: any) => {
-
+export const storeAuthToken = (tokens: { access: { token: string }; refresh: { token: string } }, userDoc: any) => {
   console.log('storeAuthToken', { tokens, userDoc });
 
   if (typeof window !== 'undefined') {
@@ -62,22 +59,18 @@ export const storeAuthToken = (tokens: { access: { token: string }, refresh: { t
     localStorage.setItem(`${PROJECT_NAME}-isAuthenticated`, 'true');
     localStorage.setItem(`${PROJECT_NAME}-user`, JSON.stringify(userDoc));
   }
-
-
-}
-
+};
 
 export const formatDuration = (minutes: number): string => {
-  const hours = Math.floor(minutes / 60)
-  const remainingMinutes = minutes % 60
+  const hours = Math.floor(minutes / 60);
+  const remainingMinutes = minutes % 60;
 
   if (hours > 0) {
-    return `${hours}h ${remainingMinutes}m`
+    return `${hours}h ${remainingMinutes}m`;
   } else {
-    return `${remainingMinutes}m`
+    return `${remainingMinutes}m`;
   }
-}
-
+};
 
 export const isValidIranianMobileNumber = (mobile) => {
   // First, remove any non-digit characters
@@ -88,8 +81,15 @@ export const isValidIranianMobileNumber = (mobile) => {
   const pattern = /^(?:(?:|0|\+98|0098|98)(9)(0|1|2|3|9)\d{8})$/;
 
   return pattern.test(cleaned);
-}
+};
 
+// Helper function to truncate long strings
+export const truncateDescription = (description: string | any[], maxLength = 800) => {
+  if (!description || description.length <= maxLength) {
+    return description;
+  }
+  return `${description.slice(0, maxLength)}...`;
+};
 
 // const mobileReg = /(0|\+98)?([ ]|-|[()]){0,2}9[1|2|3|4]([ ]|-|[()]){0,2}(?:[0-9]([ ]|-|[()]){0,2}){8}/ig,
 // junkReg = /[^\d]/ig,
