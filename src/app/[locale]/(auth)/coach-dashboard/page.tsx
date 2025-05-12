@@ -39,6 +39,8 @@ export default function CoachDashboardPage() {
     queryKey: ['coachProfile', user?.id],
     queryFn: () => getCoachUserProfileRequest(user?.id || ''),
     enabled: !!user?.id, // Only run query when user ID exists
+    staleTime: 0, // Fetch fresh data every time (ms)
+
   });
 
   useEffect(() => {

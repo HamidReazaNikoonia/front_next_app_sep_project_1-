@@ -6,6 +6,7 @@ import LoadingSpinner from '@/components/LoadingSpiner';
 import { Button } from '@/components/ui/button';
 
 import useAuth from '@/hooks/useAuth';
+import CoachNavbar from '@/sections/coachDashboard/CoachNavbar';
 import { House, LogOut } from 'lucide-react';
 import Link from 'next/link';
 import { usePathname, useRouter } from 'next/navigation';
@@ -66,11 +67,12 @@ export default function CoachDashboardLayout({
     );
   }
 
+  // eslint-disable-next-line no-console
   console.log('user', user);
 
   return (
-    <div className="flex-1 space-y-4 pt-6">
-      <div className="flex flex-col space-y-2 px-4 py-2 md:flex-row md:items-center md:justify-between">
+    <div className="flex-1 pt-6">
+      <div className="flex flex-col space-y-2 px-4 pb-4 pt-2 md:flex-row md:items-center md:justify-between">
         <div className="flex items-center space-x-2">
           <Button variant="destructive" size="sm" className="flex w-full md:w-auto">
             <span>خروج</span>
@@ -100,6 +102,10 @@ export default function CoachDashboardLayout({
 
         </h2>
 
+
+      </div>
+      <div className="w-full border-t">
+        <CoachNavbar />
       </div>
       <div className="w-full">{children}</div>
     </div>

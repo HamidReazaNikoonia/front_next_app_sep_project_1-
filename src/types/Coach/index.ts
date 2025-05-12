@@ -22,6 +22,7 @@ interface CourseObject {
 }
 
 export interface CoachCourseProgram {
+  data: any;
   course_object_titles: any;
   _id: string;
   title: string;

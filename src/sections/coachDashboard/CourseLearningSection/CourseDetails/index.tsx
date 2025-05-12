@@ -1,13 +1,17 @@
 'use client';
 
+import { checkoutCoachCourseProgramRequest } from '@/API/coach';
+import LoadingSpinner from '@/components/LoadingSpiner';
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from '@/components/ui/accordion';
 import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from '@/components/ui/card';
 import { Separator } from '@/components/ui/separator';
 import { filterPriceNumber, truncateDescription } from '@/utils/Helpers';
+import { useMutation } from '@tanstack/react-query';
 import { AlertCircle, Book, Calendar, CheckCircle } from 'lucide-react';
 import { useState } from 'react';
+import toast from 'react-hot-toast';
 
 // Define the type for our course program
 type CoachCourseProgram = {
@@ -30,6 +34,34 @@ type CourseDetailsProps = {
 export default function CourseDetails({ courseData }: CourseDetailsProps) {
   const [isEnrolled, setIsEnrolled] = useState(false);
 
+  const checkoutCoachCourseProgramMutation = useMutation({
+    mutationFn: checkoutCoachCourseProgramRequest,
+    onSuccess: (response) => {
+      if (response) {
+        if (!response?.data) {
+          toast.error('مشکل از سمت سرور در دریافت اطلاعات');
+          toast.error('لطفا صفحه را رفرش کنید و  دوباره امتحان کنید');
+        }
+
+        if (response?.data?.payment?.code === 100 && response?.data?.payment?.url) {
+          // navigate to the bank
+
+          toast.success('شما در حال انتقال به بانک هستید');
+          window && window.location.replace(response.data.payment.url);
+        }
+
+        // eslint-disable-next-line no-console
+        console.log('__response__', response);
+
+        // router.push('/');
+        toast.success(' ارسال شد');
+      } else {
+        toast.error('لطفا صفحه را رفرش کنید و  دوباره امتحان کنید');
+        toast.error('مشکل از سمت سرور در دریافت اطلاعات');
+      }
+    },
+  });
+
   // Format date to be more readable
   const formatDate = (dateString: string) => {
     const date = new Date(dateString);
@@ -42,15 +74,24 @@ export default function CourseDetails({ courseData }: CourseDetailsProps) {
 
   const handleEnroll = () => {
     // This would typically make an API call to enroll the user
+    checkoutCoachCourseProgramMutation.mutate({ coachCourseProgramId: courseData._id });
     setIsEnrolled(true);
   };
+
+  if (checkoutCoachCourseProgramMutation.isPending) {
+    return (
+      <div className="flex min-h-screen items-center justify-center">
+        <LoadingSpinner />
+      </div>
+    );
+  }
 
   return (
     <div className="container mx-auto px-4 py-8" dir="rtl">
       <div className="grid grid-cols-1 gap-8 md:grid-cols-3">
         {/* Main course information */}
         <div className="md:col-span-2">
-          <Card className="overflow-hidden rounded-xl border-0 shadow-sm">
+          <Card className="min-h-dvh overflow-hidden rounded-xl border-0 shadow-sm md:min-w-[800px]">
             <CardHeader className="border-b border-gray-100 pb-4">
               <div className="space-y-2">
                 <CardTitle className="text-2xl font-medium text-gray-800">{courseData.title}</CardTitle>
@@ -72,7 +113,7 @@ export default function CourseDetails({ courseData }: CourseDetailsProps) {
                   <p className="text-sm leading-relaxed text-gray-600">{truncateDescription(courseData.description)}</p>
                 </div>
 
-                <div>
+                <div className="pt-8">
                   <div className="mb-3 flex items-center justify-between">
                     <h3 className="text-base font-medium text-gray-700">سرفصل‌های دوره</h3>
                     <Badge
@@ -151,7 +192,7 @@ export default function CourseDetails({ courseData }: CourseDetailsProps) {
                   ? (
                       <div className="flex items-center gap-2 rounded-lg border border-green-100 bg-green-50 p-3">
                         <CheckCircle className="size-5 text-green-500" />
-                        <p className="text-sm text-green-700">شما با موفقیت در این دوره ثبت‌نام کرده‌اید!</p>
+                        <p className="text-sm text-green-700"> بعد از پرداخت شما دسترسی پیدا میکنید </p>
                       </div>
                     )
                   : (
